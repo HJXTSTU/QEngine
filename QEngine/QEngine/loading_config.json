@@ -1,0 +1,23 @@
+{
+  "TEXTURES": [
+    {
+      "PATH": "./textures/container.png",
+      "NAME": "container",
+      "PARAMS": {
+        "WARP_S": "REPEAT",
+        "WARP_T": "REPEAT",
+        "MIN_FILTER": "LINEAR",
+        "MAG_FILTER": "LINEAR"
+      }
+    }
+  ],
+  "MATERIALS": [
+    {
+      "NAME": "diffuse",
+      "TYPE": "DIFFUSE",
+      "PARAMS": {
+        "MAP": "container"
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+#include "loader_util.h"
+#include "material_factory.h"
+#include "util.h"
+
+static void setupMaterial(const std::string &type, MaterialPointer material, CJsonObject &params, std::shared_ptr<AssetsManager> assets) {
+	if (type == "DIFFUSE") {
+		if (!params.HasKey("MAP")) {
+			LogError("Miss params map.");
+			return;
+		}
+		TexturePointer tex = assets->GetTexture(params.Get<std::string>("MAP"));
+		material->SetTexture("DIFFUSE_MAP", tex);
+	}
+}
+
+void createMaterials(std::shared_ptr<AssetsManager> assets, CJsonObject materials) {
+	int size = materials.GetArraySize();
+	for (int i = 0; i < size; i++) {
+		CJsonObject materialDesc = materials[i];
+		if (!materialDesc.HasKey("NAME")) {
+			LogError("Miss material name.");
+			return;
+		}
+		std::string name = materialDesc.Get<std::string>("NAME");
+	
+		if (!materialDesc.HasKey("TYPE")) {
+			LogError("Miss material type.");
+			return;
+		}
+
+		std::string type = materialDesc.Get<string>("TYPE");
+		MaterialPointer material = MaterialFactory::CreateMaterial(type);
+
+		if (!materialDesc.HasKey("PARAMS")) {
+			LogError("Miss material params.");
+			return;
+		}
+		CJsonObject params = materialDesc.Get<CJsonObject>("PARAMS");
+		setupMaterial(type, material, params,assets);
+		assets->AddMaterial(name, material);
+	}
+}
