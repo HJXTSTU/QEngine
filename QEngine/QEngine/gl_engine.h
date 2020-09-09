@@ -1,8 +1,7 @@
 #ifndef GL_ENGINE
 #define GL_ENGINE
 #include "gl_window.h"
-#include "input.h"
-#include "gl_scene_handler.h"
+#include "gl_context.h"
 class GLEngine {
 private:
 	static std::shared_ptr<GLEngine> instance;
@@ -13,6 +12,6 @@ private:
 
 	}
 public:
-	void Run(std::shared_ptr<GLWindow> window, std::shared_ptr<Input> inputInstance, std::shared_ptr<ISceneHandler> scene);
+	void Run(Context &context);
 };
 #endif

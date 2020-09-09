@@ -7,20 +7,13 @@ std::shared_ptr<GLEngine> GLEngine::Instance() {
 	return instance;
 }
 
-void GLEngine::Run(std::shared_ptr<GLWindow> window, std::shared_ptr<Input> inputInstance, std::shared_ptr<ISceneHandler> scene) {
-	if (scene) {
-		scene->Awake();
-		while (!window->ShouldClose()) {
-			inputInstance->refreshKeyStatus(window);
-			if (Input::getKeyDown(KeyCode::KEY_CODE_ESCAPE)) {
-				window->CloseWindow();
-				continue;
-			}
-			scene->Update(0.02f);
-			scene->Render();
-			window->EndRender();
-		}
+void GLEngine::Run(Context &context) {
+	std::shared_ptr<GLWindow> window = Context::window;
+	while (!window->ShouldClose()) {
+		context.BeginFrame();
 
-		scene->Destory();
+
+		context.EndFrame();
+		window->EndRender();
 	}
 }

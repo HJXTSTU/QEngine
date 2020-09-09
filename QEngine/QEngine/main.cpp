@@ -9,79 +9,69 @@
 #include "gl_assets.h"
 #include "CJsonObject.hpp"
 #include "loader_util.h"
+#include "gl_context.h"
+#include "gl_engine.h"
+#include <iostream>
 using namespace std;
-using namespace neb;
 
-std::shared_ptr<GLWindow> gWindow;
-std::shared_ptr<Input> gInputModel;
 std::shared_ptr<GLEngine> gEngine;
-std::shared_ptr<AssetsManager> gAssets;
+std::shared_ptr<GLWindow> gWindow;
+Context gContext;
 
-GLboolean initialization() {
-	gEngine = GLEngine::Instance();
-	if (gEngine == NULL) {
-		cout << "Create Engine Faile." << endl;
-		return GL_FALSE;
-	}
-
-	WindowBuilder builder;
-	gWindow = builder.BuildDefaultWindow();
-	if (gWindow == NULL) {
-		cout << "Build window faile." << endl;
-		return GL_FALSE;
-	}
-
+bool InitGLAD() {
 	// glad: load all OpenGL function pointers
 	// ---------------------------------------
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
-		return GL_FALSE;
+		return false;
 	}
-
-
 	glEnable(GL_MULTISAMPLE);
-
-	gInputModel = Input::Instance();
+	return true;
 }
 
-
-
-
-
-void initializeAssets() {
-	gAssets = make_shared<AssetsManager>();
-	ifstream fin("./loading_config.json");
-	fin.seekg(0, std::ios::end);
-	int length = fin.tellg();
-	fin.seekg(0, std::ios::beg);
-	char *config = new char[length + 1];
-	fin.read(config, length);
-	fin.close();
-
-	CJsonObject configJsonObj(config);
-	if (configJsonObj.HasKey("TEXTURES")) {
-		loadConfigTextures(gAssets, configJsonObj.Get<CJsonObject>("TEXTURES"));
+bool CreateEngine() {
+	gEngine = GLEngine::Instance();
+	if (gEngine == NULL) {
+		cout << "Create Engine Faile." << endl;
+		return false;
 	}
-
-	if (configJsonObj.HasKey("MATERIALS")) {
-		createMaterials(gAssets, configJsonObj.Get<CJsonObject>("MATERIALS"));
-	}
+	return true;
 }
 
+bool CreateGLWindow() {
+	WindowBuilder builder;
+	gWindow = builder.BuildDefaultWindow();
+	if (gWindow == NULL) {
+		cout << "Build window faile." << endl;
+		return false;
+	}
+	return true;
+}
 
 
 int main() {
 
-	if (!initialization()) {
-		cout << "Initialization System Faile." << endl;
+	//initializeAssets();
+
+	if (!CreateEngine()) {
 		return 1;
 	}
 
-	initializeAssets();
+	if (!CreateGLWindow()) {
+		return 1;
+	}
+
+	if (!InitGLAD()) {
+		return 1;
+	}
+
+
+	Context::window = gWindow;
 
 	if (gEngine != NULL) {
-		gEngine->Run(gWindow, gInputModel, NULL);
+		gEngine->Run(gContext);
 	}
 	gWindow->Destory();
+	return 0;
 }

@@ -129,6 +129,7 @@
     <ClCompile Include="diffuse_material.cpp" />
     <ClCompile Include="gl_assets.cpp" />
     <ClCompile Include="gl_camera.cpp" />
+    <ClCompile Include="gl_context.cpp" />
     <ClCompile Include="gl_geometry.cpp" />
     <ClCompile Include="gl_engine.cpp" />
     <ClCompile Include="gl_window.cpp" />
@@ -158,6 +159,8 @@
     <ClInclude Include="diffuse_material.h" />
     <ClInclude Include="gl_assets.h" />
     <ClInclude Include="gl_camera.h" />
+    <ClInclude Include="gl_context.h" />
+    <ClInclude Include="gl_context_interfaces.h" />
     <ClInclude Include="gl_geometry.h" />
     <ClInclude Include="gl_engine.h" />
     <ClInclude Include="gl_window.h" />

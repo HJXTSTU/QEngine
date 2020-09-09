@@ -1,4 +1,5 @@
 #pragma once
+
 #include <vector>
 #include <list>
 #include "gl_window.h"
@@ -155,7 +156,6 @@ public:
 	static bool getKey(KeyCode keyCode);
 	
 	static bool getKeyUp(KeyCode keyCode);
-
 public:
 	void refreshKeyStatus(std::shared_ptr<GLWindow> window);
 
