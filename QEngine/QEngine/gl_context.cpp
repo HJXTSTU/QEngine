@@ -1,16 +1,26 @@
 #include "gl_context.h"
 //#include "input.h"
+
+UniformBufferCameraPointer Context::pUniformBufferCamera;
+
 std::shared_ptr<GLWindow> Context::window;
+
 Camera Context::mainCamera;
 
 Context::Context()
 {
+	pUniformBufferCamera = make_shared<UniformBufferCamera>();
 }
 
 void Context::BeginFrame()
 {
-	if(Context::window)
+	if (Context::window)
 		InputUpdator::instance.refreshKeyStatus(Context::window);
+	Context::pUniformBufferCamera->RefleshBufferData<mat4>(0, Context::mainCamera.GetProjectionMatrix(SRC_WIDTH, SRC_HEIGHT));
+	Context::pUniformBufferCamera->RefleshBufferData<mat4>(64, Context::mainCamera.GetViewMatrix());
+	Context::pUniformBufferCamera->RefleshBufferData<vec3>(128, Context::mainCamera.Position);
+
+
 }
 
 void Context::PreUpdate()
@@ -23,7 +33,7 @@ void Context::Update()
 
 void Context::LateUpdate()
 {
-	
+
 }
 
 void Context::Render()

@@ -1,7 +1,7 @@
 #pragma once
 #include "gl_element.h"
 #include <glm/matrix.hpp>
-using namespace glm;
+
 class GLArrayBuffer : public GLElement {
 private:
 	GLsizeiptr m_totalSize;

@@ -6,11 +6,17 @@
 #include <fstream>
 #include "input.h"
 #include "gl_camera.h"
+#include "gl_uniform_buffer.h"
 
 using namespace std;
-class Context;
+
+typedef GLUniformBuffer<GLOBAL_UNIFORM_CAMERA_MATRIES_INDEX, GLOBAL_UNIFORM_CAMERA_MATRIES_SIZE> UniformBufferCamera;
+
+typedef std::shared_ptr<UniformBufferCamera> UniformBufferCameraPointer;
 
 class Context {
+private:
+	static UniformBufferCameraPointer pUniformBufferCamera;
 public:
 	static std::shared_ptr<GLWindow> window;
 	
@@ -31,3 +37,4 @@ public:
 
 	void EndFrame();
 };
+

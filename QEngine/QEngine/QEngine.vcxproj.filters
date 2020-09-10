@@ -257,6 +257,12 @@
     <ClInclude Include="gl_context_interfaces.h">
       <Filter>头文件\core\context</Filter>
     </ClInclude>
+    <ClInclude Include="gl_buffer.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_uniform_buffer.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="loading_config.json">

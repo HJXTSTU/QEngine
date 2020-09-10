@@ -2,13 +2,16 @@
 #include "gl_base_vertex_array.h"
 #include "gl_geometry.h"
 #include "gl_vertex.h"
+#include "gl_buffer.h"
 class GLGeometryVertexArray :public GLBaseVertexArray {
 private:
-	GLArrayBuffer m_vbo;
-	GLArrayBuffer m_ebo;
+	//GLArrayBuffer m_vbo;
+	//GLArrayBuffer m_ebo;
+	GLBuffer<GL_ARRAY_BUFFER, GL_STATIC_DRAW> m_vbo;
+	GLBuffer<GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW> m_ebo;
 	GLuint indexCount;
 public:
-	GLGeometryVertexArray(GLenum usage = GL_STATIC_DRAW);
+	GLGeometryVertexArray();
 
 	void FillGeometryData(GeometryPointer geometry);
 

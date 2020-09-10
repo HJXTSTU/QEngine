@@ -16,7 +16,7 @@ using namespace std;
 
 std::shared_ptr<GLEngine> gEngine;
 std::shared_ptr<GLWindow> gWindow;
-Context gContext;
+std::shared_ptr<Context> gContext;
 
 bool InitGLAD() {
 	// glad: load all OpenGL function pointers
@@ -66,11 +66,12 @@ int main() {
 		return 1;
 	}
 
+	gContext = make_shared<Context>();
 
 	Context::window = gWindow;
 
 	if (gEngine != NULL) {
-		gEngine->Run(gContext);
+		gEngine->Run(*gContext);
 	}
 	gWindow->Destory();
 	return 0;
