@@ -24,8 +24,6 @@ public:
 public:
 	Context();
 
-
-
 	void BeginFrame();
 	void PreUpdate();
 
