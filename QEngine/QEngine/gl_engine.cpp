@@ -14,6 +14,7 @@ void GLEngine::Run(Context &context) {
 		context.PreUpdate();
 		context.Update();
 		context.LateUpdate();
+		context.Render();
 		context.EndFrame();
 		window->EndRender();
 	}
