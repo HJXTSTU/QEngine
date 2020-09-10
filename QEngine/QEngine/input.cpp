@@ -1,8 +1,6 @@
 #include "input.h"
 std::vector<int> Input::keyCodeHash;
 
-std::shared_ptr<Input> Input::instance;
-
 bool Input::keyStatus[KEY_CODE_TOTAL][KEY_TOTAL_STATUS];
 
 void Input::pushKeyHashRange(int from, int to) {
@@ -56,30 +54,24 @@ bool Input::getKeyUp(KeyCode keyCode) {
 	return Input::keyStatus[keyCode][KeyStatus::KEY_RELEASED];
 }
 
-std::shared_ptr<Input> Input::Instance()
+InputUpdator InputUpdator::instance;
+
+InputUpdator::InputUpdator() {
+	Input::generateKeyCodeHash();
+}
+
+void InputUpdator::refreshKeyStatus(std::shared_ptr<GLWindow> window)
 {
-	if (instance == NULL) {
-		instance = std::shared_ptr<Input>(new Input());
-	}
-	return instance;
-}
-
-
-Input::Input() {
-	generateKeyCodeHash();
-}
-
-void Input::refreshKeyStatus(std::shared_ptr<GLWindow> window) {
 	for (int i = 0; i < KEY_CODE_TOTAL; i++) {
-		int lastPressingState = keyStatus[i][KEY_PRESSING];
-		keyStatus[i][KEY_PRESSING] = window->GetKey(keyCodeHash[i]);
-		if (lastPressingState != keyStatus[i][KEY_PRESSING]) {
-			keyStatus[i][KEY_PRESS] = keyStatus[i][KEY_PRESSING];
-			keyStatus[i][KEY_RELEASED] = !keyStatus[i][KEY_PRESSING];
+		int lastPressingState = Input::keyStatus[i][KEY_PRESSING];
+		Input::keyStatus[i][KEY_PRESSING] = window->GetKey(Input::keyCodeHash[i]);
+		if (lastPressingState != Input::keyStatus[i][KEY_PRESSING]) {
+			Input::keyStatus[i][KEY_PRESS] = Input::keyStatus[i][KEY_PRESSING];
+			Input::keyStatus[i][KEY_RELEASED] = !Input::keyStatus[i][KEY_PRESSING];
 		}
 		else {
-			keyStatus[i][KEY_PRESS] = false;
-			keyStatus[i][KEY_RELEASED] = false;
+			Input::keyStatus[i][KEY_PRESS] = false;
+			Input::keyStatus[i][KEY_RELEASED] = false;
 		}
 	}
 }

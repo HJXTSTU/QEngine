@@ -11,14 +11,10 @@ using namespace std;
 class Context;
 
 class Context {
-private:
-
 public:
 	static std::shared_ptr<GLWindow> window;
 	
 	static Camera mainCamera;
-private:
-	std::shared_ptr<Input> m_inputModel;
 public:
 	Context();
 

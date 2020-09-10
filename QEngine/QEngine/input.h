@@ -134,7 +134,16 @@ enum KeyStatus {
 	KEY_TOTAL_STATUS
 };
 
+struct InputUpdator {
+	void refreshKeyStatus(std::shared_ptr<GLWindow> window);
+
+	static InputUpdator instance;
+private:
+	InputUpdator();
+};
+
 class Input {
+	friend InputUpdator;
 private:
 	static std::vector<int> keyCodeHash;
 
@@ -146,18 +155,10 @@ private:
 
 	static void generateKeyCodeHash();
 
-	static std::shared_ptr<Input> instance;
-
-	Input();
-
 public:
 	static bool getKeyDown(KeyCode keyCode);
 
 	static bool getKey(KeyCode keyCode);
 	
 	static bool getKeyUp(KeyCode keyCode);
-public:
-	void refreshKeyStatus(std::shared_ptr<GLWindow> window);
-
-	static std::shared_ptr<Input> Instance();
 };
