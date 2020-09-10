@@ -11,8 +11,9 @@ void GLEngine::Run(Context &context) {
 	std::shared_ptr<GLWindow> window = Context::window;
 	while (!window->ShouldClose()) {
 		context.BeginFrame();
-
-
+		context.PreUpdate();
+		context.Update();
+		context.LateUpdate();
 		context.EndFrame();
 		window->EndRender();
 	}
