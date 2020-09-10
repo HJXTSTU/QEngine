@@ -5,13 +5,12 @@ Camera Context::mainCamera;
 
 Context::Context()
 {
-	m_inputModel = Input::Instance();
 }
 
 void Context::BeginFrame()
 {
 	if(Context::window)
-		this->m_inputModel->refreshKeyStatus(Context::window);
+		InputUpdator::instance.refreshKeyStatus(Context::window);
 }
 
 void Context::PreUpdate()
