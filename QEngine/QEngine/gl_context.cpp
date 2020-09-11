@@ -5,6 +5,8 @@ UniformBufferCameraPointer Context::pUniformBufferCamera;
 
 std::shared_ptr<GLWindow> Context::window;
 
+std::shared_ptr<AssetsManager> Context::assets;
+
 Camera Context::mainCamera;
 
 
@@ -34,12 +36,19 @@ void Context::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 	Context::mainCamera.ProcessMouseScroll(yoffset);
 }
 
-Context::Context()
-{
-	pUniformBufferCamera = make_shared<UniformBufferCamera>();
+ContextPointer Context::CreateContext() {
+	Context::pUniformBufferCamera = make_shared<UniformBufferCamera>();
 	assert(Context::window);
 	Context::window->SetCursorPosCallback(Context::CursorScrollCallback);
 	Context::window->SetScrollCallback(Context::ScrollCallback);
+	return make_shared<Context>();
+}
+
+Context::Context()
+{
+	GeometryPointer geo = Geometry::GeneratePlaneGeometry();
+	MaterialPointer mat = Context::assets->GetMaterial("diffuse");
+	cube = make_shared<Mesh>(geo, mat);
 }
 
 void Context::BeginFrame()
@@ -48,9 +57,9 @@ void Context::BeginFrame()
 		InputUpdator::instance.refreshKeyStatus(Context::window);
 	}
 		
-	Context::pUniformBufferCamera->RefleshBufferData<mat4>(0, Context::mainCamera.GetProjectionMatrix(SRC_WIDTH, SRC_HEIGHT));
-	Context::pUniformBufferCamera->RefleshBufferData<mat4>(64, Context::mainCamera.GetViewMatrix());
-	Context::pUniformBufferCamera->RefleshBufferData<vec3>(128, Context::mainCamera.Position);
+	Context::pUniformBufferCamera->FillBufferData<mat4>(0, Context::mainCamera.GetProjectionMatrix(SRC_WIDTH, SRC_HEIGHT));
+	Context::pUniformBufferCamera->FillBufferData<mat4>(64, Context::mainCamera.GetViewMatrix());
+	Context::pUniformBufferCamera->FillBufferData<vec3>(128, Context::mainCamera.Position);
 
 
 }
@@ -70,8 +79,6 @@ void Context::LateUpdate()
 
 void Context::Render()
 {
-	glClearColor(1, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }
 
 void Context::EndFrame()

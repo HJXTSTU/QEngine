@@ -12,6 +12,7 @@ layout(std140, binding = 0) uniform Matrics{
 						//	Total: 144 bytes
 };
 
+uniform mat4 model;
 uniform mat3 normalMatrix;
 
 out vec2 UV;

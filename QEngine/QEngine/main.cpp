@@ -17,7 +17,7 @@ using namespace std;
 std::shared_ptr<GLEngine> gEngine;
 std::shared_ptr<GLWindow> gWindow;
 std::shared_ptr<AssetsManager> gAssets;
-std::shared_ptr<Context> gContext;
+ContextPointer gContext;
 
 bool InitGLAD() {
 	// glad: load all OpenGL function pointers
@@ -50,6 +50,32 @@ bool CreateGLWindow() {
 	return true;
 }
 
+bool LoadAssets() {
+	gAssets = make_shared<AssetsManager>();
+
+	ifstream fin("loading_config.json");
+	fin.seekg(0,fin.end);
+	unsigned int length = fin.tellg();
+	fin.seekg(0, fin.beg);
+	char *json = new char[length +1];
+	fin.read(json, length);
+
+	CJsonObject config(json);
+	
+	if (config.HasKey("TEXTURES")) {
+		CJsonObject textures = config.Get<CJsonObject>("TEXTURES");
+		loadConfigTextures(gAssets, textures);
+	}
+
+	if (config.HasKey("MATERIALS")) {
+		CJsonObject materials = config.Get<CJsonObject>("MATERIALS");
+		createMaterials(gAssets, materials);
+	}
+
+	//delete[] json;
+	return true;
+}
+
 
 int main() {
 
@@ -59,7 +85,10 @@ int main() {
 		return 1;
 	}
 
-	if (!CreateGLWindow()) {
+	if (CreateGLWindow()) {
+		Context::window = gWindow;
+	}
+	else {
 		return 1;
 	}
 
@@ -67,15 +96,17 @@ int main() {
 		return 1;
 	}
 
+	if (LoadAssets()) {
+		Context::assets = gAssets;
+	}
+	else {
+		return 1;
+	}
 
-	Context::window = gWindow;
-
-	gContext = make_shared<Context>();
-
-
+	gContext = Context::CreateContext();
 
 	if (gEngine != NULL) {
-		gEngine->Run(*gContext);
+		gEngine->Run(gContext);
 	}
 	gWindow->Destory();
 	return 0;

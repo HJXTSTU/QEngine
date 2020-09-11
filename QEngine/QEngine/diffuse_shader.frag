@@ -1,4 +1,4 @@
-#version core 420
+#version 420 core 
 out vec4 FragColor;
 
 uniform sampler2D diffuseMap;

@@ -12,6 +12,6 @@ void GLBaseVertexArray::UnUse() {
 }
 
 void GLBaseVertexArray::EnableVertexAttrib(GLuint index, GLuint type, GLuint cnt, GLboolean normalized, GLuint stride, GLuint startOffset) {
-	glEnableVertexAttribArray(index);
 	glVertexAttribPointer(index, cnt, type, normalized, stride, (void*)startOffset);
+	glEnableVertexAttribArray(index);
 }

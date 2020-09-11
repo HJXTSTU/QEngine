@@ -16,30 +16,10 @@
       "NAME": "diffuse",
       "TYPE": "DIFFUSE",
       "PARAMS": {
-        "MAP": "container"
+        "MAPS": [
+          {"KEY": "DIFFUSE_MAP","VALUE":"container"}
+        ]
       }
     }
   ]
 }
-
-//,
-//  "MODELS": [
-//    {
-//      "PATH": "",
-//      "NAME": "",
-//      "MATERIAL_DESC": {
-//        "NAME": "MAT_NAME",
-//        "MAPS": {
-//          "DIFFUSE": "TEX_NAME",
-//          "SPECULAR": "TEX_NAME",
-//          "...": "..."
-//        },
-//        "FLOATS": {
-
-//        },
-//        "INTS": {
-          
-//        }
-//      }
-//    }
-//  ]

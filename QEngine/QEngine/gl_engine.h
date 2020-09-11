@@ -12,6 +12,6 @@ private:
 
 	}
 public:
-	void Run(Context &context);
+	void Run(ContextPointer context);
 };
 #endif

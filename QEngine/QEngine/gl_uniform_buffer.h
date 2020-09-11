@@ -14,12 +14,20 @@ public:
 	}
 
 	bool RefleshBufferArrayData(GLsizeiptr startOffset, GLsizeiptr size, const void* values) {
-		ReplaceArrayData(startOffset, size, values);
-		return true;
+		return ReplaceArrayData(startOffset, size, values);
 	}
 
 	template<typename T>
 	bool RefleshBufferData(GLsizeiptr sizeOffset, T value) {
 		return ReplaceValueData<T>(sizeOffset, value);
+	}
+
+	bool FillBufferArrayData(GLsizeiptr startOffset, GLsizeiptr size, const void* values) {
+		return FillArrayData(startOffset, size, values);
+	}
+
+	template<typename T>
+	bool FillBufferData(GLsizeiptr sizeOffset, T value) {
+		return FillValueData<T>(sizeOffset, value);
 	}
 };

@@ -52,35 +52,63 @@ public:
 		}
 		glBindBuffer(uiBufferTarget, id);
 		glBufferSubData(uiBufferTarget, m_iOppicupied, sizeof(T), &value);
-		glBindBuffer(uiBufferTarget, 0);
+		//glBindBuffer(uiBufferTarget, 0);
 		m_iOppicupied += sizeof(T);
 	}
 
-	inline void AddArray(GLsizeiptr size, const void* values) {
+	void AddArray(GLsizeiptr size, const void* values,bool unBind = true) {
 		if (uiBufferTarget == 0)return;
 		if (m_iOppicupied + size >= m_iTotalSize) {
 			this->resize(m_iOppicupied + size);
 		}
+		glBindBuffer(uiBufferTarget, id);
 		glBufferSubData(uiBufferTarget, m_iOppicupied, size, values);
+		if(unBind)
+			glBindBuffer(uiBufferTarget, 0);
 		m_iOppicupied += size;
 	}
 
 	template<class T>
-	bool ReplaceValueData(GLsizeiptr startOffset, T value) {
+	bool ReplaceValueData(GLsizeiptr startOffset, T value, bool unBind = true) {
 		if (startOffset + sizeof(T) > m_iOppicupied)return false;
+		glBindBuffer(uiBufferTarget, id);
 		glBufferSubData(uiBufferTarget, startOffset, sizeof(T), &value);
+		if (unBind)
+			glBindBuffer(uiBufferTarget, 0);
 		return true;
 	}
 
-	bool ReplaceArrayData(GLsizeiptr startOffset, GLsizeiptr size, const void* values) {
+	bool ReplaceArrayData(GLsizeiptr startOffset, GLsizeiptr size, const void* values, bool unBind = true) {
 		if (uiBufferTarget == 0)return false;
 		if (startOffset + size > m_iOppicupied)return false;
 		glBindBuffer(uiBufferTarget, id);
 		glBufferSubData(uiBufferTarget, startOffset, size, values);
-		glBindBuffer(uiBufferTarget, 0);
+		if (unBind)
+			glBindBuffer(uiBufferTarget, 0);
 		return true;
 	}
 
+	template<class T>
+	bool FillValueData(GLsizeiptr startOffset, T value, bool unBind = true) {
+		if (startOffset + sizeof(T) >= m_iTotalSize)return false;
+		glBindBuffer(uiBufferTarget, id);
+		glBufferSubData(uiBufferTarget, startOffset, sizeof(T), &value);
+		if (unBind)
+			glBindBuffer(uiBufferTarget, 0);
+		return true;
+	}
+
+	bool FillArrayData(GLsizeiptr startOffset, GLsizeiptr size, const void* values, bool unBind = true) {
+		if (uiBufferTarget == 0)return false;
+		if (startOffset + size >= m_iTotalSize)return false;
+		glBindBuffer(uiBufferTarget, id);
+		glBufferSubData(uiBufferTarget, startOffset, size, values);
+		if(unBind)
+			glBindBuffer(uiBufferTarget, 0);
+		return true;
+	}
+
+	GLsizeiptr Size() { return m_iTotalSize; }
 
 	void Clear() {
 		glDeleteBuffers(m_iTotalSize, &this->id);

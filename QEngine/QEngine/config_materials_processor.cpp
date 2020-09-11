@@ -36,7 +36,19 @@ void createMaterials(std::shared_ptr<AssetsManager> assets, CJsonObject material
 			return;
 		}
 		CJsonObject params = materialDesc.Get<CJsonObject>("PARAMS");
-		setupMaterial(type, material, params,assets);
+
+		if (params.HasKey("MAPS")) {
+			CJsonObject maps = params.Get<CJsonObject>("MAPS");
+			int maps_size = maps.GetArraySize();
+			for (int j = 0; j < maps_size; j++) {
+				CJsonObject map = maps[j];
+				string key = map.Get<string>("KEY");
+				string value = map.Get<string>("VALUE");
+				TexturePointer tex = assets->GetTexture(value);
+				material->SetTexture(key,tex);
+			}
+		}
+		//setupMaterial(type, material, params,assets);
 		assets->AddMaterial(name, material);
 	}
 }
