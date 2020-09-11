@@ -21,3 +21,25 @@
     }
   ]
 }
+
+//,
+//  "MODELS": [
+//    {
+//      "PATH": "",
+//      "NAME": "",
+//      "MATERIAL_DESC": {
+//        "NAME": "MAT_NAME",
+//        "MAPS": {
+//          "DIFFUSE": "TEX_NAME",
+//          "SPECULAR": "TEX_NAME",
+//          "...": "..."
+//        },
+//        "FLOATS": {
+
+//        },
+//        "INTS": {
+          
+//        }
+//      }
+//    }
+//  ]
