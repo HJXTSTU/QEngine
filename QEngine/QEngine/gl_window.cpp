@@ -87,6 +87,14 @@ GLboolean GLWindow::InitWindow(int WIDTH, int HEIGHT, const char *title) {
 	return GL_TRUE;
 }
 
+void GLWindow::SetCursorPosCallback(GLFWcursorposfun func) {
+	glfwSetCursorPosCallback(window, func);
+}
+
+void GLWindow::SetScrollCallback(GLFWscrollfun func) {
+	glfwSetScrollCallback(window, func);
+}
+
 void GLWindow::DisableCursor()
 {
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);

@@ -41,6 +41,10 @@ public:
 
 	GLboolean InitWindow(int WIDTH, int HEIGHT, const char *title);
 
+	void SetCursorPosCallback(GLFWcursorposfun func);
+
+	void SetScrollCallback(GLFWscrollfun func);
+
 	void DisableCursor();
 
 	void EnableCursor();

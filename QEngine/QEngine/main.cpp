@@ -16,6 +16,7 @@ using namespace std;
 
 std::shared_ptr<GLEngine> gEngine;
 std::shared_ptr<GLWindow> gWindow;
+std::shared_ptr<AssetsManager> gAssets;
 std::shared_ptr<Context> gContext;
 
 bool InitGLAD() {
@@ -66,9 +67,12 @@ int main() {
 		return 1;
 	}
 
-	gContext = make_shared<Context>();
 
 	Context::window = gWindow;
+
+	gContext = make_shared<Context>();
+
+
 
 	if (gEngine != NULL) {
 		gEngine->Run(*gContext);

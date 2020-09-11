@@ -17,6 +17,10 @@ typedef std::shared_ptr<UniformBufferCamera> UniformBufferCameraPointer;
 class Context {
 private:
 	static UniformBufferCameraPointer pUniformBufferCamera;
+
+	static void CursorScrollCallback(GLFWwindow* window, double xpos, double ypos);
+
+	static void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 public:
 	static std::shared_ptr<GLWindow> window;
 	
