@@ -17,9 +17,18 @@
       "TYPE": "DIFFUSE",
       "PARAMS": {
         "MAPS": [
-          {"KEY": "DIFFUSE_MAP","VALUE":"container"}
+          {
+            "KEY": "DIFFUSE_MAP",
+            "VALUE": "container"
+          }
         ]
       }
+    }
+  ],
+  "MODELS": [
+    {
+      "PATH": "XXX",
+      "NAME": "XXX"
     }
   ]
 }
