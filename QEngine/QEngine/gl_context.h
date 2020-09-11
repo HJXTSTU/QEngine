@@ -35,7 +35,6 @@ public:
 public:
 	static ContextPointer CreateContext();
 public:
-	std::shared_ptr<Mesh> cube;
 
 	Context();
 

@@ -43,6 +43,20 @@ public:
 		resize(size);
 	}
 
+	void BindBuffer() {
+		glBindBuffer(uiBufferTarget, id);
+	}
+
+	void UnBindBuffer() {
+		glBindBuffer(uiBufferTarget, id);
+	}
+
+	void BufferData(GLsizeiptr size, const void* values) {
+		glBufferData(uiBufferTarget, size, values, uiUsage);
+		m_iOppicupied = size;
+		m_iTotalSize = size;
+	}
+
 	template<class T>
 	void AddValue(T value) {
 		if (uiBufferTarget == 0)return;
@@ -52,59 +66,54 @@ public:
 		}
 		glBindBuffer(uiBufferTarget, id);
 		glBufferSubData(uiBufferTarget, m_iOppicupied, sizeof(T), &value);
-		//glBindBuffer(uiBufferTarget, 0);
+		glBindBuffer(uiBufferTarget, 0);
 		m_iOppicupied += sizeof(T);
 	}
 
-	void AddArray(GLsizeiptr size, const void* values,bool unBind = true) {
+	void AddArray(GLsizeiptr size, const void* values) {
 		if (uiBufferTarget == 0)return;
 		if (m_iOppicupied + size >= m_iTotalSize) {
 			this->resize(m_iOppicupied + size);
 		}
 		glBindBuffer(uiBufferTarget, id);
 		glBufferSubData(uiBufferTarget, m_iOppicupied, size, values);
-		if(unBind)
-			glBindBuffer(uiBufferTarget, 0);
+		glBindBuffer(uiBufferTarget, 0);
 		m_iOppicupied += size;
 	}
 
 	template<class T>
-	bool ReplaceValueData(GLsizeiptr startOffset, T value, bool unBind = true) {
+	bool ReplaceValueData(GLsizeiptr startOffset, T value) {
 		if (startOffset + sizeof(T) > m_iOppicupied)return false;
 		glBindBuffer(uiBufferTarget, id);
 		glBufferSubData(uiBufferTarget, startOffset, sizeof(T), &value);
-		if (unBind)
-			glBindBuffer(uiBufferTarget, 0);
+		glBindBuffer(uiBufferTarget, 0);
 		return true;
 	}
 
-	bool ReplaceArrayData(GLsizeiptr startOffset, GLsizeiptr size, const void* values, bool unBind = true) {
+	bool ReplaceArrayData(GLsizeiptr startOffset, GLsizeiptr size, const void* values) {
 		if (uiBufferTarget == 0)return false;
 		if (startOffset + size > m_iOppicupied)return false;
 		glBindBuffer(uiBufferTarget, id);
 		glBufferSubData(uiBufferTarget, startOffset, size, values);
-		if (unBind)
-			glBindBuffer(uiBufferTarget, 0);
+		glBindBuffer(uiBufferTarget, 0);
 		return true;
 	}
 
 	template<class T>
-	bool FillValueData(GLsizeiptr startOffset, T value, bool unBind = true) {
+	bool FillValueData(GLsizeiptr startOffset, T value) {
 		if (startOffset + sizeof(T) >= m_iTotalSize)return false;
 		glBindBuffer(uiBufferTarget, id);
 		glBufferSubData(uiBufferTarget, startOffset, sizeof(T), &value);
-		if (unBind)
-			glBindBuffer(uiBufferTarget, 0);
+		glBindBuffer(uiBufferTarget, 0);
 		return true;
 	}
 
-	bool FillArrayData(GLsizeiptr startOffset, GLsizeiptr size, const void* values, bool unBind = true) {
+	bool FillArrayData(GLsizeiptr startOffset, GLsizeiptr size, const void* values) {
 		if (uiBufferTarget == 0)return false;
 		if (startOffset + size >= m_iTotalSize)return false;
 		glBindBuffer(uiBufferTarget, id);
 		glBufferSubData(uiBufferTarget, startOffset, size, values);
-		if(unBind)
-			glBindBuffer(uiBufferTarget, 0);
+		glBindBuffer(uiBufferTarget, 0);
 		return true;
 	}
 

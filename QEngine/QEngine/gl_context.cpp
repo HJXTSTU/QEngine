@@ -46,9 +46,6 @@ ContextPointer Context::CreateContext() {
 
 Context::Context()
 {
-	GeometryPointer geo = Geometry::GeneratePlaneGeometry();
-	MaterialPointer mat = Context::assets->GetMaterial("diffuse");
-	cube = make_shared<Mesh>(geo, mat);
 }
 
 void Context::BeginFrame()
@@ -79,6 +76,8 @@ void Context::LateUpdate()
 
 void Context::Render()
 {
+	glClearColor(0, 0, 0, 1);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Context::EndFrame()
@@ -101,4 +100,9 @@ void Context::EndFrame()
 		Context::mainCamera.ProcessKeyboard(Camera_Movement::RIGHT, 0.02f);
 	}
 	Context::mainCamera.UpdateCameraVectorForce();
+}
+
+ContextPointer Context::AsPtr()
+{
+	return shared_from_this();
 }
