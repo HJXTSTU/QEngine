@@ -10,6 +10,7 @@ Transform::Transform() {
 	this->rotation = glm::mat4(1);
 	this->scale = glm::vec3(1, 1, 1);
 	this->matrixWorld = glm::mat4(1);
+	this->Static = false;
 }
 
 int Transform::GetChildCount() {
