@@ -125,6 +125,7 @@
     <ClCompile Include="cJSON.c" />
     <ClCompile Include="CJsonObject.cpp" />
     <ClCompile Include="config_materials_processor.cpp" />
+    <ClCompile Include="config_models_processor.cpp" />
     <ClCompile Include="config_textures_processor.cpp" />
     <ClCompile Include="diffuse_material.cpp" />
     <ClCompile Include="gl_assets.cpp" />
@@ -132,6 +133,7 @@
     <ClCompile Include="gl_context.cpp" />
     <ClCompile Include="gl_geometry.cpp" />
     <ClCompile Include="gl_engine.cpp" />
+    <ClCompile Include="gl_model.cpp" />
     <ClCompile Include="gl_window.cpp" />
     <ClCompile Include="gl_array_buffers.cpp" />
     <ClCompile Include="gl_base_vertex_array.cpp" />
@@ -150,6 +152,7 @@
     <ClCompile Include="material_factory.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="stb_image.cpp" />
+    <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base_scene.h" />
@@ -164,6 +167,7 @@
     <ClInclude Include="gl_context_interfaces.h" />
     <ClInclude Include="gl_geometry.h" />
     <ClInclude Include="gl_engine.h" />
+    <ClInclude Include="gl_model.h" />
     <ClInclude Include="gl_uniform_buffer.h" />
     <ClInclude Include="gl_window.h" />
     <ClInclude Include="gl_array_buffer.h" />

@@ -46,6 +46,9 @@ ContextPointer Context::CreateContext() {
 
 Context::Context()
 {
+	MaterialPointer mat = Context::assets->GetMaterial("diffuse");
+	nanosuit = Context::assets->GetModel("nanosuit")->Instantiate(mat);
+	plane = std::make_shared<Mesh>(Geometry::GeneratePlaneGeometry(), mat->Clone());
 }
 
 void Context::BeginFrame()
@@ -53,12 +56,10 @@ void Context::BeginFrame()
 	if (Context::window) {
 		InputUpdator::instance.refreshKeyStatus(Context::window);
 	}
-		
+
 	Context::pUniformBufferCamera->FillBufferData<mat4>(0, Context::mainCamera.GetProjectionMatrix(SRC_WIDTH, SRC_HEIGHT));
 	Context::pUniformBufferCamera->FillBufferData<mat4>(64, Context::mainCamera.GetViewMatrix());
 	Context::pUniformBufferCamera->FillBufferData<vec3>(128, Context::mainCamera.Position);
-
-
 }
 
 void Context::PreUpdate()
@@ -67,6 +68,9 @@ void Context::PreUpdate()
 
 void Context::Update()
 {
+	//nanosuit->transform.Scale(glm::vec3(0.1f, 0.1f, 0.1f),false);
+	nanosuit->transform.UpdateMatrixWorld(true);
+	plane->transform.UpdateMatrixWorld(true);
 }
 
 void Context::LateUpdate()
@@ -78,6 +82,10 @@ void Context::Render()
 {
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+	nanosuit->OnSurfaceRender();
+	plane->OnSurfaceRender();
 }
 
 void Context::EndFrame()

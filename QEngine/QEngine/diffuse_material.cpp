@@ -15,3 +15,9 @@ void DiffuseMaterial::SetTexture(const std::string &key, TexturePointer tex) {
 		m_pDiffuseMap = tex;
 	}
 }
+
+MaterialPointer DiffuseMaterial::Clone() {
+	MaterialPointer res = std::make_shared<DiffuseMaterial>();
+	res->SetTexture("DIFFUSE_MAP", m_pDiffuseMap = m_pDiffuseMap);
+	return res;
+}

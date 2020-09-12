@@ -21,6 +21,8 @@ public:
 
 	void PushIndex(const unsigned int &index);
 
+	GeometryPointer Clone();
+
 	GeometryPointer  AsPtr();
 };
 

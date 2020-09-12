@@ -10,3 +10,5 @@ GLuint parseParam(std::string value);
 void loadConfigTextures(std::shared_ptr<AssetsManager> assets, CJsonObject textures);
 
 void createMaterials(std::shared_ptr<AssetsManager> assets, CJsonObject materials);
+
+void loadModels(std::shared_ptr<AssetsManager> assets, CJsonObject models);

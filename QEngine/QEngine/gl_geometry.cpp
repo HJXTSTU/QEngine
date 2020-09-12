@@ -76,3 +76,10 @@ GeometryPointer Geometry::GeneratePlaneGeometry(float size, float texcoordSize) 
 	return geo;
 }
 
+GeometryPointer Geometry::Clone() {
+	GeometryPointer pGeo = std::shared_ptr<Geometry>();
+	pGeo->vertices = this->vertices;
+	pGeo->indices = this->indices;
+	return pGeo;
+}
+

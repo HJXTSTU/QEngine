@@ -120,7 +120,7 @@ public:
 	GLsizeiptr Size() { return m_iTotalSize; }
 
 	void Clear() {
-		glDeleteBuffers(m_iTotalSize, &this->id);
+		glDeleteBuffers(1, &this->id);
 		id = 0;
 		glGenBuffers(1, &this->id);
 		m_iTotalSize = 0;
@@ -129,7 +129,7 @@ public:
 
 	~GLBuffer() {
 		if (this->id > 0) {
-			glDeleteBuffers(m_iTotalSize, &this->id);
+			glDeleteBuffers(1, &this->id);
 			this->id = 0;
 		}
 	}

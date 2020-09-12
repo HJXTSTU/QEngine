@@ -34,6 +34,10 @@ public:
 	static Camera mainCamera;
 public:
 	static ContextPointer CreateContext();
+private:
+	std::shared_ptr<Object3D> nanosuit;
+
+	std::shared_ptr<Mesh> plane;
 public:
 
 	Context();

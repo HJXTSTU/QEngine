@@ -17,4 +17,12 @@ MaterialPointer AssetsManager::GetMaterial(const std::string &id) {
 	if (m_umMaterials.find(id) == m_umMaterials.end())return MaterialPointer(NULL);
 	return m_umMaterials[id];
 }
- 
+
+void AssetsManager::AddModel(const std::string &id, ModelPointer model) {
+	m_umModels[id] = model;
+}
+
+ModelPointer AssetsManager::GetModel(const std::string &id) {
+	if (m_umModels.find(id) == m_umModels.end())return ModelPointer(NULL);
+	return m_umModels[id];
+}

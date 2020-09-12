@@ -1,7 +1,7 @@
 {
   "TEXTURES": [
     {
-      "PATH": "./textures/container.png",
+      "PATH": "./assets/textures/container.png",
       "NAME": "container",
       "PARAMS": {
         "WARP_S": "REPEAT",
@@ -27,8 +27,8 @@
   ],
   "MODELS": [
     {
-      "PATH": "XXX",
-      "NAME": "XXX"
+      "PATH": "./assets/models/obj/nanosuit/nanosuit.obj",
+      "NAME": "nanosuit"
     }
   ]
 }

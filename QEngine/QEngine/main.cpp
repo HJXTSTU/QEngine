@@ -72,14 +72,15 @@ bool LoadAssets() {
 		createMaterials(gAssets, materials);
 	}
 
-	//delete[] json;
+	if (config.HasKey("MODELS")) {
+		CJsonObject models = config.Get<CJsonObject>("MODELS");
+		loadModels(gAssets, models);
+	}
 	return true;
 }
 
 
 int main() {
-
-	//initializeAssets();
 
 	if (!CreateEngine()) {
 		return 1;

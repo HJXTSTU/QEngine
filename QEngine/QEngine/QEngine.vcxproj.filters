@@ -73,6 +73,9 @@
     <Filter Include="源文件\core\context">
       <UniqueIdentifier>{7cfb37fe-dd4d-4ad2-a90a-ad8e17cb34f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\util">
+      <UniqueIdentifier>{1fa3703c-3cd0-4c42-a281-d1e360ca9757}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -158,6 +161,15 @@
     </ClCompile>
     <ClCompile Include="gl_context.cpp">
       <Filter>源文件\core\context</Filter>
+    </ClCompile>
+    <ClCompile Include="config_models_processor.cpp">
+      <Filter>源文件\config</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>源文件\util</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_model.cpp">
+      <Filter>源文件\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +273,9 @@
       <Filter>头文件\core</Filter>
     </ClInclude>
     <ClInclude Include="gl_uniform_buffer.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_model.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
   </ItemGroup>
