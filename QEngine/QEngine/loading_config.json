@@ -27,7 +27,7 @@
   ],
   "MODELS": [
     {
-      "PATH": "./assets/models/obj/nanosuit/nanosuit.obj",
+      "PATH": "./assets/models/nanosuit/nanosuit.obj",
       "NAME": "nanosuit"
     }
   ]
