@@ -1,0 +1,16 @@
+{
+  "OBJECTS": [
+    {
+      "NAME": "XXX",
+      "FROM_MODEL": "MODEL_NAME",
+      "MATERIAL": "MATERIAL_NAME",
+      "PARENT": "__ROOT__"
+    },
+    {
+      "NAME": "XXX",
+      "FROM_MODEL": "MODEL_NAME",
+      "MATERIAL": "MATERIAL_NAME",
+      "PARENT": "XXX"
+    }
+  ]
+}

@@ -3,15 +3,19 @@
 #include "shader.h"
 #include <memory>
 #include <set>
+
+using namespace std;
+
 enum ObjectType {
 	GROUP_OBJECT,
 	MESH_OBJECT
 };
 
-class Object3D {
+class Object3D:public enable_shared_from_this<Object3D> {
 public:
 	Transform transform;
-	std::vector<std::shared_ptr<Object3D>> children;
+	vector<std::shared_ptr<Object3D>> children;
+	string name;
 public:
 	Object3D();
 	
@@ -22,4 +26,11 @@ public:
 	virtual void OnSurfaceRender() = 0;
 
 	virtual ObjectType GetType() = 0;
+
+	shared_ptr<Object3D> AsPtr();
+
+	template<typename T>
+	shared_ptr<T> As() {
+		return dynamic_pointer_cast<T>(shared_from_this());
+	}
 };

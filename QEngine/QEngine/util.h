@@ -6,3 +6,5 @@
 using namespace std;
 
 void LogError(string msg);
+
+string ItoStr(int i);

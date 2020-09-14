@@ -76,6 +76,12 @@
     <Filter Include="源文件\util">
       <UniqueIdentifier>{1fa3703c-3cd0-4c42-a281-d1e360ca9757}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\core\world">
+      <UniqueIdentifier>{c8be2757-87ff-41ff-bbb5-42d1dc596207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\world">
+      <UniqueIdentifier>{fe77ffa3-bdc5-4118-9cf7-612549001d5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -170,6 +176,12 @@
     </ClCompile>
     <ClCompile Include="gl_model.cpp">
       <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_base_world.cpp">
+      <Filter>源文件\core\world</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_object_manager.cpp">
+      <Filter>源文件\core\world</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -266,9 +278,6 @@
     <ClInclude Include="gl_context.h">
       <Filter>头文件\core\context</Filter>
     </ClInclude>
-    <ClInclude Include="gl_context_interfaces.h">
-      <Filter>头文件\core\context</Filter>
-    </ClInclude>
     <ClInclude Include="gl_buffer.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
@@ -277,6 +286,12 @@
     </ClInclude>
     <ClInclude Include="gl_model.h">
       <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_base_world.h">
+      <Filter>头文件\core\world</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_object_manager.h">
+      <Filter>头文件\core\world</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -288,6 +303,9 @@
     </None>
     <None Include="diffuse_shader.frag">
       <Filter>头文件\shaders\frag_shaders</Filter>
+    </None>
+    <None Include="world_config.json">
+      <Filter>头文件\config</Filter>
     </None>
   </ItemGroup>
 </Project>

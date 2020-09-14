@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{EF7C6D92-5CE3-4B89-B272-7794FA027A16}</ProjectGuid>
-    <RootNamespace>QEngine</RootNamespace>
+    <ProjectGuid>{A2317F67-62CF-4B69-9ED9-C1BA2481EC0E}</ProjectGuid>
+    <RootNamespace>DemoProject</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -69,10 +69,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>.\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>.\libs;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -80,17 +88,8 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ClCompile>
     <Link>
-      <AdditionalDependencies>glfw3.lib;assimp-vc141-mtd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -103,6 +102,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
@@ -117,88 +117,13 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cJSON.c" />
-    <ClCompile Include="CJsonObject.cpp" />
-    <ClCompile Include="config_materials_processor.cpp" />
-    <ClCompile Include="config_models_processor.cpp" />
-    <ClCompile Include="config_textures_processor.cpp" />
-    <ClCompile Include="diffuse_material.cpp" />
-    <ClCompile Include="gl_assets.cpp" />
-    <ClCompile Include="gl_base_world.cpp" />
-    <ClCompile Include="gl_camera.cpp" />
-    <ClCompile Include="gl_context.cpp" />
-    <ClCompile Include="gl_geometry.cpp" />
-    <ClCompile Include="gl_engine.cpp" />
-    <ClCompile Include="gl_model.cpp" />
-    <ClCompile Include="gl_object_manager.cpp" />
-    <ClCompile Include="gl_window.cpp" />
-    <ClCompile Include="gl_array_buffers.cpp" />
-    <ClCompile Include="gl_base_vertex_array.cpp" />
-    <ClCompile Include="gl_element.cpp" />
-    <ClCompile Include="gl_geometry_vertex_array.cpp" />
-    <ClCompile Include="gl_group.cpp" />
-    <ClCompile Include="gl_material.cpp" />
-    <ClCompile Include="gl_mesh.cpp" />
-    <ClCompile Include="gl_object3D.cpp" />
-    <ClCompile Include="gl_texture.cpp" />
-    <ClCompile Include="gl_transform.cpp" />
-    <ClCompile Include="gl_util.cpp" />
-    <ClCompile Include="input.cpp" />
-    <ClCompile Include="libs\glad.c" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="material_factory.cpp" />
-    <ClCompile Include="shader.cpp" />
-    <ClCompile Include="stb_image.cpp" />
-    <ClCompile Include="util.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="base_scene.h" />
-    <ClInclude Include="cJSON.h" />
-    <ClInclude Include="CJsonObject.hpp" />
-    <ClInclude Include="constant.h" />
-    <ClInclude Include="diffuse_material.h" />
-    <ClInclude Include="gl_assets.h" />
-    <ClInclude Include="gl_base_world.h" />
-    <ClInclude Include="gl_buffer.h" />
-    <ClInclude Include="gl_camera.h" />
-    <ClInclude Include="gl_context.h" />
-    <ClInclude Include="gl_geometry.h" />
-    <ClInclude Include="gl_engine.h" />
-    <ClInclude Include="gl_model.h" />
-    <ClInclude Include="gl_object_manager.h" />
-    <ClInclude Include="gl_uniform_buffer.h" />
-    <ClInclude Include="gl_window.h" />
-    <ClInclude Include="gl_array_buffer.h" />
-    <ClInclude Include="gl_base_vertex_array.h" />
-    <ClInclude Include="gl_element.h" />
-    <ClInclude Include="gl_group.h" />
-    <ClInclude Include="gl_material.h" />
-    <ClInclude Include="gl_mesh.h" />
-    <ClInclude Include="gl_object3D.h" />
-    <ClInclude Include="gl_scene_handler.h" />
-    <ClInclude Include="gl_geometry_vertex_array.h" />
-    <ClInclude Include="gl_texture.h" />
-    <ClInclude Include="gl_transform.h" />
-    <ClInclude Include="gl_util.h" />
-    <ClInclude Include="gl_vertex.h" />
-    <ClInclude Include="input.h" />
-    <ClInclude Include="loader_util.h" />
-    <ClInclude Include="material_factory.h" />
-    <ClInclude Include="shader.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="stb_image_write.h" />
-    <ClInclude Include="util.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="diffuse_shader.frag" />
-    <None Include="diffuse_shader.vs" />
-    <None Include="loading_config.json" />
-    <None Include="world_config.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
