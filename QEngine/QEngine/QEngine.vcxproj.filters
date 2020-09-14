@@ -183,6 +183,9 @@
     <ClCompile Include="gl_object_manager.cpp">
       <Filter>源文件\core\world</Filter>
     </ClCompile>
+    <ClCompile Include="gl_script_manager.cpp">
+      <Filter>源文件\core\world</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constant.h">
@@ -291,6 +294,9 @@
       <Filter>头文件\core\world</Filter>
     </ClInclude>
     <ClInclude Include="gl_object_manager.h">
+      <Filter>头文件\core\world</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_script_manager.h">
       <Filter>头文件\core\world</Filter>
     </ClInclude>
   </ItemGroup>

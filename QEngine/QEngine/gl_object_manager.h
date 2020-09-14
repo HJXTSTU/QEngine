@@ -23,4 +23,8 @@ public:
 	bool AddObject(const string &name, shared_ptr<Object3D> obj);
 
 	bool AddObject(const string &parent, const string &name, shared_ptr<Object3D> obj);
+
+	void UpdateMatrixWorld();
+
+	const shared_ptr<Group> Root();
 };

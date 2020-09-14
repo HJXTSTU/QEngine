@@ -35,3 +35,13 @@ bool ObjectManager::AddObject(const string &parent, const string &name, shared_p
 	nameToObject[parent]->AddChild(obj);
 	return true;
 }
+
+void ObjectManager::UpdateMatrixWorld()
+{
+	root->transform.UpdateMatrixWorld(true);
+}
+
+const shared_ptr<Group> ObjectManager::Root()
+{
+	return root;
+}

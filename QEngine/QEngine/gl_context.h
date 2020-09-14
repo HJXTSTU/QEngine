@@ -1,6 +1,5 @@
 #pragma once
 #include <glad/glad.h>
-#include "gl_context_interfaces.h"
 #include <memory>
 #include <iostream>
 #include <fstream>
@@ -8,7 +7,7 @@
 #include "gl_camera.h"
 #include "gl_uniform_buffer.h"
 #include "gl_assets.h"
-
+#include "gl_base_world.h"
 #include "gl_mesh.h"
 
 using namespace std;
@@ -32,12 +31,12 @@ public:
 	static std::shared_ptr<AssetsManager> assets;
 	
 	static Camera mainCamera;
+
+	static BaseWorldPointer world;
 public:
 	static ContextPointer CreateContext();
-private:
-	std::shared_ptr<Object3D> nanosuit;
 
-	std::shared_ptr<Mesh> plane;
+	static void SetWorld(BaseWorldPointer world);
 public:
 
 	Context();

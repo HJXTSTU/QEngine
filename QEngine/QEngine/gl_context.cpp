@@ -9,6 +9,8 @@ std::shared_ptr<AssetsManager> Context::assets;
 
 Camera Context::mainCamera;
 
+BaseWorldPointer Context::world;
+
 
 void Context::CursorScrollCallback(GLFWwindow* window, double xpos, double ypos)
 {
@@ -44,51 +46,33 @@ ContextPointer Context::CreateContext() {
 	return make_shared<Context>();
 }
 
+void Context::SetWorld(BaseWorldPointer world)
+{
+	Context::world = world;
+}
+
 Context::Context()
 {
-	MaterialPointer mat = Context::assets->GetMaterial("diffuse");
-	nanosuit = Context::assets->GetModel("nanosuit")->Instantiate(mat);
-	plane = std::make_shared<Mesh>(Geometry::GeneratePlaneGeometry(), mat->Clone());
 }
 
 void Context::BeginFrame()
 {
-	if (Context::window) {
-		InputUpdator::instance.refreshKeyStatus(Context::window);
-	}
-
-	Context::pUniformBufferCamera->FillBufferData<mat4>(0, Context::mainCamera.GetProjectionMatrix(SRC_WIDTH, SRC_HEIGHT));
-	Context::pUniformBufferCamera->FillBufferData<mat4>(64, Context::mainCamera.GetViewMatrix());
-	Context::pUniformBufferCamera->FillBufferData<vec3>(128, Context::mainCamera.Position);
+	
 }
 
 void Context::PreUpdate()
 {
+	if (Context::window) {
+		InputUpdator::instance.refreshKeyStatus(Context::window);
+	}
 }
 
 void Context::Update()
 {
-	//nanosuit->transform.Scale(glm::vec3(0.1f, 0.1f, 0.1f),false);
-	nanosuit->transform.UpdateMatrixWorld(true);
-	plane->transform.UpdateMatrixWorld(true);
+	Context::world->UpdateWorld(0.02f);
 }
 
 void Context::LateUpdate()
-{
-
-}
-
-void Context::Render()
-{
-	glClearColor(0, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
-	nanosuit->OnSurfaceRender();
-	plane->OnSurfaceRender();
-}
-
-void Context::EndFrame()
 {
 	if (Input::getKeyDown(KEY_CODE_ESCAPE)) {
 		Context::window->CloseWindow();
@@ -108,6 +92,23 @@ void Context::EndFrame()
 		Context::mainCamera.ProcessKeyboard(Camera_Movement::RIGHT, 0.02f);
 	}
 	Context::mainCamera.UpdateCameraVectorForce();
+
+	Context::pUniformBufferCamera->FillBufferData<mat4>(0, Context::mainCamera.GetProjectionMatrix(SRC_WIDTH, SRC_HEIGHT));
+	Context::pUniformBufferCamera->FillBufferData<mat4>(64, Context::mainCamera.GetViewMatrix());
+	Context::pUniformBufferCamera->FillBufferData<vec3>(128, Context::mainCamera.Position);
+}
+
+void Context::Render()
+{
+	glClearColor(0, 0, 0, 1);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+}
+
+void Context::EndFrame()
+{
+	
 }
 
 ContextPointer Context::AsPtr()

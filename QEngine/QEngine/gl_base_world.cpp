@@ -14,3 +14,21 @@ bool BaseWorld::AddObject(const string & parent, const string & name, shared_ptr
 {
 	return m_objectManager.AddObject(parent,name,obj);
 }
+
+void BaseWorld::BindScriptTo(BaseScriptPointer script, const string & name)
+{
+	m_scriptManager.AddScript(name,script);
+	shared_ptr<Object3D> obj = m_objectManager.FindObjectByName(name);
+	script->OnCreate(obj);
+}
+
+void BaseWorld::UpdateWorld(float deltaTime)
+{
+	m_scriptManager.UpdateScripts(deltaTime);
+	m_objectManager.UpdateMatrixWorld();
+}
+
+const shared_ptr<Group> BaseWorld::Root()
+{
+	return m_objectManager.Root();
+}
