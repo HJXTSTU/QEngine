@@ -9,9 +9,7 @@ protected:
 	glm::mat4 rotation;
 	glm::vec3 scale;
 	glm::mat4 matrixWorld;
-	bool Static;
 public:
-	void SetStatic(bool isStatic);
 
 	int GetChildCount();
 

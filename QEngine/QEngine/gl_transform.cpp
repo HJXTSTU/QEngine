@@ -1,16 +1,11 @@
 #include "gl_transform.h"
 
-void Transform::SetStatic(bool isStatic) {
-	this->Static = isStatic;
-}
-
 Transform::Transform() {
 	this->parent = NULL;
 	this->position = glm::vec3(0, 0, 0);
 	this->rotation = glm::mat4(1);
 	this->scale = glm::vec3(1, 1, 1);
 	this->matrixWorld = glm::mat4(1);
-	this->Static = false;
 }
 
 int Transform::GetChildCount() {
@@ -107,25 +102,24 @@ void Transform::Add(Transform *child) {
 }
 
 void Transform::UpdateMatrixWorld(bool updateChildren) {
-	if (!this->Static) {
-		if (this->parent == NULL) {
-			glm::mat4 translate = glm::translate(glm::mat4(1), this->position);
-			glm::mat4 scale_mat = glm::scale(glm::mat4(1), this->scale);
-			glm::mat4 LocalMatrix = translate * this->rotation * scale_mat;
-			this->matrixWorld = LocalMatrix;
-		}
-		else {
-			glm::mat4 translate = glm::translate(glm::mat4(1), this->position + parent->GetWorldPosition());
-			glm::mat4 scale_mat = glm::scale(glm::mat4(1), this->scale*this->parent->scale);
-			glm::mat4 rot_mat = this->parent->GetWorldRotation()*this->rotation;
-			this->matrixWorld = translate * rot_mat * scale_mat;
-		}
-		if (updateChildren) {
-			std::vector<Transform*>::iterator it = this->children.begin();
-			while (it != this->children.end()) {
-				(*it)->UpdateMatrixWorld(updateChildren);
-				it++;
-			}
+	if (this->parent == NULL) {
+		glm::mat4 translate = glm::translate(glm::mat4(1), this->position);
+		glm::mat4 scale_mat = glm::scale(glm::mat4(1), this->scale);
+		glm::mat4 LocalMatrix = translate * this->rotation * scale_mat;
+		this->matrixWorld = LocalMatrix;
+	}
+	else {
+		glm::mat4 translate = glm::translate(glm::mat4(1), this->position + parent->GetWorldPosition());
+		glm::mat4 scale_mat = glm::scale(glm::mat4(1), this->scale*this->parent->scale);
+		glm::mat4 rot_mat = this->parent->GetWorldRotation()*this->rotation;
+		this->matrixWorld = translate * rot_mat * scale_mat;
+	}
+
+	if (updateChildren) {
+		std::vector<Transform*>::iterator it = this->children.begin();
+		while (it != this->children.end()) {
+			(*it)->UpdateMatrixWorld(updateChildren);
+			it++;
 		}
 	}
 }
