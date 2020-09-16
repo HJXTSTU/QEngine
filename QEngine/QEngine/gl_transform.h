@@ -19,6 +19,8 @@ public:
 
 	void Rotate(glm::mat4 rot);
 
+	void Rotate(float radiances, glm::vec3 axis);
+
 	void Move(glm::vec3 off);
 
 	void Scale(glm::vec3 sc, bool childrenFlow = true);

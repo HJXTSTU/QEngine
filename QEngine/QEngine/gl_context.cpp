@@ -1,4 +1,7 @@
 #include "gl_context.h"
+#include "CJsonObject.hpp"
+#include "gl_util.h"
+using namespace neb;
 //#include "input.h"
 
 UniformBufferCameraPointer Context::pUniformBufferCamera;
@@ -44,6 +47,64 @@ ContextPointer Context::CreateContext() {
 	Context::window->SetCursorPosCallback(Context::CursorScrollCallback);
 	Context::window->SetScrollCallback(Context::ScrollCallback);
 	return make_shared<Context>();
+}
+
+void Context::InitWorld() {
+	CJsonObject worldObjectsConfig(ReadJsonFile("world_config.json"));
+	if (worldObjectsConfig.HasKey("OBJECTS")) {
+		int size = worldObjectsConfig.GetArraySize();
+		for (int i = 0; i < size; i++) {
+			CJsonObject object = worldObjectsConfig[i];
+			if (!object.HasKey("NAME")) {
+				LogError("World config doesn't contain key---(NAME)");
+				continue;
+			}
+
+			if (!object.HasKey("FROM_MODEL")) {
+				LogError("World config doesn't contain key---(FROM_MODEL)");
+				continue;
+			}
+
+			if (!object.HasKey("MATERIAL")) {
+				LogError("World config doesn't contain key---(MATERIAL)");
+				continue;
+			}
+
+			if (!object.HasKey("PARENT")) {
+				LogError("World config doesn't contain key---(PARENT)");
+				continue;
+			}
+
+			string name = object.Get<string>("NAME");
+			string model_name = object.Get<string>("FROM_MODEL");
+			string material_name = object.Get<string>("MATERIAL");
+			string parent_name = object.Get<string>("PARENT");
+			
+			ModelPointer model = Context::assets->GetModel(model_name);
+			if (!model) {
+				char msg[512];
+				sprintf(msg, "Model(%s) doesn't exist.", model_name);
+				LogError(string(msg));
+				continue;
+			}
+			MaterialPointer mat = Context::assets->GetMaterial(material_name);
+			if (!mat) {
+				char msg[512];
+				sprintf(msg, "Material(%s) doesn't exist.", material_name);
+				LogError(string(msg));
+				continue;
+			}
+
+			shared_ptr<Object3D> obj = model->Instantiate(mat);
+			obj->name = name;
+			if (!Context::world->AddObject(parent_name, name, obj)) {
+				LogError("Add object faile.");
+			}
+		}
+	}
+	else {
+		LogError("World config doesn't contain key---(OBJECTS)");
+	}
 }
 
 void Context::SetWorld(BaseWorldPointer world)

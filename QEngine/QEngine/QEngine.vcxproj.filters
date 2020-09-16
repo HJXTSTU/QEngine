@@ -82,6 +82,9 @@
     <Filter Include="源文件\core\world">
       <UniqueIdentifier>{fe77ffa3-bdc5-4118-9cf7-612549001d5b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\core\scripts">
+      <UniqueIdentifier>{4a80b3b9-74a9-4704-a94d-23545567f0a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -298,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="gl_script_manager.h">
       <Filter>头文件\core\world</Filter>
+    </ClInclude>
+    <ClInclude Include="Rotator.h">
+      <Filter>头文件\core\scripts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

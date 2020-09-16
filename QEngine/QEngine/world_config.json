@@ -1,16 +1,10 @@
 {
   "OBJECTS": [
     {
-      "NAME": "XXX",
-      "FROM_MODEL": "MODEL_NAME",
-      "MATERIAL": "MATERIAL_NAME",
+      "NAME": "nanosuit",
+      "FROM_MODEL": "nanosuit",
+      "MATERIAL": "diffuse",
       "PARENT": "__ROOT__"
-    },
-    {
-      "NAME": "XXX",
-      "FROM_MODEL": "MODEL_NAME",
-      "MATERIAL": "MATERIAL_NAME",
-      "PARENT": "XXX"
     }
   ]
 }

@@ -12,6 +12,7 @@
 #include "gl_context.h"
 #include "gl_engine.h"
 #include <iostream>
+#include "Rotator.h"
 using namespace std;
 
 std::shared_ptr<GLEngine> gEngine;

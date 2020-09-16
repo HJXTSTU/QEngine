@@ -37,6 +37,9 @@ public:
 	static ContextPointer CreateContext();
 
 	static void SetWorld(BaseWorldPointer world);
+
+private:
+	void InitWorld();
 public:
 
 	Context();

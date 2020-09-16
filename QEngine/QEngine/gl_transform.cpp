@@ -20,6 +20,11 @@ void Transform::Rotate(glm::mat4 rot) {
 	this->rotation *= rot;
 }
 
+void Transform::Rotate(float radiances, glm::vec3 axis) {
+	glm::mat4 rot = glm::rotate(glm::mat4(1), radiances, axis);
+	Rotate(rot);
+}
+
 void Transform::Move(glm::vec3 off) {
 	this->position += off;
 }
