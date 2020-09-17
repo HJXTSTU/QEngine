@@ -23,7 +23,20 @@
           }
         ]
       }
+    },
+    {
+      "NAME": "phong",
+      "TYPE": "PHONG",
+      "PARAMS": {
+        "MAPS": [
+          {
+            "KEY": "DIFFUSE_MAP",
+            "VALUE": "container"
+          }
+        ]
+      }
     }
+
   ],
   "MODELS": [
     {

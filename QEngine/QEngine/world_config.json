@@ -3,7 +3,7 @@
     {
       "NAME": "nanosuit",
       "FROM_MODEL": "nanosuit",
-      "MATERIAL": "diffuse",
+      "MATERIAL": "phong",
       "PARENT": "__ROOT__"
     }
   ]

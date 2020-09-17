@@ -154,6 +154,7 @@
     <ClCompile Include="libs\glad.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="material_factory.cpp" />
+    <ClCompile Include="phong_material.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="util.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="loader_util.h" />
     <ClInclude Include="material_factory.h" />
     <ClInclude Include="MyWorld.h" />
+    <ClInclude Include="phong_material.h" />
     <ClInclude Include="Rotator.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="stb_image.h" />
@@ -204,6 +206,8 @@
     <None Include="diffuse_shader.frag" />
     <None Include="diffuse_shader.vs" />
     <None Include="loading_config.json" />
+    <None Include="phong_shader.frag" />
+    <None Include="phong_shader.vs" />
     <None Include="world_config.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

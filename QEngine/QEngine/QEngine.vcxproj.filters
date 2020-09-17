@@ -16,9 +16,6 @@
     <Filter Include="头文件\core">
       <UniqueIdentifier>{b2313878-00c7-41d0-8ca8-1a73f73143f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\core">
-      <UniqueIdentifier>{a427f90a-3274-41c8-8b64-23bd09aef8df}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\libs">
       <UniqueIdentifier>{e1e8052a-9c1c-4fd7-8958-0f64f87d225a}</UniqueIdentifier>
     </Filter>
@@ -70,17 +67,11 @@
     <Filter Include="头文件\core\context">
       <UniqueIdentifier>{f9ae7819-1e16-491f-a6d6-12f8b3fd7aef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\core\context">
-      <UniqueIdentifier>{7cfb37fe-dd4d-4ad2-a90a-ad8e17cb34f6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\util">
       <UniqueIdentifier>{1fa3703c-3cd0-4c42-a281-d1e360ca9757}</UniqueIdentifier>
     </Filter>
     <Filter Include="头文件\core\world">
       <UniqueIdentifier>{c8be2757-87ff-41ff-bbb5-42d1dc596207}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\core\world">
-      <UniqueIdentifier>{fe77ffa3-bdc5-4118-9cf7-612549001d5b}</UniqueIdentifier>
     </Filter>
     <Filter Include="头文件\core\scripts">
       <UniqueIdentifier>{4a80b3b9-74a9-4704-a94d-23545567f0a0}</UniqueIdentifier>
@@ -88,14 +79,23 @@
     <Filter Include="头文件\core\engine">
       <UniqueIdentifier>{0967b51e-7e9e-4df5-b0f5-4088eef96f6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\core\engine">
-      <UniqueIdentifier>{66dfec72-05a2-4e99-9e11-606e3abade5b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="APP">
       <UniqueIdentifier>{b3711319-ebce-48c9-a661-ab6b6ef49073}</UniqueIdentifier>
     </Filter>
     <Filter Include="APP\world">
       <UniqueIdentifier>{4b7227e9-1824-4736-9d1d-6e259b977157}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core">
+      <UniqueIdentifier>{a427f90a-3274-41c8-8b64-23bd09aef8df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\context">
+      <UniqueIdentifier>{7cfb37fe-dd4d-4ad2-a90a-ad8e17cb34f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\world">
+      <UniqueIdentifier>{fe77ffa3-bdc5-4118-9cf7-612549001d5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\engine">
+      <UniqueIdentifier>{66dfec72-05a2-4e99-9e11-606e3abade5b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>APP</Filter>
+    </ClCompile>
+    <ClCompile Include="phong_material.cpp">
+      <Filter>源文件\materials</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -326,6 +329,9 @@
     <ClInclude Include="MyWorld.h">
       <Filter>APP\world</Filter>
     </ClInclude>
+    <ClInclude Include="phong_material.h">
+      <Filter>头文件\materials</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="loading_config.json">
@@ -339,6 +345,12 @@
     </None>
     <None Include="world_config.json">
       <Filter>头文件\config</Filter>
+    </None>
+    <None Include="phong_shader.vs">
+      <Filter>头文件\shaders\vertex_shaders</Filter>
+    </None>
+    <None Include="phong_shader.frag">
+      <Filter>头文件\shaders\frag_shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

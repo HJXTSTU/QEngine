@@ -10,7 +10,7 @@ int main() {
 	myWorld = make_shared<MyWorld>();
 	gEngine = EngineShell::Instance();
 	gEngine->LaunchQEngine();
-	Context::SetWorldAndInit("world_config.json", myWorld);
+	Context::SetWorldAndInit(myWorld, "world_config.json");
 	gEngine->Run();
 	return 0;
 }

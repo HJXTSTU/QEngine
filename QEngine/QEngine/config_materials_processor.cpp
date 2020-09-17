@@ -3,13 +3,17 @@
 #include "util.h"
 
 static void setupMaterial(const std::string &type, MaterialPointer material, CJsonObject &params, std::shared_ptr<AssetsManager> assets) {
-	if (type == "DIFFUSE") {
-		if (!params.HasKey("MAP")) {
-			LogError("Miss params map.");
-			return;
+	if (params.HasKey("MAPS")) {
+		CJsonObject maps = params.Get<CJsonObject>("MAPS");
+		int size = maps.GetArraySize();
+		for (int i = 0; i < size; i++) {
+			CJsonObject texDesc = maps[i];
+			string key = texDesc.Get<string>("KEY");
+			string value = texDesc.Get<string>("VALUE");
+			TexturePointer tex = assets->GetTexture(value);
+			material->SetTexture(key, tex);
 		}
-		TexturePointer tex = assets->GetTexture(params.Get<std::string>("MAP"));
-		material->SetTexture("DIFFUSE_MAP", tex);
+		
 	}
 }
 
@@ -22,7 +26,7 @@ void createMaterials(std::shared_ptr<AssetsManager> assets, CJsonObject material
 			return;
 		}
 		std::string name = materialDesc.Get<std::string>("NAME");
-	
+
 		if (!materialDesc.HasKey("TYPE")) {
 			LogError("Miss material type.");
 			return;
@@ -45,7 +49,7 @@ void createMaterials(std::shared_ptr<AssetsManager> assets, CJsonObject material
 				string key = map.Get<string>("KEY");
 				string value = map.Get<string>("VALUE");
 				TexturePointer tex = assets->GetTexture(value);
-				material->SetTexture(key,tex);
+				material->SetTexture(key, tex);
 			}
 		}
 		//setupMaterial(type, material, params,assets);
