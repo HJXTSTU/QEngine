@@ -32,4 +32,6 @@ public:
 	void UpdateWorld(float deltaTime);
 
 	const shared_ptr<Group> Root();
+
+	BaseWorldPointer AsPtr();
 };

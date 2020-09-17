@@ -49,12 +49,13 @@ ContextPointer Context::CreateContext() {
 	return make_shared<Context>();
 }
 
-void Context::InitWorld() {
-	CJsonObject worldObjectsConfig(ReadJsonFile("world_config.json"));
+void Context::InitWorld(const string &configFilePath) {
+	CJsonObject worldObjectsConfig(ReadJsonFile(configFilePath));
 	if (worldObjectsConfig.HasKey("OBJECTS")) {
-		int size = worldObjectsConfig.GetArraySize();
+		CJsonObject objects = worldObjectsConfig.Get<CJsonObject>("OBJECTS");
+		int size = objects.GetArraySize();
 		for (int i = 0; i < size; i++) {
-			CJsonObject object = worldObjectsConfig[i];
+			CJsonObject object = objects[i];
 			if (!object.HasKey("NAME")) {
 				LogError("World config doesn't contain key---(NAME)");
 				continue;
@@ -112,6 +113,12 @@ void Context::SetWorld(BaseWorldPointer world)
 	Context::world = world;
 }
 
+void Context::SetWorldAndInit(const string & configFilePath, BaseWorldPointer world)
+{
+	Context::SetWorld(world);
+	InitWorld(configFilePath);
+}
+
 Context::Context()
 {
 }
@@ -130,7 +137,10 @@ void Context::PreUpdate()
 
 void Context::Update()
 {
-	Context::world->UpdateWorld(0.02f);
+	if (Context::world) {
+		Context::world->UpdateWorld(0.02f);
+	}
+		
 }
 
 void Context::LateUpdate()
@@ -165,6 +175,7 @@ void Context::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
+	Context::world->Root()->OnSurfaceRender();
 }
 
 void Context::EndFrame()

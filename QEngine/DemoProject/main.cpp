@@ -1,7 +1,12 @@
-#include <iostream>
+#include "gl_engine_shell.h"
 using namespace std;
+using namespace QEngine;
+
+EngineShellPointer gEngine;
 
 int main() {
-	cout << "Hello World" << endl;
+	gEngine = EngineShell::Instance();
+	gEngine->LaunchQEngine();
+	gEngine->Run();
 	return 0;
 }

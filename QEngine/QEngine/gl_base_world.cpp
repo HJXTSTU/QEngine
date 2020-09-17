@@ -32,3 +32,8 @@ const shared_ptr<Group> BaseWorld::Root()
 {
 	return m_objectManager.Root();
 }
+
+BaseWorldPointer BaseWorld::AsPtr()
+{
+	return shared_from_this();
+}

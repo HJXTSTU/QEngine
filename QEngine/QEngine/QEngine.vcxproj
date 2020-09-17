@@ -132,6 +132,7 @@
     <ClCompile Include="gl_base_world.cpp" />
     <ClCompile Include="gl_camera.cpp" />
     <ClCompile Include="gl_context.cpp" />
+    <ClCompile Include="gl_engine_shell.cpp" />
     <ClCompile Include="gl_geometry.cpp" />
     <ClCompile Include="gl_engine.cpp" />
     <ClCompile Include="gl_model.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="gl_buffer.h" />
     <ClInclude Include="gl_camera.h" />
     <ClInclude Include="gl_context.h" />
+    <ClInclude Include="gl_engine_shell.h" />
     <ClInclude Include="gl_geometry.h" />
     <ClInclude Include="gl_engine.h" />
     <ClInclude Include="gl_model.h" />
@@ -191,6 +193,7 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="loader_util.h" />
     <ClInclude Include="material_factory.h" />
+    <ClInclude Include="MyWorld.h" />
     <ClInclude Include="Rotator.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="stb_image.h" />

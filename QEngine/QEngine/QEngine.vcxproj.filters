@@ -85,11 +85,20 @@
     <Filter Include="头文件\core\scripts">
       <UniqueIdentifier>{4a80b3b9-74a9-4704-a94d-23545567f0a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\core\engine">
+      <UniqueIdentifier>{0967b51e-7e9e-4df5-b0f5-4088eef96f6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\engine">
+      <UniqueIdentifier>{66dfec72-05a2-4e99-9e11-606e3abade5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="APP">
+      <UniqueIdentifier>{b3711319-ebce-48c9-a661-ab6b6ef49073}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="APP\world">
+      <UniqueIdentifier>{4b7227e9-1824-4736-9d1d-6e259b977157}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="libs\glad.c">
       <Filter>源文件\libs</Filter>
     </ClCompile>
@@ -159,9 +168,6 @@
     <ClCompile Include="material_factory.cpp">
       <Filter>源文件\materials</Filter>
     </ClCompile>
-    <ClCompile Include="gl_engine.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
     <ClCompile Include="gl_window.cpp">
       <Filter>源文件\core</Filter>
     </ClCompile>
@@ -188,6 +194,15 @@
     </ClCompile>
     <ClCompile Include="gl_script_manager.cpp">
       <Filter>源文件\core\world</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_engine_shell.cpp">
+      <Filter>源文件\core\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_engine.cpp">
+      <Filter>源文件\core\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>APP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,9 +287,6 @@
     <ClInclude Include="util.h">
       <Filter>头文件\util</Filter>
     </ClInclude>
-    <ClInclude Include="gl_engine.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
     <ClInclude Include="gl_window.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
@@ -304,6 +316,15 @@
     </ClInclude>
     <ClInclude Include="Rotator.h">
       <Filter>头文件\core\scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_engine.h">
+      <Filter>头文件\core\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_engine_shell.h">
+      <Filter>头文件\core\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="MyWorld.h">
+      <Filter>APP\world</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

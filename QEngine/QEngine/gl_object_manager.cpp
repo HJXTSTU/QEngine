@@ -24,11 +24,11 @@ bool ObjectManager::AddObject(const string &parent, const string &name, shared_p
 	}
 	int i = 1;
 	string key = name;
-	if (nameToObject.find(name) == nameToObject.end()) {
+	if (nameToObject.find(name) != nameToObject.end()) {
 		string nextName;
 		do {
 			string nextName = name + +"_" + ItoStr(i++);
-		} while (nameToObject.find(nextName) == nameToObject.end());
+		} while (nameToObject.find(nextName) != nameToObject.end());
 		key = nextName;
 	}
 	nameToObject[key] = obj;

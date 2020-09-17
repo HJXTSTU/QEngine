@@ -37,9 +37,10 @@ public:
 	static ContextPointer CreateContext();
 
 	static void SetWorld(BaseWorldPointer world);
-
+	
+	static void SetWorldAndInit(const string &configFilePath, BaseWorldPointer world);
 private:
-	void InitWorld();
+	static void InitWorld(const string &configFilePath);
 public:
 
 	Context();

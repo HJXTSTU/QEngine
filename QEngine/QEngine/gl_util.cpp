@@ -7,7 +7,7 @@ void UserTexture(GLuint texture_code, GLuint id) {
 }
 
 char* ReadJsonFile(const string &path) {
-	ifstream fin("loading_config.json");
+	ifstream fin(path);
 	fin.seekg(0, fin.end);
 	unsigned int length = fin.tellg();
 	fin.seekg(0, fin.beg);
