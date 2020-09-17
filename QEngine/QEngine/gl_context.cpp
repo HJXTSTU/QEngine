@@ -113,7 +113,7 @@ void Context::SetWorld(BaseWorldPointer world)
 	Context::world = world;
 }
 
-void Context::SetWorldAndInit(const string & configFilePath, BaseWorldPointer world)
+void Context::SetWorldAndInit(BaseWorldPointer world, const string & configFilePath)
 {
 	Context::SetWorld(world);
 	InitWorld(configFilePath);

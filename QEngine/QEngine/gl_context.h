@@ -38,7 +38,7 @@ public:
 
 	static void SetWorld(BaseWorldPointer world);
 	
-	static void SetWorldAndInit(const string &configFilePath, BaseWorldPointer world);
+	static void SetWorldAndInit(BaseWorldPointer world, const string &configFilePath);
 private:
 	static void InitWorld(const string &configFilePath);
 public:
