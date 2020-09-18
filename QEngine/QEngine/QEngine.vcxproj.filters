@@ -73,9 +73,6 @@
     <Filter Include="头文件\core\world">
       <UniqueIdentifier>{c8be2757-87ff-41ff-bbb5-42d1dc596207}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\core\scripts">
-      <UniqueIdentifier>{4a80b3b9-74a9-4704-a94d-23545567f0a0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\core\engine">
       <UniqueIdentifier>{0967b51e-7e9e-4df5-b0f5-4088eef96f6f}</UniqueIdentifier>
     </Filter>
@@ -96,6 +93,9 @@
     </Filter>
     <Filter Include="源文件\core\engine">
       <UniqueIdentifier>{66dfec72-05a2-4e99-9e11-606e3abade5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="APP\scripts">
+      <UniqueIdentifier>{4a80b3b9-74a9-4704-a94d-23545567f0a0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -318,7 +318,7 @@
       <Filter>头文件\core\world</Filter>
     </ClInclude>
     <ClInclude Include="Rotator.h">
-      <Filter>头文件\core\scripts</Filter>
+      <Filter>APP\scripts</Filter>
     </ClInclude>
     <ClInclude Include="gl_engine.h">
       <Filter>头文件\core\engine</Filter>

@@ -2,11 +2,11 @@
 
 void ScriptsManager::AddScript(const string &name, BaseScriptPointer script) {
 	if (objectToScripts.find(name) != objectToScripts.end()) {
-		objectToScripts[name].push_back(script);
+		objectToScripts[name].insert(script);
 	}
 	else {
-		vector<BaseScriptPointer> scripts;
-		scripts.push_back(script);
+		set<BaseScriptPointer> scripts;
+		scripts.insert(script);
 		objectToScripts[name] = scripts;
 	}
 	scripts.push_back(script);

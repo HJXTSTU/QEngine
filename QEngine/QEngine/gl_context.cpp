@@ -98,6 +98,16 @@ void Context::InitWorld(const string &configFilePath) {
 
 			shared_ptr<Object3D> obj = model->Instantiate(mat);
 			obj->name = name;
+
+			if (object.HasKey("SCALE")) {
+				CJsonObject scaleArray = object.Get<CJsonObject>("SCALE");
+				int scale_size = scaleArray.GetArraySize();
+				float scale[3] = { 1,1,1 };
+				for (int j = 0; j < scale_size; j++) {
+					scaleArray.Get(j, scale[j]);
+				}
+				obj->transform.Scale(glm::vec3(scale[0],scale[1],scale[2]), false);
+			}
 			if (!Context::world->AddObject(parent_name, name, obj)) {
 				LogError("Add object faile.");
 			}

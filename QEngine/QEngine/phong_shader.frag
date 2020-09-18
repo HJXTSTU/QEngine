@@ -28,12 +28,12 @@ vec3 CaculatePointLightIlumination(vec3 fragPos, vec3 p,float c,float l,float q,
 	float spec = max(pow(dot(n,H),64.0f),0.0f);
 	
 	float att = 1.0f/(c+l*d+q*d*d);
-	return ((diff+vec3(0.5,0.5,0.5))*diffC+spec*specC)*att;
+	return (diff*diffC+spec*specC)*att + vec3(0.1,0.1,0.1)*diffC;
 	
 }
 
 void main(){
-	vec3 diffuseColor = vec3(0,0,0);
+	vec3 diffuseColor = vec3(1,1,1);
 	if(UseDiffuseMap==1)
 		diffuseColor = texture2D(diffuseMap, UV.xy).rgb;
 	
@@ -51,7 +51,7 @@ void main(){
 		fragPos = TBN*FragPos;
 		viewPos = TBN*ViewPos;
 	}
-	vec3 Illumination = CaculatePointLightIlumination(fragPos,viewPos,1.0f,0.045f,0.0075f,norm,viewPos,diffuseColor,specularColor);
+	vec3 Illumination = CaculatePointLightIlumination(fragPos,viewPos,1.0f,0.35,0.44,norm,viewPos,diffuseColor,specularColor);
 	
 
 	FragColor = vec4(Illumination, 1.0f);

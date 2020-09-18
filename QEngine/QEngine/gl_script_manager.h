@@ -12,7 +12,7 @@ class ScriptsManager;
 class ScriptsManager {
 private:
 	vector<BaseScriptPointer> scripts;
-	unordered_map<string, vector<BaseScriptPointer>> objectToScripts;
+	unordered_map<string, set<BaseScriptPointer>> objectToScripts;
 public:
 	void AddScript(const string &name, BaseScriptPointer script);
 
