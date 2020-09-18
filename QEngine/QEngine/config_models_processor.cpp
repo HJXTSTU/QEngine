@@ -87,7 +87,7 @@ void processNode(std::shared_ptr<AssetsManager> assets, ModelPointer model, std:
 ModelPointer loadModelFromFile(std::shared_ptr<AssetsManager> assets,std::string &path,std::string &name) {
 	Assimp::Importer importer;
 	const aiScene *scene = importer.ReadFile(path, 
-			aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+			aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace| aiProcess_GenSmoothNormals);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		LogError(string(std::string("ERROR::ASSIMP::") + std::string(importer.GetErrorString())));

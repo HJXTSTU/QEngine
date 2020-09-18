@@ -28,9 +28,9 @@ void main(){
 	Norm = normalMatrix * vNorm;
 	ViewPos = viewPos;
 	
-	vec3 T = normalize(normalMatrix * vTangents);
-    vec3 N = normalize(normalMatrix * vNorm);
+	vec3 T = normalize(vec3(model * vec4(vTangents,0.0f)));
+    vec3 N = normalize(vec3(model * vec4(vNorm,0.0f)));
     T = normalize(T - dot(T, N) * N);
-    vec3 B = cross(T, N);
-	mat3 TBN = transpose(mat3(T, B, N)); 
+    vec3 B = cross(N,T);
+	TBN = transpose(mat3(T, B, N)); 
 }

@@ -1,8 +1,8 @@
 {
   "OBJECTS": [
     {
-      "NAME": "nanosuit",
-      "FROM_MODEL": "nanosuit",
+      "NAME": "dragon",
+      "FROM_MODEL": "dragon",
       "MATERIAL": "phong",
       "PARENT": "__ROOT__"
     }

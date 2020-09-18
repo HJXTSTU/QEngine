@@ -213,4 +213,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties loading_3config_1json__JSONSchema="http://json.schemastore.org/jovo-language-model" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

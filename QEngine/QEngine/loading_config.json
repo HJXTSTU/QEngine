@@ -40,8 +40,8 @@
   ],
   "MODELS": [
     {
-      "PATH": "./assets/models/nanosuit/nanosuit.obj",
-      "NAME": "nanosuit"
+      "PATH": "./assets/models/fbx/dragon/Dragon 2.5_fbx.fbx",
+      "NAME": "dragon"
     }
   ]
 }

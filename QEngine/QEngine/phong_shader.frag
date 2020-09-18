@@ -22,17 +22,13 @@ vec3 CaculatePointLightIlumination(vec3 fragPos, vec3 p,float c,float l,float q,
 	vec3 L = normalize(p-fragPos);
 	vec3 V = normalize(v-fragPos);
 	
-	if(UseNormalMap==1){
-		L = inverse(TBN) * L;
-		V = inverse(TBN) * V;
-	}
 	vec3 H = normalize(V+L);
 
 	float diff = max(dot(n,L),0.0f);
 	float spec = max(pow(dot(n,H),64.0f),0.0f);
 	
 	float att = 1.0f/(c+l*d+q*d*d);
-	return (diff*diffC+spec*specC)*att + vec3(0.02f,0.02f,0.02f);
+	return ((diff+vec3(0.5,0.5,0.5))*diffC+spec*specC)*att;
 	
 }
 
@@ -50,7 +46,10 @@ void main(){
 	vec3 viewPos = ViewPos;
 	if(UseNormalMap==1){
 		norm = texture(normalMap, UV.xy).rgb;
-		norm = normalize(norm * 2.0 - 1.0); 
+		norm = normalize(norm * 2.0 - 1.0);
+		
+		fragPos = TBN*FragPos;
+		viewPos = TBN*ViewPos;
 	}
 	vec3 Illumination = CaculatePointLightIlumination(fragPos,viewPos,1.0f,0.045f,0.0075f,norm,viewPos,diffuseColor,specularColor);
 	
