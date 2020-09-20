@@ -7,8 +7,6 @@ class GLGeometryVertexArray :public GLBaseVertexArray {
 private:
 	GLBuffer<GL_ARRAY_BUFFER, GL_STATIC_DRAW> m_vbo;
 	GLBuffer<GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW> m_ebo;
-	GLuint vbo;
-	GLuint ebo;
 	GLuint indexCount;
 public:
 	GLGeometryVertexArray();

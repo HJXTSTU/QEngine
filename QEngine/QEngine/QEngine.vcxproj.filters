@@ -240,6 +240,9 @@
     <ClCompile Include="gl_util.cpp">
       <Filter>源文件\core\util</Filter>
     </ClCompile>
+    <ClCompile Include="gl_screen_quad_vertex_array.cpp">
+      <Filter>源文件\core\object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="input.h">
@@ -371,6 +374,12 @@
     <ClInclude Include="ForwardBaseRenderer.h">
       <Filter>头文件\renderers</Filter>
     </ClInclude>
+    <ClInclude Include="gl_screen_quad_vertex_array.h">
+      <Filter>头文件\core\object</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_framebuffer.h">
+      <Filter>头文件\core\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="loading_config.json">
@@ -390,6 +399,9 @@
     </None>
     <None Include="phong_shader.frag">
       <Filter>头文件\shaders\frag_shaders</Filter>
+    </None>
+    <None Include="screen_quad_vertex_shader_util.vs">
+      <Filter>头文件\shaders\vertex_shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

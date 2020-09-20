@@ -137,6 +137,7 @@
     <ClCompile Include="gl_engine.cpp" />
     <ClCompile Include="gl_model.cpp" />
     <ClCompile Include="gl_object_manager.cpp" />
+    <ClCompile Include="gl_screen_quad_vertex_array.cpp" />
     <ClCompile Include="gl_script_manager.cpp" />
     <ClCompile Include="gl_window.cpp" />
     <ClCompile Include="gl_array_buffers.cpp" />
@@ -172,11 +173,13 @@
     <ClInclude Include="gl_camera.h" />
     <ClInclude Include="gl_context.h" />
     <ClInclude Include="gl_engine_shell.h" />
+    <ClInclude Include="gl_framebuffer.h" />
     <ClInclude Include="gl_geometry.h" />
     <ClInclude Include="gl_engine.h" />
     <ClInclude Include="gl_model.h" />
     <ClInclude Include="gl_object_manager.h" />
     <ClInclude Include="gl_renderer.h" />
+    <ClInclude Include="gl_screen_quad_vertex_array.h" />
     <ClInclude Include="gl_script_manager.h" />
     <ClInclude Include="gl_uniform_buffer.h" />
     <ClInclude Include="gl_window.h" />
@@ -210,6 +213,7 @@
     <None Include="loading_config.json" />
     <None Include="phong_shader.frag" />
     <None Include="phong_shader.vs" />
+    <None Include="screen_quad_vertex_shader_util.vs" />
     <None Include="world_config.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
