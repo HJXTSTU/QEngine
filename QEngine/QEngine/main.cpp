@@ -13,9 +13,9 @@ void SetupScripts(){
 }
 
 int main() {
-	myWorld = make_shared<MyWorld>();
 	gEngine = EngineShell::Instance();
 	gEngine->LaunchQEngine();
+	myWorld = make_shared<MyWorld>();
 	Context::SetWorldAndInit(myWorld, "world_config.json");
 	SetupScripts();
 	gEngine->Run();

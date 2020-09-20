@@ -70,9 +70,6 @@
     <Filter Include="源文件\util">
       <UniqueIdentifier>{1fa3703c-3cd0-4c42-a281-d1e360ca9757}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\core\world">
-      <UniqueIdentifier>{c8be2757-87ff-41ff-bbb5-42d1dc596207}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\core\engine">
       <UniqueIdentifier>{0967b51e-7e9e-4df5-b0f5-4088eef96f6f}</UniqueIdentifier>
     </Filter>
@@ -88,14 +85,44 @@
     <Filter Include="源文件\core\context">
       <UniqueIdentifier>{7cfb37fe-dd4d-4ad2-a90a-ad8e17cb34f6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\core\world">
-      <UniqueIdentifier>{fe77ffa3-bdc5-4118-9cf7-612549001d5b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\core\engine">
       <UniqueIdentifier>{66dfec72-05a2-4e99-9e11-606e3abade5b}</UniqueIdentifier>
     </Filter>
     <Filter Include="APP\scripts">
       <UniqueIdentifier>{4a80b3b9-74a9-4704-a94d-23545567f0a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\util">
+      <UniqueIdentifier>{830f4b33-2f79-43cc-81e5-541217e095c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\object">
+      <UniqueIdentifier>{db80d20c-f199-4bc8-892e-bd3ae50de870}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\assets">
+      <UniqueIdentifier>{45ccda85-df26-4965-8fd9-83c8f1c37f7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\context\world">
+      <UniqueIdentifier>{c8be2757-87ff-41ff-bbb5-42d1dc596207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\context\window">
+      <UniqueIdentifier>{4b89e9fb-04d3-422f-9d5b-e1519906f63d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\context\world">
+      <UniqueIdentifier>{fe77ffa3-bdc5-4118-9cf7-612549001d5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\context\window">
+      <UniqueIdentifier>{cf45eabf-8793-4153-825e-8728524dfa5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\assets">
+      <UniqueIdentifier>{e6c27943-07bd-4dfe-878d-d5678bf85048}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\object">
+      <UniqueIdentifier>{0f22e679-208e-4f3d-9461-793fe720ce5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\util">
+      <UniqueIdentifier>{1c619733-7ea5-4479-8827-c4595e0af7da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\shaders">
+      <UniqueIdentifier>{3b7b52ea-57a7-4471-9734-b39b731c975d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -105,28 +132,7 @@
     <ClCompile Include="input.cpp">
       <Filter>源文件\core</Filter>
     </ClCompile>
-    <ClCompile Include="shader.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_array_buffers.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
     <ClCompile Include="gl_element.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_base_vertex_array.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_geometry_vertex_array.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_transform.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_group.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_geometry.cpp">
       <Filter>源文件\core</Filter>
     </ClCompile>
     <ClCompile Include="CJsonObject.cpp">
@@ -137,24 +143,6 @@
     </ClCompile>
     <ClCompile Include="stb_image.cpp">
       <Filter>源文件\libs\stb_image</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_mesh.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_object3D.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_texture.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_util.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_assets.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_material.cpp">
-      <Filter>源文件\core</Filter>
     </ClCompile>
     <ClCompile Include="diffuse_material.cpp">
       <Filter>源文件\materials</Filter>
@@ -168,9 +156,6 @@
     <ClCompile Include="material_factory.cpp">
       <Filter>源文件\materials</Filter>
     </ClCompile>
-    <ClCompile Include="gl_window.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
     <ClCompile Include="gl_camera.cpp">
       <Filter>源文件\core</Filter>
     </ClCompile>
@@ -183,17 +168,14 @@
     <ClCompile Include="util.cpp">
       <Filter>源文件\util</Filter>
     </ClCompile>
-    <ClCompile Include="gl_model.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
     <ClCompile Include="gl_base_world.cpp">
-      <Filter>源文件\core\world</Filter>
+      <Filter>源文件\core\context\world</Filter>
     </ClCompile>
     <ClCompile Include="gl_object_manager.cpp">
-      <Filter>源文件\core\world</Filter>
+      <Filter>源文件\core\context\world</Filter>
     </ClCompile>
     <ClCompile Include="gl_script_manager.cpp">
-      <Filter>源文件\core\world</Filter>
+      <Filter>源文件\core\context\world</Filter>
     </ClCompile>
     <ClCompile Include="gl_engine_shell.cpp">
       <Filter>源文件\core\engine</Filter>
@@ -207,54 +189,60 @@
     <ClCompile Include="phong_material.cpp">
       <Filter>源文件\materials</Filter>
     </ClCompile>
+    <ClCompile Include="gl_window.cpp">
+      <Filter>源文件\core\context\window</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_assets.cpp">
+      <Filter>源文件\core\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_material.cpp">
+      <Filter>源文件\core\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_model.cpp">
+      <Filter>源文件\core\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_texture.cpp">
+      <Filter>源文件\core\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_group.cpp">
+      <Filter>源文件\core\object</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_mesh.cpp">
+      <Filter>源文件\core\object</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_object3D.cpp">
+      <Filter>源文件\core\object</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_transform.cpp">
+      <Filter>源文件\core\object</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_geometry_vertex_array.cpp">
+      <Filter>源文件\core\object</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_geometry.cpp">
+      <Filter>源文件\core\object</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cpp">
+      <Filter>源文件\core\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_array_buffers.cpp">
+      <Filter>源文件\core\util</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_base_vertex_array.cpp">
+      <Filter>源文件\core\util</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_util.cpp">
+      <Filter>源文件\core\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="constant.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
     <ClInclude Include="input.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_scene_handler.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
     <ClInclude Include="base_scene.h">
       <Filter>头文件\scenes</Filter>
     </ClInclude>
-    <ClInclude Include="shader.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
     <ClInclude Include="gl_element.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_array_buffer.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_base_vertex_array.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_geometry_vertex_array.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_transform.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_object3D.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_group.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_mesh.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_material.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_vertex.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_geometry.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
     <ClInclude Include="CJsonObject.hpp">
@@ -269,15 +257,6 @@
     <ClInclude Include="stb_image_write.h">
       <Filter>头文件\libs\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="gl_texture.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_util.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_assets.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
     <ClInclude Include="loader_util.h">
       <Filter>头文件\config</Filter>
     </ClInclude>
@@ -290,32 +269,20 @@
     <ClInclude Include="util.h">
       <Filter>头文件\util</Filter>
     </ClInclude>
-    <ClInclude Include="gl_window.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
     <ClInclude Include="gl_camera.h">
       <Filter>头文件\core</Filter>
     </ClInclude>
     <ClInclude Include="gl_context.h">
       <Filter>头文件\core\context</Filter>
     </ClInclude>
-    <ClInclude Include="gl_buffer.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_uniform_buffer.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_model.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
     <ClInclude Include="gl_base_world.h">
-      <Filter>头文件\core\world</Filter>
+      <Filter>头文件\core\context\world</Filter>
     </ClInclude>
     <ClInclude Include="gl_object_manager.h">
-      <Filter>头文件\core\world</Filter>
+      <Filter>头文件\core\context\world</Filter>
     </ClInclude>
     <ClInclude Include="gl_script_manager.h">
-      <Filter>头文件\core\world</Filter>
+      <Filter>头文件\core\context\world</Filter>
     </ClInclude>
     <ClInclude Include="Rotator.h">
       <Filter>APP\scripts</Filter>
@@ -331,6 +298,66 @@
     </ClInclude>
     <ClInclude Include="phong_material.h">
       <Filter>头文件\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="constant.h">
+      <Filter>头文件\core\util</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_array_buffer.h">
+      <Filter>头文件\core\util</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_base_vertex_array.h">
+      <Filter>头文件\core\util</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_buffer.h">
+      <Filter>头文件\core\util</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_geometry_vertex_array.h">
+      <Filter>头文件\core\object</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_geometry.h">
+      <Filter>头文件\core\object</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_group.h">
+      <Filter>头文件\core\object</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_mesh.h">
+      <Filter>头文件\core\object</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_assets.h">
+      <Filter>头文件\core\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_model.h">
+      <Filter>头文件\core\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_object3D.h">
+      <Filter>头文件\core\object</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_transform.h">
+      <Filter>头文件\core\object</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_uniform_buffer.h">
+      <Filter>头文件\core\util</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_vertex.h">
+      <Filter>头文件\core\object</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_util.h">
+      <Filter>头文件\core\util</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_scene_handler.h">
+      <Filter>头文件\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="shader.h">
+      <Filter>头文件\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_window.h">
+      <Filter>头文件\core\context\window</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_texture.h">
+      <Filter>头文件\core\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_material.h">
+      <Filter>头文件\core\assets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
