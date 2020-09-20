@@ -14,6 +14,8 @@ Camera Context::mainCamera;
 
 BaseWorldPointer Context::world;
 
+BaseRendererPointer Context::renderer;
+
 
 void Context::CursorScrollCallback(GLFWwindow* window, double xpos, double ypos)
 {
@@ -129,6 +131,11 @@ void Context::SetWorldAndInit(BaseWorldPointer world, const string & configFileP
 	InitWorld(configFilePath);
 }
 
+void Context::SetRenderer(BaseRendererPointer renderer)
+{
+	Context::renderer = renderer;
+}
+
 Context::Context()
 {
 }
@@ -181,11 +188,13 @@ void Context::LateUpdate()
 
 void Context::Render()
 {
-	glClearColor(0, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
-	Context::world->Root()->OnSurfaceRender();
+	if (Context::renderer) {
+		Context::renderer->OnRender(Context::world);
+	}
+	else {
+		glClearColor(1, 0, 0, 1);
+		glClear(GL_COLOR_BUFFER_BIT);
+	}
 }
 
 void Context::EndFrame()

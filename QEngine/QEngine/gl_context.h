@@ -9,6 +9,7 @@
 #include "gl_assets.h"
 #include "gl_base_world.h"
 #include "gl_mesh.h"
+#include "gl_renderer.h"
 
 using namespace std;
 
@@ -33,12 +34,16 @@ public:
 	static Camera mainCamera;
 
 	static BaseWorldPointer world;
+
+	static BaseRendererPointer renderer;
 public:
 	static ContextPointer CreateContext();
 
 	static void SetWorld(BaseWorldPointer world);
 	
 	static void SetWorldAndInit(BaseWorldPointer world, const string &configFilePath);
+
+	static void SetRenderer(BaseRendererPointer renderer);
 private:
 	static void InitWorld(const string &configFilePath);
 public:

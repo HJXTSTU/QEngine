@@ -124,6 +124,12 @@
     <Filter Include="源文件\core\shaders">
       <UniqueIdentifier>{3b7b52ea-57a7-4471-9734-b39b731c975d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\core\renderer">
+      <UniqueIdentifier>{50f21e8d-fab1-458c-beea-83c32236e6c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\renderers">
+      <UniqueIdentifier>{43043405-bd4a-455e-ade4-e83f4435dae4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="libs\glad.c">
@@ -358,6 +364,12 @@
     </ClInclude>
     <ClInclude Include="gl_material.h">
       <Filter>头文件\core\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_renderer.h">
+      <Filter>头文件\core\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="ForwardBaseRenderer.h">
+      <Filter>头文件\renderers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
