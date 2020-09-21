@@ -243,6 +243,9 @@
     <ClCompile Include="gl_screen_quad_vertex_array.cpp">
       <Filter>源文件\core\object</Filter>
     </ClCompile>
+    <ClCompile Include="gl_render_texture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="input.h">
@@ -378,6 +381,9 @@
       <Filter>头文件\core\object</Filter>
     </ClInclude>
     <ClInclude Include="gl_framebuffer.h">
+      <Filter>头文件\core\util</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_render_texture.h">
       <Filter>头文件\core\util</Filter>
     </ClInclude>
   </ItemGroup>

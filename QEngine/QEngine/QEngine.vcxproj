@@ -137,6 +137,7 @@
     <ClCompile Include="gl_engine.cpp" />
     <ClCompile Include="gl_model.cpp" />
     <ClCompile Include="gl_object_manager.cpp" />
+    <ClCompile Include="gl_render_texture.cpp" />
     <ClCompile Include="gl_screen_quad_vertex_array.cpp" />
     <ClCompile Include="gl_script_manager.cpp" />
     <ClCompile Include="gl_window.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="gl_model.h" />
     <ClInclude Include="gl_object_manager.h" />
     <ClInclude Include="gl_renderer.h" />
+    <ClInclude Include="gl_render_texture.h" />
     <ClInclude Include="gl_screen_quad_vertex_array.h" />
     <ClInclude Include="gl_script_manager.h" />
     <ClInclude Include="gl_uniform_buffer.h" />
