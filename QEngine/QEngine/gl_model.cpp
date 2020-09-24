@@ -19,6 +19,7 @@ std::shared_ptr<Object3D> Model::Instantiate(MaterialPointer prototype_mat) {
 			pMat->SetTexture(it->first, it->second);
 		}
 		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(pGeo, pMat);
+		mesh->name = pGeo->name;
 		group->AddChild(mesh);
 	}
 	return group;

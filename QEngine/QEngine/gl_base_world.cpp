@@ -19,7 +19,13 @@ void BaseWorld::BindScriptTo(BaseScriptPointer script, const string & name)
 {
 	m_scriptManager.AddScript(name,script);
 	shared_ptr<Object3D> obj = m_objectManager.FindObjectByName(name);
-	script->OnCreate(obj);
+	if (obj) {
+		script->OnCreate(obj);
+	}
+	else {
+		LogError(string("Can't not find ") + name);
+	}
+	
 }
 
 void BaseWorld::UpdateWorld(float deltaTime)

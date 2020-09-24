@@ -8,6 +8,7 @@
 
 void processMesh(std::shared_ptr<AssetsManager> assets, ModelPointer model, std::string &directory,std::string &name, aiMesh *mesh, const aiScene *scene) {
 	GeometryPointer pGeo = make_shared<Geometry>();
+	pGeo->name = mesh->mName.C_Str();
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
 		Vertex vertex;

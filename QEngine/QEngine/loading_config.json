@@ -34,8 +34,8 @@
   ],
   "MODELS": [
     {
-      "PATH": "./assets/models/fbx/bunny/stanford-bunny.fbx",
-      "NAME": "bunny"
+      "PATH": "./assets/models/dragon/dragon.obj",
+      "NAME": "dragon"
     }
   ]
 }

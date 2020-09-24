@@ -130,6 +130,9 @@
     <Filter Include="头文件\renderers">
       <UniqueIdentifier>{43043405-bd4a-455e-ade4-e83f4435dae4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="APP\config">
+      <UniqueIdentifier>{79733643-b244-4bb0-84d3-6bfd56722f1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="libs\glad.c">
@@ -388,17 +391,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="loading_config.json">
-      <Filter>头文件\config</Filter>
-    </None>
     <None Include="diffuse_shader.vs">
       <Filter>头文件\shaders\vertex_shaders</Filter>
     </None>
     <None Include="diffuse_shader.frag">
       <Filter>头文件\shaders\frag_shaders</Filter>
-    </None>
-    <None Include="world_config.json">
-      <Filter>头文件\config</Filter>
     </None>
     <None Include="phong_shader.vs">
       <Filter>头文件\shaders\vertex_shaders</Filter>
@@ -408,6 +405,12 @@
     </None>
     <None Include="screen_quad_vertex_shader_util.vs">
       <Filter>头文件\shaders\vertex_shaders</Filter>
+    </None>
+    <None Include="world_config.json">
+      <Filter>APP\config</Filter>
+    </None>
+    <None Include="loading_config.json">
+      <Filter>APP\config</Filter>
     </None>
   </ItemGroup>
 </Project>

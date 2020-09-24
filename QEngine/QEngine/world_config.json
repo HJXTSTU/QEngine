@@ -1,8 +1,8 @@
 {
   "OBJECTS": [
     {
-      "NAME": "bunny",
-      "FROM_MODEL": "bunny",
+      "NAME": "dragon",
+      "FROM_MODEL": "dragon",
       "MATERIAL": "phong",
       "PARENT": "__ROOT__"
     }

@@ -10,7 +10,7 @@ class Geometry: public std::enable_shared_from_this<Geometry> {
 private:
 	static void caculateTangent(Vertex &p0, Vertex &p1, Vertex &p2);
 public:
-	
+	std::string name;
 
 	static GeometryPointer GeneratePlaneGeometry(float size = 1.0f, float texcoordSize = 1.0f);
 public:

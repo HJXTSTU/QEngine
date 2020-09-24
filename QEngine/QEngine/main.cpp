@@ -11,7 +11,7 @@ BaseRendererPointer myRenderer;
 
 void SetupScripts(){
 	BaseScriptPointer rotator = make_shared<Rotator>();
-	myWorld->BindScriptTo(rotator, "bunny");
+	myWorld->BindScriptTo(rotator, "dragon");
 }
 
 int main() {
