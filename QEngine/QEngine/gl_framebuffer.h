@@ -14,6 +14,14 @@ public:
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
+	bool CheckFramebufferStatus() {
+		return glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE;
+	}
+
+	void FramebufferTexture2D(GLuint texid,GLenum dattachMent,GLenum textarget) {
+		//glFramebufferTexture2D();
+	}
+
 	~Framebuffer() {
 		if (id) {
 			glDeleteBuffers(1, &id);
