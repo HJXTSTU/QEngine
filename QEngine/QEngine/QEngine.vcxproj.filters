@@ -247,7 +247,10 @@
       <Filter>源文件\core\object</Filter>
     </ClCompile>
     <ClCompile Include="gl_render_texture.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\core\util</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_framebuffer.cpp">
+      <Filter>源文件\core\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

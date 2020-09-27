@@ -133,6 +133,7 @@
     <ClCompile Include="gl_camera.cpp" />
     <ClCompile Include="gl_context.cpp" />
     <ClCompile Include="gl_engine_shell.cpp" />
+    <ClCompile Include="gl_framebuffer.cpp" />
     <ClCompile Include="gl_geometry.cpp" />
     <ClCompile Include="gl_engine.cpp" />
     <ClCompile Include="gl_model.cpp" />

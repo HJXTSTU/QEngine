@@ -1,30 +1,19 @@
 #pragma once
 #include "gl_element.h"
+#include "gl_render_texture.h"
 class Framebuffer:public GLElement {
 public:
-	Framebuffer() {
-		glGenFramebuffers(1, &id);
-	}
+	Framebuffer();
 
-	void UseFramebuffer() {
-		glBindFramebuffer(GL_FRAMEBUFFER, this->id);
-	}
+	void UseFramebuffer();
 
-	void UnUseFramebuffer() {
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	}
+	void UnUseFramebuffer();
 
-	bool CheckFramebufferStatus() {
-		return glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE;
-	}
+	bool CheckFramebufferStatus();
 
-	void FramebufferTexture2D(GLuint texid,GLenum dattachMent,GLenum textarget) {
-		//glFramebufferTexture2D();
-	}
+	void AttachColorAttachment(RenderTexture &color_texture, GLuint num);
 
-	~Framebuffer() {
-		if (id) {
-			glDeleteBuffers(1, &id);
-		}
-	}
+	void AttachDepthStencilAttachment(RenderTexture &depth_texture);
+
+	~Framebuffer();
 };
