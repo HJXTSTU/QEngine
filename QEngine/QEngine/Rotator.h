@@ -17,7 +17,7 @@ public:
 	}
 
 	virtual void OnUpdate(float deltaTime) {
-		if(this->dragon)
-			this->dragon->transform.Rotate(glm::radians(45.0f*deltaTime),glm::vec3(0,1,0));
+		/*if(this->dragon)
+			this->dragon->transform.Rotate(glm::radians(45.0f*deltaTime),glm::vec3(0,1,0));*/
 	}
 };

@@ -133,6 +133,12 @@
     <Filter Include="APP\config">
       <UniqueIdentifier>{79733643-b244-4bb0-84d3-6bfd56722f1e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\renderers">
+      <UniqueIdentifier>{f27c685e-e0ab-49ee-ac68-42cde1302299}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\test">
+      <UniqueIdentifier>{9c44cf39-21ef-4e5e-b43e-f31b7f402862}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="libs\glad.c">
@@ -251,6 +257,9 @@
     </ClCompile>
     <ClCompile Include="gl_framebuffer.cpp">
       <Filter>源文件\core\util</Filter>
+    </ClCompile>
+    <ClCompile Include="GBuffer.cpp">
+      <Filter>源文件\renderers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -392,6 +401,18 @@
     <ClInclude Include="gl_render_texture.h">
       <Filter>头文件\core\util</Filter>
     </ClInclude>
+    <ClInclude Include="GBuffer.h">
+      <Filter>头文件\renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="DefferRenderer.h">
+      <Filter>头文件\renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="CopyRenderer.h">
+      <Filter>头文件\test</Filter>
+    </ClInclude>
+    <ClInclude Include="CopyDepthRenderer.h">
+      <Filter>头文件\test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="diffuse_shader.vs">
@@ -414,6 +435,18 @@
     </None>
     <None Include="loading_config.json">
       <Filter>APP\config</Filter>
+    </None>
+    <None Include="gbuffer_shader.vs">
+      <Filter>头文件\shaders\vertex_shaders</Filter>
+    </None>
+    <None Include="gbuffer_shader.frag">
+      <Filter>头文件\shaders\frag_shaders</Filter>
+    </None>
+    <None Include="copy_shader.frag">
+      <Filter>头文件\shaders\frag_shaders</Filter>
+    </None>
+    <None Include="copy_depth_shader.frag">
+      <Filter>头文件\shaders\frag_shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

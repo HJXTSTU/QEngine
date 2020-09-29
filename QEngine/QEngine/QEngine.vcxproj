@@ -128,6 +128,7 @@
     <ClCompile Include="config_models_processor.cpp" />
     <ClCompile Include="config_textures_processor.cpp" />
     <ClCompile Include="diffuse_material.cpp" />
+    <ClCompile Include="GBuffer.cpp" />
     <ClCompile Include="gl_assets.cpp" />
     <ClCompile Include="gl_base_world.cpp" />
     <ClCompile Include="gl_camera.cpp" />
@@ -167,8 +168,12 @@
     <ClInclude Include="cJSON.h" />
     <ClInclude Include="CJsonObject.hpp" />
     <ClInclude Include="constant.h" />
+    <ClInclude Include="CopyDepthRenderer.h" />
+    <ClInclude Include="CopyRenderer.h" />
+    <ClInclude Include="DefferRenderer.h" />
     <ClInclude Include="diffuse_material.h" />
     <ClInclude Include="ForwardBaseRenderer.h" />
+    <ClInclude Include="GBuffer.h" />
     <ClInclude Include="gl_assets.h" />
     <ClInclude Include="gl_base_world.h" />
     <ClInclude Include="gl_buffer.h" />
@@ -211,8 +216,12 @@
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="copy_depth_shader.frag" />
+    <None Include="copy_shader.frag" />
     <None Include="diffuse_shader.frag" />
     <None Include="diffuse_shader.vs" />
+    <None Include="gbuffer_shader.frag" />
+    <None Include="gbuffer_shader.vs" />
     <None Include="loading_config.json" />
     <None Include="phong_shader.frag" />
     <None Include="phong_shader.vs" />

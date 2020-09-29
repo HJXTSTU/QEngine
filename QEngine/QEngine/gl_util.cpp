@@ -1,7 +1,7 @@
 #include "gl_util.h"
 #include <fstream>
 
-void UserTexture(GLuint texture_code, GLuint id) {
+void UseTexture(GLuint texture_code, GLuint id) {
 	glActiveTexture(texture_code);
 	glBindTexture(GL_TEXTURE_2D, id);
 }

@@ -15,5 +15,7 @@ public:
 
 	void AttachDepthStencilAttachment(RenderTexture &depth_texture);
 
+	void CompleteSetupFramebuffer(GLuint attachment_cnt);
+
 	~Framebuffer();
 };

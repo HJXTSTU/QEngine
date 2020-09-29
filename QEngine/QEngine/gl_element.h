@@ -4,5 +4,5 @@ class GLElement {
 protected:
 	GLuint id;
 public:
-	GLuint GetID();
+	GLuint GetID()const;
 };

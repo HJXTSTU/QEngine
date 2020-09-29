@@ -3,6 +3,6 @@
 #include <string>
 using namespace std;
 
-void UserTexture(GLuint texture_code, GLuint id);
+void UseTexture(GLuint texture_code, GLuint id);
 
 char* ReadJsonFile(const string &path);

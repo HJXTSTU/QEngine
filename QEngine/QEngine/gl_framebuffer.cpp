@@ -33,6 +33,17 @@ void Framebuffer::AttachDepthStencilAttachment(RenderTexture &depth_texture) {
 	this->UnUseFramebuffer();
 }
 
+void  Framebuffer::CompleteSetupFramebuffer(GLuint attachment_cnt) {
+	GLuint *attachments = new GLuint[attachment_cnt];
+	for (int i = 0; i < attachment_cnt; i++) {
+		attachments[i] = GL_COLOR_ATTACHMENT0 + i;
+	}
+	UseFramebuffer();
+	glDrawBuffers(attachment_cnt, attachments);
+	UnUseFramebuffer();
+	delete[] attachments;
+}
+
 Framebuffer::~Framebuffer() {
 	if (id) {
 		glDeleteBuffers(1, &id);

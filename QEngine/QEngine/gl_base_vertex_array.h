@@ -1,4 +1,5 @@
-#include "gl_array_buffer.h"
+#pragma once
+#include "gl_element.h"
 class GLBaseVertexArray :public GLElement {
 protected:
 	void Use();

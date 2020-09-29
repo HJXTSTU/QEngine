@@ -7,7 +7,8 @@ Mesh::Mesh(GeometryPointer geometry, MaterialPointer material) :pGeometry(geomet
 
 void Mesh::OnGBufferRender(Shader& gbufferShader)
 {
-	gbufferShader.setMat4("model", this->transform.MatrixWorld());
+	glm::mat4 model = this->transform.MatrixWorld();
+	gbufferShader.setMat4("model", model);
 	this->vertexArray.DrawElement();
 	for (int i = 0; i < this->children.size(); i++) {
 		this->children[i]->OnGBufferRender(gbufferShader);

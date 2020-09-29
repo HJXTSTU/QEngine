@@ -1,6 +1,6 @@
 #include "gl_element.h"
 
-GLuint GLElement::GetID()
+GLuint GLElement::GetID()const
 {
 	return id;
 }

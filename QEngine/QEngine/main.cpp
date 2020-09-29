@@ -1,7 +1,7 @@
 #include "gl_engine_shell.h"
 #include "MyWorld.h"
 #include "Rotator.h"
-#include "ForwardBaseRenderer.h"
+#include "DefferRenderer.h"
 using namespace std;
 using namespace QEngine;
 
@@ -18,7 +18,7 @@ int main() {
 	gEngine = EngineShell::Instance();
 	gEngine->LaunchQEngine();
 	myWorld = make_shared<MyWorld>();
-	myRenderer = make_shared<ForwardBaseRenderer>();
+	myRenderer = make_shared<DefferRenderer>();
 	Context::SetWorldAndInit(myWorld, "world_config.json");
 	Context::SetRenderer(myRenderer);
 	SetupScripts();
