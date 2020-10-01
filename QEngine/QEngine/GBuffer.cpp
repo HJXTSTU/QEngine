@@ -6,10 +6,13 @@ GBuffer::GBuffer() {
 	m_rtNormalTexture.Initialize(SRC_WIDTH, SRC_HEIGHT, GL_RGB16F, GL_RGB, GL_FLOAT);
 	m_framebuffer.AttachColorAttachment(m_rtNormalTexture, 0);
 
-	m_rtTangentTexture.Initialize(SRC_WIDTH, SRC_HEIGHT, GL_RGB16F, GL_RGB, GL_FLOAT);
-	m_framebuffer.AttachColorAttachment(m_rtTangentTexture, 1);
+	//m_rtTangentTexture.Initialize(SRC_WIDTH, SRC_HEIGHT, GL_RGB16F, GL_RGB, GL_FLOAT);
+	//m_framebuffer.AttachColorAttachment(m_rtTangentTexture, 1);
 
-	m_framebuffer.CompleteSetupFramebuffer(2);
+	//m_rtBitangentTexture.Initialize(SRC_WIDTH, SRC_HEIGHT, GL_RGB16F, GL_RGB, GL_FLOAT);
+	//m_framebuffer.AttachColorAttachment(m_rtBitangentTexture, 2);
+
+	m_framebuffer.CompleteSetupFramebuffer(1);
 
 	m_gbufferShader.LoadShader("gbuffer_shader.vs", "gbuffer_shader.frag");
 }

@@ -10,6 +10,7 @@ private:
 	RenderTexture m_rtDepthTexture;
 	RenderTexture m_rtNormalTexture;
 	RenderTexture m_rtTangentTexture;
+	RenderTexture m_rtBitangentTexture;
 	Framebuffer m_framebuffer;
 	Shader m_gbufferShader;
 public:

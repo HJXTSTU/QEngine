@@ -205,6 +205,7 @@
     <ClInclude Include="gl_util.h" />
     <ClInclude Include="gl_vertex.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="light.h" />
     <ClInclude Include="loader_util.h" />
     <ClInclude Include="material_factory.h" />
     <ClInclude Include="MyWorld.h" />

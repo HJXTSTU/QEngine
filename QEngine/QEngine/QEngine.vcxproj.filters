@@ -139,6 +139,9 @@
     <Filter Include="头文件\test">
       <UniqueIdentifier>{9c44cf39-21ef-4e5e-b43e-f31b7f402862}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\core\lights">
+      <UniqueIdentifier>{c6edf10f-fc51-4a67-838e-d2bb1bb73e91}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="libs\glad.c">
@@ -412,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="CopyDepthRenderer.h">
       <Filter>头文件\test</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>头文件\core\lights</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
