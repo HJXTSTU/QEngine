@@ -2,7 +2,7 @@
 #include <fstream>
 
 void UseTexture(GLuint texture_code, GLuint id) {
-	glActiveTexture(texture_code);
+	glActiveTexture(GL_TEXTURE0+texture_code);
 	glBindTexture(GL_TEXTURE_2D, id);
 }
 

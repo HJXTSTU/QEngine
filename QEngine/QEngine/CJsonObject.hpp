@@ -77,6 +77,13 @@ namespace neb
 			return value;
 		}
 
+		template<typename T>
+		T Get(int iWhich) {
+			T value;
+			Get(iWhich, value);
+			return value;
+		}
+
 	public:     // method of json array
 		int GetArraySize();
 		CJsonObject& operator[](unsigned int uiWhich);

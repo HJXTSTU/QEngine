@@ -9,6 +9,7 @@ void Mesh::OnGBufferRender(Shader& gbufferShader)
 {
 	glm::mat4 model = this->transform.MatrixWorld();
 	gbufferShader.setMat4("model", model);
+	gbufferShader.setMat3("normalMatrix", glm::mat3(glm::transpose(glm::inverse(model))));
 	this->vertexArray.DrawElement();
 	for (int i = 0; i < this->children.size(); i++) {
 		this->children[i]->OnGBufferRender(gbufferShader);
@@ -24,6 +25,16 @@ void Mesh::OnSurfaceRender()
 
 	for (int i = 0; i < this->children.size(); i++) {
 		this->children[i]->OnSurfaceRender();
+	}
+}
+
+void Mesh::OnSurfaceRender(const RenderTexture &lightBuffer) {
+	this->pMaterial->Use(this->transform.MatrixWorld(), lightBuffer);
+
+	this->vertexArray.DrawElement();
+
+	for (int i = 0; i < this->children.size(); i++) {
+		this->children[i]->OnSurfaceRender(lightBuffer);
 	}
 }
 

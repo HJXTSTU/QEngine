@@ -181,7 +181,7 @@ static char *print_double(cJSON *item)
 static char *print_int(cJSON *item)
 {
     char *str;
-    str = (char*) cJSON_malloc(22); /* 2^64+1 can be represented in 21 chars. */
+    str = (char*) malloc(22); /* 2^64+1 can be represented in 21 chars. */
     if (str)
     {
         if (item->sign == -1)
@@ -756,12 +756,12 @@ static char *print_object(cJSON *item, int depth, int fmt)
         if (fmt)
             for (j = 0; j < depth; j++)
                 *ptr++ = '\t';
-        strcpy_s(ptr, strlen(names[i])+1,names[i]);
+		strcpy(ptr, names[i]);
         ptr += strlen(names[i]);
         *ptr++ = ':';
         if (fmt)
             *ptr++ = '\t';
-        strcpy_s(ptr, strlen(entries[i])+1,entries[i]);
+        strcpy(ptr, entries[i]);
         ptr += strlen(entries[i]);
         if (i != numentries - 1)
             *ptr++ = ',';

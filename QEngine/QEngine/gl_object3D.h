@@ -3,6 +3,7 @@
 #include "shader.h"
 #include <memory>
 #include <set>
+#include "gl_render_texture.h"
 
 using namespace std;
 
@@ -24,6 +25,8 @@ public:
 	virtual void OnGBufferRender(Shader& gbufferShader) = 0;
 
 	virtual void OnSurfaceRender() = 0;
+
+	virtual void OnSurfaceRender(const RenderTexture &lightBuffer) = 0;
 
 	virtual ObjectType GetType() = 0;
 

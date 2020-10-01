@@ -9,5 +9,7 @@ public:
 
 	virtual void OnSurfaceRender();
 
+	virtual void OnSurfaceRender(const RenderTexture &lightBuffer);
+
 	virtual ObjectType GetType();
 };

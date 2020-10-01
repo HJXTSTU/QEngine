@@ -10,6 +10,7 @@
 #include "util.h"
 #include "gl_object_manager.h"
 #include "gl_script_manager.h"
+#include "light.h"
 
 using namespace std;
 class BaseWorld;
@@ -19,6 +20,7 @@ class BaseWorld :public enable_shared_from_this<BaseWorld> {
 private:
 	ObjectManager m_objectManager;
 	ScriptsManager m_scriptManager;
+	vector<LightPointer>  m_lights;
 public:
 
 	shared_ptr<Object3D> FindObjectByName(const string &name);
@@ -30,6 +32,10 @@ public:
 	void BindScriptTo(BaseScriptPointer script, const string &name);
 
 	void UpdateWorld(float deltaTime);
+
+	vector<LightPointer> &GetLights() { return m_lights; }
+
+	void AddLight(LightPointer light) { m_lights.push_back(light); }
 
 	const shared_ptr<Group> Root();
 

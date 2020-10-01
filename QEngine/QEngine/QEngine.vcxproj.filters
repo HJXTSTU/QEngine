@@ -419,6 +419,12 @@
     <ClInclude Include="light.h">
       <Filter>头文件\core\lights</Filter>
     </ClInclude>
+    <ClInclude Include="direction_light.h">
+      <Filter>头文件\core\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="LightAccmulatePass.h">
+      <Filter>头文件\renderers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="diffuse_shader.vs">
@@ -452,6 +458,15 @@
       <Filter>头文件\shaders\frag_shaders</Filter>
     </None>
     <None Include="copy_depth_shader.frag">
+      <Filter>头文件\shaders\frag_shaders</Filter>
+    </None>
+    <None Include="direction_light_accmulate_shader.frag">
+      <Filter>头文件\shaders\frag_shaders</Filter>
+    </None>
+    <None Include="defer_phong_shader.vs">
+      <Filter>头文件\shaders\vertex_shaders</Filter>
+    </None>
+    <None Include="defer_phong_shader.frag">
       <Filter>头文件\shaders\frag_shaders</Filter>
     </None>
   </ItemGroup>

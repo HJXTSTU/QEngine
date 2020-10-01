@@ -7,6 +7,7 @@ layout (location = 3) in vec3 vTangents;
 out vec3 Normal;
 
 uniform mat4 model;
+uniform mat3 normalMatrix;
 
 layout(std140, binding = 0) uniform Matrics{
 						//	Base Alignment		Aligned Offset
@@ -19,7 +20,7 @@ layout(std140, binding = 0) uniform Matrics{
 void main(){
 	gl_Position = projection*view*model*vec4(vPos,1.0f);
 
-	Normal = normalize(vNorm);
+	Normal = normalize(normalMatrix*vNorm);
 	
 	//vec3 T = normalize(vec3(model * vec4(vTangents,0.0f)));
     //vec3 N = normalize(vec3(model * vec4(vNorm,0.0f)));

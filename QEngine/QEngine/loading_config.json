@@ -34,8 +34,8 @@
   ],
   "MODELS": [
     {
-      "PATH": "./assets/models/dragon/dragon.obj",
-      "NAME": "dragon"
+      "NAME": "dragon",
+      "PATH": "./assets/models/dragon/dragon.obj"
     }
   ]
 }

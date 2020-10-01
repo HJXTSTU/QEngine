@@ -1,6 +1,7 @@
 #include "gl_context.h"
 #include "CJsonObject.hpp"
 #include "gl_util.h"
+#include "direction_light.h"
 using namespace neb;
 //#include "input.h"
 
@@ -117,6 +118,32 @@ void Context::InitWorld(const string &configFilePath) {
 	}
 	else {
 		LogError("World config doesn't contain key---(OBJECTS)");
+	}
+
+	if (worldObjectsConfig.HasKey("LIGHTS")) {
+		CJsonObject lights = worldObjectsConfig.Get<CJsonObject>("LIGHTS");
+		int size = lights.GetArraySize();
+		for (int i = 0; i < size; i++) {
+			CJsonObject light = lights[i];
+			string type = light.Get<string>("TYPE");
+			if (type == "DIRECTION") {
+				CJsonObject params = light.Get<CJsonObject>("PARAMS");
+				CJsonObject lightColor = params.Get<CJsonObject>("LIGHT_COLOR");
+				CJsonObject lightDirection = params.Get<CJsonObject>("LIGHT_DIRECTION");
+				float r = lightColor.Get<float>(0);
+				float g = lightColor.Get<float>(1);
+				float b = lightColor.Get<float>(2);
+				glm::vec3 color(r, g, b);
+				
+				float x = lightDirection.Get<float>(0);
+				float y = lightDirection.Get<float>(1);
+				float z = lightDirection.Get<float>(2);
+				glm::vec3 direction(x, y, z);
+
+				LightPointer light = DirectionLight::Create(color,direction);
+				world->AddLight(light);
+			}
+		}
 	}
 }
 

@@ -172,6 +172,7 @@
     <ClInclude Include="CopyRenderer.h" />
     <ClInclude Include="DefferRenderer.h" />
     <ClInclude Include="diffuse_material.h" />
+    <ClInclude Include="direction_light.h" />
     <ClInclude Include="ForwardBaseRenderer.h" />
     <ClInclude Include="GBuffer.h" />
     <ClInclude Include="gl_assets.h" />
@@ -206,6 +207,7 @@
     <ClInclude Include="gl_vertex.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="light.h" />
+    <ClInclude Include="LightAccmulatePass.h" />
     <ClInclude Include="loader_util.h" />
     <ClInclude Include="material_factory.h" />
     <ClInclude Include="MyWorld.h" />
@@ -219,8 +221,11 @@
   <ItemGroup>
     <None Include="copy_depth_shader.frag" />
     <None Include="copy_shader.frag" />
+    <None Include="defer_phong_shader.frag" />
+    <None Include="defer_phong_shader.vs" />
     <None Include="diffuse_shader.frag" />
     <None Include="diffuse_shader.vs" />
+    <None Include="direction_light_accmulate_shader.frag" />
     <None Include="gbuffer_shader.frag" />
     <None Include="gbuffer_shader.vs" />
     <None Include="loading_config.json" />

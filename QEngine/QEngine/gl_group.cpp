@@ -15,6 +15,12 @@ void Group::OnSurfaceRender() {
 	}
 }
 
+void Group::OnSurfaceRender(const RenderTexture &lightBuffer) {
+	for (int i = 0; i < this->children.size(); i++) {
+		this->children[i]->OnSurfaceRender(lightBuffer);
+	}
+}
+
 ObjectType Group::GetType() {
 	return ObjectType::GROUP_OBJECT;
 }
