@@ -4,62 +4,88 @@
 PhongMaterial::PhongMaterial() {
 	m_shader.LoadShader("defer_phong_shader.vs", "defer_phong_shader.frag");
 	m_shader.use();
-	m_shader.setInt("diffuseMap", 0);
-	m_shader.setInt("specularMap", 1);
-	m_shader.setInt("normalMap", 2);
+	m_shader.setInt(UNIFORM_DIFFUSE_MAP, UNIFORM_DIFFUSE_MAP_CODE);
+	m_shader.setInt(UNIFORM_SPECULAR_MAP, UNIFORM_SPECULAR_MAP_CODE);
+	m_shader.setInt(UNIFORM_NORMAL_MAP, UNIFORM_NORMAL_MAP_CODE);
 	m_shader.setInt("LightBuffer", 3);
 }
 
 void PhongMaterial::Use(const glm::mat4 &model) {
 	Material::Use(model);
 	if (m_pDiffuseMap) {
-		m_pDiffuseMap->Use(0);
-		m_shader.setInt("UseDiffuseMap", 1);
+		m_pDiffuseMap->Use(UNIFORM_DIFFUSE_MAP_CODE);
+		m_shader.setInt(UNIFORM_USE_DIFFUSE_MAP, 1);
 	}
 	else {
-		m_shader.setInt("UseDiffuseMap", 0);
+		m_shader.setInt(UNIFORM_USE_DIFFUSE_MAP, 0);
 	}
 	if (m_pSpecularMap) {
-		m_pSpecularMap->Use(1);
-		m_shader.setInt("UseSpecularMap", 1);
+		m_pSpecularMap->Use(UNIFORM_SPECULAR_MAP_CODE);
+		m_shader.setInt(UNIFORM_USE_SPECULAR_MAP, 1);
 	}
 	else {
-		m_shader.setInt("UseSpecularMap", 0);
+		m_shader.setInt(UNIFORM_USE_SPECULAR_MAP, 0);
 	}
 	if (m_pNormalMap) {
-		m_pNormalMap->Use(2);
-		m_shader.setInt("UseNormalMap", 1);
+		m_pNormalMap->Use(UNIFORM_NORMAL_MAP_CODE);
+		m_shader.setInt(UNIFORM_USE_NORMAL_MAP, 1);
 	}
 	else {
-		m_shader.setInt("UseNormalMap", 0);
+		m_shader.setInt(UNIFORM_USE_NORMAL_MAP, 0);
 	}
 }
 
 void PhongMaterial::Use(const glm::mat4 &model, const RenderTexture &lightBuffer) {
 	Material::Use(model, lightBuffer);
 	if (m_pDiffuseMap) {
-		m_pDiffuseMap->Use(0);
-		m_shader.setInt("UseDiffuseMap", 1);
+		m_pDiffuseMap->Use(UNIFORM_DIFFUSE_MAP_CODE);
+		m_shader.setInt(UNIFORM_USE_DIFFUSE_MAP, 1);
 	}
 	else {
-		m_shader.setInt("UseDiffuseMap", 0);
+		m_shader.setInt(UNIFORM_USE_DIFFUSE_MAP, 0);
 	}
 	if (m_pSpecularMap) {
-		m_pSpecularMap->Use(1);
-		m_shader.setInt("UseSpecularMap", 1);
+		m_pSpecularMap->Use(UNIFORM_SPECULAR_MAP_CODE);
+		m_shader.setInt(UNIFORM_USE_SPECULAR_MAP, 1);
 	}
 	else {
-		m_shader.setInt("UseSpecularMap", 0);
+		m_shader.setInt(UNIFORM_USE_SPECULAR_MAP, 0);
 	}
 	if (m_pNormalMap) {
-		m_pNormalMap->Use(2);
-		m_shader.setInt("UseNormalMap", 1);
+		m_pNormalMap->Use(UNIFORM_NORMAL_MAP_CODE);
+		m_shader.setInt(UNIFORM_USE_NORMAL_MAP, 1);
 	}
 	else {
-		m_shader.setInt("UseNormalMap", 0);
+		m_shader.setInt(UNIFORM_USE_NORMAL_MAP, 0);
 	}
 
 	UseTexture(3, lightBuffer.GetID());
+}
+
+
+void PhongMaterial::Use(const glm::mat4 &model, Shader &shader) {
+	Material::Use(model,shader);
+	if (m_pDiffuseMap) {
+		m_pDiffuseMap->Use(UNIFORM_DIFFUSE_MAP_CODE);
+		shader.setInt(UNIFORM_USE_DIFFUSE_MAP, 1);
+	}
+	else {
+		shader.setInt(UNIFORM_USE_DIFFUSE_MAP, 0);
+	}
+	if (m_pSpecularMap) {
+		m_pSpecularMap->Use(UNIFORM_SPECULAR_MAP_CODE);
+		shader.setInt(UNIFORM_USE_SPECULAR_MAP, 1);
+	}
+	else {
+		shader.setInt(UNIFORM_USE_SPECULAR_MAP, 0);
+	}
+	if (m_pNormalMap) {
+		m_pNormalMap->Use(UNIFORM_NORMAL_MAP_CODE);
+		shader.setInt(UNIFORM_USE_NORMAL_MAP, 1);
+	}
+	else {
+		shader.setInt(UNIFORM_USE_NORMAL_MAP, 0);
+	}
 }
 
 void PhongMaterial::SetTexture(const std::string &key, TexturePointer tex) {

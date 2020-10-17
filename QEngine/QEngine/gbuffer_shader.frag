@@ -1,11 +1,21 @@
 #version 420 core
-layout (location = 0) out vec3 gNormal;
+layout (location = 0) out vec3 gVertexNormal;
+layout (location = 1) out vec3 gNormalMap;
 
-//in mat3 TBN;
-in vec3 Normal;
-//in vec3 Tangents;
+in vec3 VertexNormal;
+in mat3 TBN;
+in vec2 UV;
+
+uniform int useNormalMap;
+uniform sampler2D normalMap;
 
 void main(){
-	gNormal = Normal;
-	//gTangents = Tangents;
+	gVertexNormal = VertexNormal;
+	if(useNormalMap==1){
+		vec3 normal = texture2D(normalMap, UV).xyz;
+		normal = normalize(inverse(TBN)*normalize(normal* 2.0 - 1.0));
+		gNormalMap = normal;
+	}else{
+		gNormalMap = VertexNormal;
+	}
 }

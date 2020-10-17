@@ -8,8 +8,8 @@ Mesh::Mesh(GeometryPointer geometry, MaterialPointer material) :pGeometry(geomet
 void Mesh::OnGBufferRender(Shader& gbufferShader)
 {
 	glm::mat4 model = this->transform.MatrixWorld();
-	gbufferShader.setMat4("model", model);
-	gbufferShader.setMat3("normalMatrix", glm::mat3(glm::transpose(glm::inverse(model))));
+	gbufferShader.use();
+	this->pMaterial->Use(model, gbufferShader);
 	this->vertexArray.DrawElement();
 	for (int i = 0; i < this->children.size(); i++) {
 		this->children[i]->OnGBufferRender(gbufferShader);

@@ -3,6 +3,8 @@
 #include <memory>
 #include "gl_texture.h"
 #include "gl_render_texture.h"
+#include "constant.h"
+
 class Material;
 typedef std::shared_ptr<Material> MaterialPointer;
 
@@ -13,6 +15,8 @@ public:
 	virtual void Use(const glm::mat4 &model);
 
 	virtual void Use(const glm::mat4 &model,const RenderTexture &lightBuffer);
+
+	virtual void Use(const glm::mat4 &model, Shader &shader);
 
 	virtual void SetTexture(const std::string &key, TexturePointer tex) = 0;
 

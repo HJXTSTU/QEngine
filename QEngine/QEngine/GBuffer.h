@@ -8,9 +8,8 @@
 class GBuffer{
 private:
 	RenderTexture m_rtDepthTexture;
+	RenderTexture m_rtVertexNormalTexture;
 	RenderTexture m_rtNormalTexture;
-	RenderTexture m_rtTangentTexture;
-	RenderTexture m_rtBitangentTexture;
 	Framebuffer m_framebuffer;
 	Shader m_gbufferShader;
 public:
@@ -20,7 +19,8 @@ public:
 
 	const RenderTexture &GetDepthTexture() { return m_rtDepthTexture; }
 	
+	const RenderTexture &GetVertexNormalTexture() { return m_rtVertexNormalTexture; }
+
 	const RenderTexture &GetNormalTexture() { return m_rtNormalTexture; }
 
-	const RenderTexture &GetTangentTexture() { return m_rtTangentTexture; }
 };
