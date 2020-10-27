@@ -28,6 +28,10 @@ public:
 
 	virtual void OnSurfaceRender(const RenderTexture &lightBuffer) = 0;
 
+	virtual void OnSurfaceRender(const RenderTexture &lightBuffer, const RenderTexture &shadowmap) = 0;
+
+	virtual void OnShadowmapRender(Shader& shader) = 0;
+
 	virtual ObjectType GetType() = 0;
 
 	shared_ptr<Object3D> AsPtr();

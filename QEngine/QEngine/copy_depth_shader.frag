@@ -13,6 +13,6 @@ float LinearizeDepth(float depth)
     return (2.0 * near) / (far + near - z * (far - near));
 }
 void main(){
-	float depth = LinearizeDepth(texture2D(depthTex,TexCoords).r);
+	float depth = texture2D(depthTex,TexCoords).r;
 	FragColor = vec4(depth,depth,depth,1);
 }

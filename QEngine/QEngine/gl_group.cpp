@@ -21,6 +21,18 @@ void Group::OnSurfaceRender(const RenderTexture &lightBuffer) {
 	}
 }
 
+void Group::OnSurfaceRender(const RenderTexture &lightBuffer, const RenderTexture &shadowmap) {
+	for (int i = 0; i < this->children.size(); i++) {
+		this->children[i]->OnSurfaceRender(lightBuffer, shadowmap);
+	}
+}
+
+void Group::OnShadowmapRender(Shader& shader) {
+	for (int i = 0; i < this->children.size(); i++) {
+		this->children[i]->OnShadowmapRender(shader);
+	}
+}
+
 ObjectType Group::GetType() {
 	return ObjectType::GROUP_OBJECT;
 }

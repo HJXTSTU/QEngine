@@ -38,6 +38,25 @@ void Mesh::OnSurfaceRender(const RenderTexture &lightBuffer) {
 	}
 }
 
+void Mesh::OnSurfaceRender(const RenderTexture &lightBuffer, const RenderTexture &shadowmap) {
+	this->pMaterial->Use(this->transform.MatrixWorld(), lightBuffer, shadowmap);
+
+	this->vertexArray.DrawElement();
+
+	for (int i = 0; i < this->children.size(); i++) {
+		this->children[i]->OnSurfaceRender(lightBuffer, shadowmap);
+	}
+}
+
+void Mesh::OnShadowmapRender(Shader& shader) {
+	glm::mat4 model = this->transform.MatrixWorld();
+	shader.setMat4("model", model);
+	this->vertexArray.DrawElement();
+	for (int i = 0; i < this->children.size(); i++) {
+		this->children[i]->OnShadowmapRender(shader);
+	}
+}
+
 ObjectType Mesh::GetType()
 {
 	return ObjectType::MESH_OBJECT;

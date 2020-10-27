@@ -142,6 +142,15 @@
     <Filter Include="头文件\core\lights">
       <UniqueIdentifier>{c6edf10f-fc51-4a67-838e-d2bb1bb73e91}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\test">
+      <UniqueIdentifier>{1237d7ff-4576-4e47-aea9-0d0bc0a4e288}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\lights">
+      <UniqueIdentifier>{45e06e5e-2177-4ef3-943f-6de8bbdf035e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\lights\shadow_map">
+      <UniqueIdentifier>{3c80e9a6-0c71-41c5-91f9-e9ad8caf3f66}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="libs\glad.c">
@@ -243,9 +252,6 @@
     <ClCompile Include="shader.cpp">
       <Filter>源文件\core\shaders</Filter>
     </ClCompile>
-    <ClCompile Include="gl_array_buffers.cpp">
-      <Filter>源文件\core\util</Filter>
-    </ClCompile>
     <ClCompile Include="gl_base_vertex_array.cpp">
       <Filter>源文件\core\util</Filter>
     </ClCompile>
@@ -263,6 +269,27 @@
     </ClCompile>
     <ClCompile Include="GBuffer.cpp">
       <Filter>源文件\renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="CopyRenderer.cpp">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="CopyDepthRenderer.cpp">
+      <Filter>源文件\test</Filter>
+    </ClCompile>
+    <ClCompile Include="ForwardBaseRenderer.cpp">
+      <Filter>源文件\renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="DefferRenderer.cpp">
+      <Filter>源文件\renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="LightAccmulatePass.cpp">
+      <Filter>源文件\renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>源文件\core\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectionLight.cpp">
+      <Filter>源文件\core\lights</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -332,13 +359,7 @@
     <ClInclude Include="constant.h">
       <Filter>头文件\core\util</Filter>
     </ClInclude>
-    <ClInclude Include="gl_array_buffer.h">
-      <Filter>头文件\core\util</Filter>
-    </ClInclude>
     <ClInclude Include="gl_base_vertex_array.h">
-      <Filter>头文件\core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_buffer.h">
       <Filter>头文件\core\util</Filter>
     </ClInclude>
     <ClInclude Include="gl_geometry_vertex_array.h">
@@ -425,6 +446,12 @@
     <ClInclude Include="LightAccmulatePass.h">
       <Filter>头文件\renderers</Filter>
     </ClInclude>
+    <ClInclude Include="gl_buffer.h">
+      <Filter>头文件\core\object</Filter>
+    </ClInclude>
+    <ClInclude Include="shadow_map_renderer.h">
+      <Filter>头文件\core\lights\shadow_map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="diffuse_shader.vs">
@@ -467,6 +494,15 @@
       <Filter>头文件\shaders\vertex_shaders</Filter>
     </None>
     <None Include="defer_phong_shader.frag">
+      <Filter>头文件\shaders\frag_shaders</Filter>
+    </None>
+    <None Include="direction_light_shadow.vs">
+      <Filter>头文件\shaders\vertex_shaders</Filter>
+    </None>
+    <None Include="direction_light_shadow.frag">
+      <Filter>头文件\shaders\frag_shaders</Filter>
+    </None>
+    <None Include="direction_light_shadow_map.frag">
       <Filter>头文件\shaders\frag_shaders</Filter>
     </None>
   </ItemGroup>

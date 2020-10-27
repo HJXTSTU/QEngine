@@ -12,6 +12,8 @@ public:
 
 	virtual void Use(const glm::mat4 &model, const RenderTexture &lightBuffer);
 
+	virtual void Use(const glm::mat4 &model, const RenderTexture &lightBuffer, const RenderTexture &shadowmap);
+
 	virtual void Use(const glm::mat4 &model, Shader &shader);
 
 	virtual void SetTexture(const std::string &key, TexturePointer tex);

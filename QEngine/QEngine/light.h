@@ -18,14 +18,9 @@ protected:
 	glm::vec3 m_vLightColor;
 public:
 
-	Light(LightType type,glm::vec3 color) :m_eLightType(type),m_vLightColor(color) {
-		
-	}
+	Light(LightType type, glm::vec3 color);
 
-	LightType GetType() { return m_eLightType; }
+	LightType GetType();
 
-	virtual void SetupLightParams(Shader &shader) {
-		shader.setInt("LightType", m_eLightType);
-		shader.setVec3("LightColor", m_vLightColor);
-	}
+	virtual void SetupLightParams(Shader &shader);
 };

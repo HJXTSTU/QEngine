@@ -127,7 +127,12 @@
     <ClCompile Include="config_materials_processor.cpp" />
     <ClCompile Include="config_models_processor.cpp" />
     <ClCompile Include="config_textures_processor.cpp" />
+    <ClCompile Include="CopyDepthRenderer.cpp" />
+    <ClCompile Include="CopyRenderer.cpp" />
+    <ClCompile Include="DefferRenderer.cpp" />
     <ClCompile Include="diffuse_material.cpp" />
+    <ClCompile Include="DirectionLight.cpp" />
+    <ClCompile Include="ForwardBaseRenderer.cpp" />
     <ClCompile Include="GBuffer.cpp" />
     <ClCompile Include="gl_assets.cpp" />
     <ClCompile Include="gl_base_world.cpp" />
@@ -143,7 +148,6 @@
     <ClCompile Include="gl_screen_quad_vertex_array.cpp" />
     <ClCompile Include="gl_script_manager.cpp" />
     <ClCompile Include="gl_window.cpp" />
-    <ClCompile Include="gl_array_buffers.cpp" />
     <ClCompile Include="gl_base_vertex_array.cpp" />
     <ClCompile Include="gl_element.cpp" />
     <ClCompile Include="gl_geometry_vertex_array.cpp" />
@@ -156,6 +160,8 @@
     <ClCompile Include="gl_util.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="libs\glad.c" />
+    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="LightAccmulatePass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="material_factory.cpp" />
     <ClCompile Include="phong_material.cpp" />
@@ -192,7 +198,6 @@
     <ClInclude Include="gl_script_manager.h" />
     <ClInclude Include="gl_uniform_buffer.h" />
     <ClInclude Include="gl_window.h" />
-    <ClInclude Include="gl_array_buffer.h" />
     <ClInclude Include="gl_base_vertex_array.h" />
     <ClInclude Include="gl_element.h" />
     <ClInclude Include="gl_group.h" />
@@ -214,6 +219,7 @@
     <ClInclude Include="phong_material.h" />
     <ClInclude Include="Rotator.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="shadow_map_renderer.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="stb_image_write.h" />
     <ClInclude Include="util.h" />
@@ -226,6 +232,9 @@
     <None Include="diffuse_shader.frag" />
     <None Include="diffuse_shader.vs" />
     <None Include="direction_light_accmulate_shader.frag" />
+    <None Include="direction_light_shadow.frag" />
+    <None Include="direction_light_shadow.vs" />
+    <None Include="direction_light_shadow_map.frag" />
     <None Include="gbuffer_shader.frag" />
     <None Include="gbuffer_shader.vs" />
     <None Include="loading_config.json" />

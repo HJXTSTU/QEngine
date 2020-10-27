@@ -16,5 +16,9 @@ public:
 
 	virtual void OnSurfaceRender(const RenderTexture &lightBuffer);
 
+	virtual void OnSurfaceRender(const RenderTexture &lightBuffer, const RenderTexture &shadowmap);
+
+	virtual void OnShadowmapRender(Shader& shader);
+
 	virtual ObjectType GetType();
 };
