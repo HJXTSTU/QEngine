@@ -133,9 +133,11 @@
     <ClCompile Include="diffuse_material.cpp" />
     <ClCompile Include="DirectionLight.cpp" />
     <ClCompile Include="ForwardBaseRenderer.cpp" />
+    <ClCompile Include="GaussianBlurRenderer.cpp" />
     <ClCompile Include="GBuffer.cpp" />
     <ClCompile Include="gl_assets.cpp" />
     <ClCompile Include="gl_base_world.cpp" />
+    <ClCompile Include="gl_bound_box.cpp" />
     <ClCompile Include="gl_camera.cpp" />
     <ClCompile Include="gl_context.cpp" />
     <ClCompile Include="gl_engine_shell.cpp" />
@@ -165,12 +167,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="material_factory.cpp" />
     <ClCompile Include="phong_material.cpp" />
+    <ClCompile Include="PostprocessRenderer.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="ShadowmapRenderer.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="base_scene.h" />
     <ClInclude Include="cJSON.h" />
     <ClInclude Include="CJsonObject.hpp" />
     <ClInclude Include="constant.h" />
@@ -180,9 +183,11 @@
     <ClInclude Include="diffuse_material.h" />
     <ClInclude Include="direction_light.h" />
     <ClInclude Include="ForwardBaseRenderer.h" />
+    <ClInclude Include="GaussianBlurRenderer.h" />
     <ClInclude Include="GBuffer.h" />
     <ClInclude Include="gl_assets.h" />
     <ClInclude Include="gl_base_world.h" />
+    <ClInclude Include="gl_bound_box.h" />
     <ClInclude Include="gl_buffer.h" />
     <ClInclude Include="gl_camera.h" />
     <ClInclude Include="gl_context.h" />
@@ -204,7 +209,6 @@
     <ClInclude Include="gl_material.h" />
     <ClInclude Include="gl_mesh.h" />
     <ClInclude Include="gl_object3D.h" />
-    <ClInclude Include="gl_scene_handler.h" />
     <ClInclude Include="gl_geometry_vertex_array.h" />
     <ClInclude Include="gl_texture.h" />
     <ClInclude Include="gl_transform.h" />
@@ -217,6 +221,7 @@
     <ClInclude Include="material_factory.h" />
     <ClInclude Include="MyWorld.h" />
     <ClInclude Include="phong_material.h" />
+    <ClInclude Include="PostprocessRenderer.h" />
     <ClInclude Include="Rotator.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="shadow_map_renderer.h" />
@@ -235,12 +240,14 @@
     <None Include="direction_light_shadow.frag" />
     <None Include="direction_light_shadow.vs" />
     <None Include="direction_light_shadow_map.frag" />
+    <None Include="gaussianblur.frag" />
     <None Include="gbuffer_shader.frag" />
     <None Include="gbuffer_shader.vs" />
     <None Include="loading_config.json" />
     <None Include="phong_shader.frag" />
     <None Include="phong_shader.vs" />
     <None Include="screen_quad_vertex_shader_util.vs" />
+    <None Include="shadowmap_merge.frag" />
     <None Include="world_config.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
@@ -248,7 +255,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties loading_3config_1json__JSONSchema="http://json.schemastore.org/jovo-language-model" />
+      <UserProperties />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

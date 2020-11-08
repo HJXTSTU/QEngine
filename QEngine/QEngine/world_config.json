@@ -1,8 +1,8 @@
 {
   "OBJECTS": [
     {
-      "NAME": "dragon",
-      "FROM_MODEL": "dragon",
+      "NAME": "cubes",
+      "FROM_MODEL": "cubes",
       "MATERIAL": "phong",
       "PARENT": "__ROOT__"
     }
@@ -12,7 +12,7 @@
       "TYPE": "DIRECTION",
       "PARAMS": {
         "LIGHT_COLOR": [ 1.0, 1.0, 1.0 ],
-        "LIGHT_DIRECTION": [ -1.0, -1.0, -1.0 ]
+        "LIGHT_DIRECTION": [ -1.0, -1.0, -0.5 ]
       }
     }
   ]

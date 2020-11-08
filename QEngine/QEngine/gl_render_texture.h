@@ -14,6 +14,18 @@ public:
 	RenderTexture();
 
 	void Initialize(GLuint width, GLuint height, GLuint internalformat, GLenum format, GLenum type);
+	
+	void SetMinFilter(GLuint filter_mode);
+
+	void SetMagFilter(GLuint filter_mode);
+
+	void SetWrapS(GLuint warp_mode);
+
+	void SetWrapT(GLuint warp_mode);
+
+	void SetWrapR(GLuint warp_mode);
+
+	void SetBorderColor(GLfloat borderColor[4]);
 
 	~RenderTexture();
 };

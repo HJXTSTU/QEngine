@@ -14,40 +14,127 @@ layout(std140, binding = 0) uniform Matrics{
 uniform sampler2D DepthBuffer;
 uniform sampler2D NormalBuffer;
 
-uniform float Interval;
+uniform float CameraFar;
+uniform float CascadeSplits[4];
+
 uniform vec3 LightDirection;
 
 uniform sampler2D LightDepthBuffer1;
+uniform mat4 LightViewMatrix1;
 uniform mat4 LightSpaceMatrix1;
+uniform vec2 NearFarPlane1;
+uniform vec2 LightSize1;
 
 uniform sampler2D LightDepthBuffer2;
+uniform mat4 LightViewMatrix2;
 uniform mat4 LightSpaceMatrix2;
+uniform vec2 NearFarPlane2;
+uniform vec2 LightSize2;
 
 uniform sampler2D LightDepthBuffer3;
+uniform mat4 LightViewMatrix3;
 uniform mat4 LightSpaceMatrix3;
+uniform vec2 NearFarPlane3;
+uniform vec2 LightSize3;
 
-float CaculateShadow(vec3 FragPos, vec3 Normal, sampler2D LightDepthBuffer, mat4 LightSpaceMatrix,vec3 LightDir){
+uniform sampler2D LightDepthBuffer4;
+uniform mat4 LightViewMatrix4;
+uniform mat4 LightSpaceMatrix4;
+uniform vec2 NearFarPlane4;
+uniform vec2 LightSize4;
+
+uniform float LightSizeTmp;
+uniform float WindowSize;
+uniform float NormalBias;
+uniform vec2  LightBias;
+
+float CaculateShadow(vec3 FragPos, vec3 Normal, sampler2D LightDepthBuffer, mat4 LightViewMatrix, mat4 LightSpaceMatrix,vec3 LightDir, vec2 NearFarPlane,vec2 LightSize, vec2 Bias){
+	if(dot(Normal,LightDir)<=0.0f){
+		return 0.0f;
+	}
+	
 	vec4 lightSpaceProjection = (LightSpaceMatrix*vec4(FragPos,1.0f));
 	lightSpaceProjection /= lightSpaceProjection.w;
 	lightSpaceProjection = lightSpaceProjection*0.5f+0.5f;
+
+	vec4 projectionWithNormalBias = (LightSpaceMatrix*vec4(FragPos+Normal,1.0f));
+	projectionWithNormalBias /= projectionWithNormalBias.w;
+	projectionWithNormalBias = projectionWithNormalBias*0.5f+0.5f;
 	
+	vec2 texelSize = textureSize(LightDepthBuffer, 0);
+	lightSpaceProjection.xy +=  normalize(projectionWithNormalBias.xy-lightSpaceProjection.xy)*NormalBias/texelSize.xy;
+	
+	float biaSign = -1.0f;
+	if(dot(Normal,LightDir)<=0.0f){
+		biaSign = 1.0f;
+	}
+	
+
+	float bias = biaSign*(max(Bias.y*(1.0f-dot(Normal,LightDir)),Bias.x))/(NearFarPlane.y-NearFarPlane.x);
+	//float bias = Bias.y;
 	float currentDepth = lightSpaceProjection.z;
-	float closestDepth = texture2D(LightDepthBuffer, lightSpaceProjection.xy).r;
+	float closestDepth = texture(LightDepthBuffer, lightSpaceProjection.xy).r;
+
+//	PCSS + ESM + Gaussian Blur
 	
-	float bias = max(0.0001 * (1-dot(normalize(Normal), normalize(-LightDir))), 0.000);
+	float accum_blocker_depth = 0.0f;
+	float num_blockers = 0.0f;
+	float lightSize = LightSize.x;
+	float biased_depth = currentDepth + bias;
+	int window = 3;
+	for(int i=-window;i<=window;i++){
+		for(int j=-window;j<=window;j++){
+			vec2 offset = vec2(i,j)*lightSize/texelSize;
+			float sampleDepth = texture(LightDepthBuffer, lightSpaceProjection.xy + offset).r;
+			if(sampleDepth < biased_depth){
+				num_blockers += 1.0f;
+				accum_blocker_depth += sampleDepth;
+			}
+		}
+	}
+
+	if(num_blockers==(window*2+1)*(window*2+1)){
+		return 0.0f;
+	}
+
+	if(num_blockers==0.0f){
+		return 1.0f;
+	}
+
+	float avg_blocker_depth = accum_blocker_depth/num_blockers;
+
+	float z_vs = NearFarPlane.x + (NearFarPlane.y-NearFarPlane.x)*currentDepth;
+	float avg_depth_vs = NearFarPlane.x + (NearFarPlane.y-NearFarPlane.x)*avg_blocker_depth;
+
+	float penumbra_size = lightSize * (z_vs - avg_depth_vs)/avg_depth_vs;
 	
-	float shadow = 0.0;
-    vec2 texelSize = 1.0 / textureSize(LightDepthBuffer, 0);
-    for(int x = -1; x <= 1; ++x)
+	// if(penumbra_size==0.0f)return 0;
+	
+	float shadow = 0.0f;
+	
+	int range = int(penumbra_size);
+	
+	range = range > 6 ? 6: range;
+    range = range < 2 ? 2 : range;
+
+	for(int x = -range; x <= range; ++x)
     {
-        for(int y = -1; y <= 1; ++y)
+        for(int y = -range; y <= range; ++y)
         {
-            float pcfDepth = texture2D(LightDepthBuffer, lightSpaceProjection.xy + vec2(x, y) * texelSize).r; 
-            shadow += currentDepth - bias > pcfDepth  ? 0.0 : 1.0;        
-        }    
+			vec2 offset = vec2(x, y) / texelSize;
+            float pcfDepth = texture(LightDepthBuffer, lightSpaceProjection.xy + offset).r;
+            
+			shadow += (biased_depth<pcfDepth?1.0f:0.0f);
+        }
     }
-    shadow /= 9.0;
-	//shadow = currentDepth - bias  > closestDepth?0.0f:1.0f;
+
+	shadow /= (range*2+1)*(range*2+1);
+
+	if(lightSpaceProjection.z > 1.0)
+        shadow = 0.0;
+
+	shadow = min(max(shadow,0.0f),1.0f);
+
 	return shadow;
 }
 
@@ -59,18 +146,22 @@ void main(){
 	vec4 NDC = vec4(TexCoords.x * 2.0 - 1.0, TexCoords.y * 2.0 - 1.0, depth * 2.0 - 1, 1.0);
 	vec4 worldPos = inverse(view) * inverse(projection) * NDC;
 	worldPos /= worldPos.w;
-	float distance = length(vec3(worldPos)-viewPos);
+	float distance = length(worldPos.xyz-viewPos);
 	if(distance >= 999.0)discard;
 
 	vec3 normal = texture2D(NormalBuffer, TexCoords).xyz;
 	
 	float s = 1.0f;
-	if(distance<=Interval){
-		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer1, LightSpaceMatrix1, LightDirection);
-	}else if(distance<=Interval*2.0f){
-		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer2, LightSpaceMatrix2, LightDirection);
-	}else if(distance<=Interval*3.0f){
-		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer3, LightSpaceMatrix3, LightDirection);
+	
+	float offset = 0.0f;
+	if(distance<= CameraFar*CascadeSplits[0]){
+		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer1,LightViewMatrix1, LightSpaceMatrix1, -LightDirection, NearFarPlane1,LightSize1, LightBias);
+	}else if(distance<=CameraFar*(CascadeSplits[0]+CascadeSplits[1])){
+		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer2,LightViewMatrix2, LightSpaceMatrix2, -LightDirection, NearFarPlane2,LightSize2, LightBias);
+	}else if(distance<=CameraFar*(CascadeSplits[0]+CascadeSplits[1]+CascadeSplits[2])){
+		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer3,LightViewMatrix3, LightSpaceMatrix3, -LightDirection, NearFarPlane3,LightSize3, LightBias);
+	}else if(distance<=CameraFar*(CascadeSplits[0]+CascadeSplits[1]+CascadeSplits[2]+CascadeSplits[3])){
+		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer4,LightViewMatrix4, LightSpaceMatrix4, -LightDirection, NearFarPlane4,LightSize4, LightBias);
 	}
 	FragColor = vec4(s,s,s,1.0f);
 }
