@@ -140,7 +140,24 @@ void Context::InitWorld(const string &configFilePath) {
 				float z = lightDirection.Get<float>(2);
 				glm::vec3 direction(x, y, z);
 
+				float maxBias = 0.3f;
+				float minBias = 0.05f;
+				float normalBias = 0.3f;
+				if (params.HasKey("MAX_BIAS")) {
+					maxBias = params.Get<float>("MAX_BIAS");
+				}
+				if (params.HasKey("MIN_BIAS")) {
+					minBias = params.Get<float>("MIN_BIAS");
+				}
+				if (params.HasKey("NORMAL_BIAS")) {
+					normalBias = params.Get<float>("NORMAL_BIAS");
+				}
+
 				LightPointer light = DirectionLight::Create(color,direction);
+				light->SetMaxBias(maxBias);
+				light->SetMinBias(minBias);
+				light->SetNormalBias(normalBias);
+				
 				world->AddLight(light);
 			}
 		}

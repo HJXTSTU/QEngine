@@ -20,35 +20,29 @@ uniform float CascadeSplits[4];
 uniform vec3 LightDirection;
 
 uniform sampler2D LightDepthBuffer1;
-uniform mat4 LightViewMatrix1;
 uniform mat4 LightSpaceMatrix1;
 uniform vec2 NearFarPlane1;
 uniform vec2 LightSize1;
 
 uniform sampler2D LightDepthBuffer2;
-uniform mat4 LightViewMatrix2;
 uniform mat4 LightSpaceMatrix2;
 uniform vec2 NearFarPlane2;
 uniform vec2 LightSize2;
 
 uniform sampler2D LightDepthBuffer3;
-uniform mat4 LightViewMatrix3;
 uniform mat4 LightSpaceMatrix3;
 uniform vec2 NearFarPlane3;
 uniform vec2 LightSize3;
 
 uniform sampler2D LightDepthBuffer4;
-uniform mat4 LightViewMatrix4;
 uniform mat4 LightSpaceMatrix4;
 uniform vec2 NearFarPlane4;
 uniform vec2 LightSize4;
 
-uniform float LightSizeTmp;
-uniform float WindowSize;
 uniform float NormalBias;
 uniform vec2  LightBias;
 
-float CaculateShadow(vec3 FragPos, vec3 Normal, sampler2D LightDepthBuffer, mat4 LightViewMatrix, mat4 LightSpaceMatrix,vec3 LightDir, vec2 NearFarPlane,vec2 LightSize, vec2 Bias){
+float CaculateShadow(vec3 FragPos, vec3 Normal, sampler2D LightDepthBuffer, mat4 LightSpaceMatrix,vec3 LightDir, vec2 NearFarPlane,vec2 LightSize, vec2 Bias){
 	if(dot(LightDir,Normal)<=0)return 0.3f;
 	vec4 lightSpaceProjection = (LightSpaceMatrix*vec4(FragPos,1.0f));
 	lightSpaceProjection /= lightSpaceProjection.w;
@@ -63,8 +57,8 @@ float CaculateShadow(vec3 FragPos, vec3 Normal, sampler2D LightDepthBuffer, mat4
 	
 	
 
-	//float bias = max(Bias.y*(1.0f-dot(Normal,LightDir)),Bias.x)/(NearFarPlane.y-NearFarPlane.x);
-	float bias = 0.05f/(NearFarPlane.y-NearFarPlane.x);
+	float bias = max(Bias.y*(1.0f-dot(Normal,LightDir)),Bias.x)/(NearFarPlane.y-NearFarPlane.x);
+	//float bias = 0.05f/(NearFarPlane.y-NearFarPlane.x);
 	//float bias = Bias.y;
 	float currentDepth = lightSpaceProjection.z;
 	float closestDepth = texture(LightDepthBuffer, lightSpaceProjection.xy).r;
@@ -149,13 +143,13 @@ void main(){
 	
 	float offset = 0.0f;
 	if(distance<= CameraFar*CascadeSplits[0]){
-		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer1,LightViewMatrix1, LightSpaceMatrix1, -LightDirection, NearFarPlane1,LightSize1, LightBias);
+		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer1, LightSpaceMatrix1, -LightDirection, NearFarPlane1,LightSize1, LightBias);
 	}else if(distance<=CameraFar*(CascadeSplits[0]+CascadeSplits[1])){
-		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer2,LightViewMatrix2, LightSpaceMatrix2, -LightDirection, NearFarPlane2,LightSize2, LightBias);
+		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer2, LightSpaceMatrix2, -LightDirection, NearFarPlane2,LightSize2, LightBias);
 	}else if(distance<=CameraFar*(CascadeSplits[0]+CascadeSplits[1]+CascadeSplits[2])){
-		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer3,LightViewMatrix3, LightSpaceMatrix3, -LightDirection, NearFarPlane3,LightSize3, LightBias);
+		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer3, LightSpaceMatrix3, -LightDirection, NearFarPlane3,LightSize3, LightBias);
 	}else if(distance<=CameraFar*(CascadeSplits[0]+CascadeSplits[1]+CascadeSplits[2]+CascadeSplits[3])){
-		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer4,LightViewMatrix4, LightSpaceMatrix4, -LightDirection, NearFarPlane4,LightSize4, LightBias);
+		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer4, LightSpaceMatrix4, -LightDirection, NearFarPlane4,LightSize4, LightBias);
 	}
 	FragColor = vec4(s,s,s,1.0f);
 }

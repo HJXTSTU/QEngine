@@ -15,7 +15,7 @@ void DefferRenderer::OnRender(BaseWorldPointer pWorld) {
 	for (int i = 0; i < lights.size(); i++) {
 		lights[i]->ClearShadowmap();
 		lights[i]->RenderShadowmap(root, Context::mainCamera, m_gbuffer.GetDepthTexture(), m_gbuffer.GetVertexNormalTexture());
-		m_shadowmapRenderer.MergeShadowmap(lights[i]->GetShadowmap());
+		m_shadowmapRenderer.MergeShadowmap(lights[i]->GetShadowmap(), lights.size());
 	}
 
 	glViewport(0, 0, SRC_WIDTH, SRC_HEIGHT);

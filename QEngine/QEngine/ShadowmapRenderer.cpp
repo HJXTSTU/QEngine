@@ -21,8 +21,9 @@ void ShadowmapRenderer::Clear() {
 	m_framebuffer.UnUseFramebuffer();
 }
 
-void ShadowmapRenderer::MergeShadowmap(const RenderTexture &otherShadowmap) {
+void ShadowmapRenderer::MergeShadowmap(const RenderTexture &otherShadowmap, int lightCount) {
 	m_mergeShadowmapShader.use();
+	m_mergeShadowmapShader.setInt("LightCount", lightCount);
 	UseTexture(0, otherShadowmap.GetID());
 	m_framebuffer.UseFramebuffer();
 	glViewport(0, 0, SRC_WIDTH, SRC_HEIGHT);

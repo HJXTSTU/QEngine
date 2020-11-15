@@ -74,7 +74,6 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 
 
 	vector<glm::vec2> lightSizes;
-	vector<glm::mat4> lightViewMatrixs;
 	vector<glm::mat4> lightSpaceMatrixs;
 	vector<glm::vec2> nearFarPlanes;
 	vector<float> cascadeSplits{ 
@@ -136,7 +135,6 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 		m_depthShader.setMat4("lightSpaceMatrix", projection*view);
 
 		lightSizes.push_back(vec2(maxX + 2 * OUTER_WIDTH - minX, maxY + 2 * OUTER_WIDTH - minY));
-		lightViewMatrixs.push_back(view);
 		lightSpaceMatrixs.push_back(projection*view);
 		nearFarPlanes.push_back(vec2(-maxZ - OUTER_WIDTH, -minZ + OUTER_WIDTH));
 
@@ -166,52 +164,27 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 	UseTexture(0, depthMap.GetID());
 	UseTexture(1, normalMap.GetID());
 	UseTexture(2, m_rtDepthMap[0].GetID());
-	m_shadowmapShader.setMat4("LightViewMatrix1", lightViewMatrixs[0]);
 	m_shadowmapShader.setMat4("LightSpaceMatrix1", lightSpaceMatrixs[0]);
 	m_shadowmapShader.setVec2("NearFarPlane1", nearFarPlanes[0]);
 	m_shadowmapShader.setVec2("LightSize1", lightSizes[0]);
 
 	UseTexture(3, m_rtDepthMap[1].GetID());
-	m_shadowmapShader.setMat4("LightViewMatrix2", lightViewMatrixs[1]);
 	m_shadowmapShader.setMat4("LightSpaceMatrix2", lightSpaceMatrixs[1]);
 	m_shadowmapShader.setVec2("NearFarPlane2", nearFarPlanes[1]);
 	m_shadowmapShader.setVec2("LightSize2", lightSizes[1]);
 
 	UseTexture(4, m_rtDepthMap[2].GetID());
-	m_shadowmapShader.setMat4("LightViewMatrix3", lightViewMatrixs[2]);
 	m_shadowmapShader.setMat4("LightSpaceMatrix3", lightSpaceMatrixs[2]);
 	m_shadowmapShader.setVec2("NearFarPlane3", nearFarPlanes[2]);
 	m_shadowmapShader.setVec2("LightSize3", lightSizes[2]);
 
 	UseTexture(5, m_rtDepthMap[3].GetID());
-	m_shadowmapShader.setMat4("LightViewMatrix4", lightViewMatrixs[3]);
 	m_shadowmapShader.setMat4("LightSpaceMatrix4", lightSpaceMatrixs[3]);
 	m_shadowmapShader.setVec2("NearFarPlane4", nearFarPlanes[3]);
 	m_shadowmapShader.setVec2("LightSize4", lightSizes[3]);
 
-	static float NormalBias = 0.3f;
-	static float MinBias = 0.05f;
-	static float MaxBias = 1.0f;
-
-	if (Input::getKey(KEY_CODE_K)) {
-		NormalBias += 0.1f;
-	}
-	if (Input::getKey(KEY_CODE_L)) {
-		NormalBias -= 0.1f;
-	}
-
-
-	if (Input::getKey(KEY_CODE_R)) {
-		MaxBias += 0.01f;
-	}
-	if (Input::getKey(KEY_CODE_T)) {
-		MaxBias -= 0.01f;
-	}
-
-
-	NormalBias = glm::clamp(NormalBias, 0.0f, 3.0f);
-	m_shadowmapShader.setFloat("NormalBias", NormalBias);
-	m_shadowmapShader.setVec2("LightBias", vec2(MinBias, MaxBias));
+	m_shadowmapShader.setFloat("NormalBias", m_normalBias);
+	m_shadowmapShader.setVec2("LightBias", vec2(m_minBias, m_maxBias));
 	m_shadowmapFramebuffer.UseFramebuffer();
 	glViewport(0, 0, SRC_WIDTH, SRC_HEIGHT);
 	m_screenQuad.DrawScreenQuad();

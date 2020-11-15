@@ -19,11 +19,21 @@ class Light {
 protected:
 	LightType m_eLightType;
 	glm::vec3 m_vLightColor;
+
+	float m_normalBias;
+	float m_minBias;
+	float m_maxBias;
 public:
 
 	Light(LightType type, glm::vec3 color);
 
 	LightType GetType();
+
+	void SetMaxBias(float value) { m_maxBias = value; }
+
+	void SetMinBias(float value) { m_minBias = value; }
+
+	void SetNormalBias(float value) { m_normalBias = value; }
 
 	virtual void ClearShadowmap() = 0;
 
