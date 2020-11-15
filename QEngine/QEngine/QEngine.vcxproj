@@ -131,7 +131,7 @@
     <ClCompile Include="CopyRenderer.cpp" />
     <ClCompile Include="DefferRenderer.cpp" />
     <ClCompile Include="diffuse_material.cpp" />
-    <ClCompile Include="DirectionLight.cpp" />
+    <ClCompile Include="direction_light.cpp" />
     <ClCompile Include="ForwardBaseRenderer.cpp" />
     <ClCompile Include="GaussianBlurRenderer.cpp" />
     <ClCompile Include="GBuffer.cpp" />
@@ -162,7 +162,7 @@
     <ClCompile Include="gl_util.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="libs\glad.c" />
-    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="light.cpp" />
     <ClCompile Include="LightAccmulatePass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="material_factory.cpp" />
@@ -221,6 +221,7 @@
     <ClInclude Include="material_factory.h" />
     <ClInclude Include="MyWorld.h" />
     <ClInclude Include="phong_material.h" />
+    <ClInclude Include="point_light.h" />
     <ClInclude Include="PostprocessRenderer.h" />
     <ClInclude Include="Rotator.h" />
     <ClInclude Include="shader.h" />

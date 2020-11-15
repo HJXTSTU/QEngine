@@ -6,7 +6,6 @@
 #include "gl_screen_quad_vertex_array.h"
 #include "gl_bound_box.h"
 #include "gl_util.h"
-#include "input.h"
 
 class DirectionLight;
 typedef shared_ptr<DirectionLight> DirectionLightPointer;

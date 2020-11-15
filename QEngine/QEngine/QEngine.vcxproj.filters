@@ -297,12 +297,6 @@
     <ClCompile Include="CopyDepthRenderer.cpp">
       <Filter>源文件\test</Filter>
     </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>源文件\core\lights</Filter>
-    </ClCompile>
-    <ClCompile Include="DirectionLight.cpp">
-      <Filter>源文件\core\lights</Filter>
-    </ClCompile>
     <ClCompile Include="ShadowmapRenderer.cpp">
       <Filter>源文件\core\lights\shadow_map</Filter>
     </ClCompile>
@@ -326,6 +320,12 @@
     </ClCompile>
     <ClCompile Include="ForwardBaseRenderer.cpp">
       <Filter>源文件\renderers\forward</Filter>
+    </ClCompile>
+    <ClCompile Include="direction_light.cpp">
+      <Filter>源文件\core\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>源文件\core\lights</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -490,6 +490,9 @@
     </ClInclude>
     <ClInclude Include="ForwardBaseRenderer.h">
       <Filter>头文件\renderers\forward</Filter>
+    </ClInclude>
+    <ClInclude Include="point_light.h">
+      <Filter>头文件\core\lights</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
