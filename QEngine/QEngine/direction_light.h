@@ -23,6 +23,10 @@ private:
 	Framebuffer m_framebuffer;
 	Shader m_depthShader;
 	Shader m_shadowmapShader;
+
+	float m_normalBias;
+	float m_minBias;
+	float m_maxBias;
 public:
 	DirectionLight(glm::vec3 color, glm::vec3 direction);
 

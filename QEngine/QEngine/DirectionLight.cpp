@@ -17,8 +17,8 @@ DirectionLight::DirectionLight(glm::vec3 color, glm::vec3 direction)
 	m_shadowmapShader.setInt("LightDepthBuffer3", 4);
 	m_shadowmapShader.setInt("LightDepthBuffer4", 5);
 	GLfloat border[4] = { 1.0f,1.0f,1.0f,1.0f };
-	for (int i = 0; i < 4; i++) {
-		m_rtDepthMap[i].Initialize(1024 * (4 - i), 1024 * (4 - i), GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8);
+	for (int i = 0; i < SHADOWMAP_CASACADE_COUNT; i++) {
+		m_rtDepthMap[i].Initialize(SHADOWMAP_DEFAULT_SIZE * (SHADOWMAP_CASACADE_COUNT - i), SHADOWMAP_DEFAULT_SIZE * (SHADOWMAP_CASACADE_COUNT - i), GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8);
 		m_rtDepthMap[i].SetWrapS(GL_CLAMP_TO_BORDER);
 		m_rtDepthMap[i].SetWrapT(GL_CLAMP_TO_BORDER);
 		m_rtDepthMap[i].SetBorderColor(border);
@@ -50,14 +50,12 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 	const glm::vec3 LIGHT_DIR = glm::normalize(m_vLightDirection);
 	const glm::vec3 LIGHT_RIGHT = glm::normalize(glm::cross(LIGHT_DIR, glm::vec3(0, 1, 0)));
 	const glm::vec3 LIGHT_UP = glm::normalize(glm::cross(LIGHT_RIGHT, LIGHT_DIR));
-	const float EYE_DISTANCE = 150.0f;
+	const float EYE_DISTANCE = SHADOWMAP_EYE_DISTANCE;
 
 	//	计算三级视锥在极线平面上的坐标
 	const glm::vec3 UP = normalize(camera.Up);
 	const glm::vec3 RIGHT = normalize(camera.Right);
 	const glm::vec3 FRONT = normalize(camera.Front);
-	const float CAMERA_NEAR = 0.1f;
-	const float CAMERA_FAR = 1000.0f;
 
 
 	const float TAN_HALF_FOV = glm::tan(glm::radians(camera.Zoom / 2.0f));
@@ -72,17 +70,22 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 	const glm::vec3 RIGHT_BOTTOM_DIR = glm::normalize(FRONT - UP * HALF_HEIGHT + RIGHT * HALF_WIDTH);
 	vector<glm::vec3> DIRS{ LEFT_UP_DIR,RIGHT_UP_DIR,LEFT_BOTTOM_DIR,RIGHT_BOTTOM_DIR };
 
-	const float OUTER_WIDTH = 20.0f;
+	const float OUTER_WIDTH = SHADOWMAP_OUTER_WIDTH;
 
 
 	vector<glm::vec2> lightSizes;
 	vector<glm::mat4> lightViewMatrixs;
 	vector<glm::mat4> lightSpaceMatrixs;
 	vector<glm::vec2> nearFarPlanes;
-	vector<float> cascadeSplits{ 0.067f,0.133f,0.267f,0.533f };
+	vector<float> cascadeSplits{ 
+		SHADOWMAP_CASCADE_SPLITS_0,
+		SHADOWMAP_CASCADE_SPLITS_1,
+		SHADOWMAP_CASCADE_SPLITS_2,
+		SHADOWMAP_CASCADE_SPLITS_3
+	};
 	float nearDistance = 0.0f;
 	float farDistance = CAMERA_FAR * cascadeSplits[0];
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < SHADOWMAP_CASACADE_COUNT; i++) {
 		float nearL = nearDistance / COS_ALPHA;
 		float farL = farDistance / COS_ALPHA;
 
@@ -139,7 +142,7 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 
 		m_framebuffer.AttachDepthStencilAttachment(m_rtDepthMap[i]);
 		m_framebuffer.UseFramebuffer();
-		glViewport(0, 0, 1024 * (4 - i), 1024 * (4 - i));
+		glViewport(0, 0, SHADOWMAP_DEFAULT_SIZE * (SHADOWMAP_CASACADE_COUNT - i), SHADOWMAP_DEFAULT_SIZE * (SHADOWMAP_CASACADE_COUNT - i));
 		glClear(GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
@@ -187,7 +190,7 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 	m_shadowmapShader.setVec2("LightSize4", lightSizes[3]);
 
 	static float NormalBias = 0.3f;
-	static float MinBias = 0.3f;
+	static float MinBias = 0.05f;
 	static float MaxBias = 1.0f;
 
 	if (Input::getKey(KEY_CODE_K)) {
@@ -196,6 +199,15 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 	if (Input::getKey(KEY_CODE_L)) {
 		NormalBias -= 0.1f;
 	}
+
+
+	if (Input::getKey(KEY_CODE_R)) {
+		MaxBias += 0.01f;
+	}
+	if (Input::getKey(KEY_CODE_T)) {
+		MaxBias -= 0.01f;
+	}
+
 
 	NormalBias = glm::clamp(NormalBias, 0.0f, 3.0f);
 	m_shadowmapShader.setFloat("NormalBias", NormalBias);

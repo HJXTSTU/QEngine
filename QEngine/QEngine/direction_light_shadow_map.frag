@@ -49,10 +49,7 @@ uniform float NormalBias;
 uniform vec2  LightBias;
 
 float CaculateShadow(vec3 FragPos, vec3 Normal, sampler2D LightDepthBuffer, mat4 LightViewMatrix, mat4 LightSpaceMatrix,vec3 LightDir, vec2 NearFarPlane,vec2 LightSize, vec2 Bias){
-	if(dot(Normal,LightDir)<=0.0f){
-		return 0.0f;
-	}
-	
+	if(dot(LightDir,Normal)<=0)return 0.3f;
 	vec4 lightSpaceProjection = (LightSpaceMatrix*vec4(FragPos,1.0f));
 	lightSpaceProjection /= lightSpaceProjection.w;
 	lightSpaceProjection = lightSpaceProjection*0.5f+0.5f;
@@ -64,23 +61,20 @@ float CaculateShadow(vec3 FragPos, vec3 Normal, sampler2D LightDepthBuffer, mat4
 	vec2 texelSize = textureSize(LightDepthBuffer, 0);
 	lightSpaceProjection.xy +=  normalize(projectionWithNormalBias.xy-lightSpaceProjection.xy)*NormalBias/texelSize.xy;
 	
-	float biaSign = -1.0f;
-	if(dot(Normal,LightDir)<=0.0f){
-		biaSign = 1.0f;
-	}
 	
 
-	float bias = biaSign*(max(Bias.y*(1.0f-dot(Normal,LightDir)),Bias.x))/(NearFarPlane.y-NearFarPlane.x);
+	//float bias = max(Bias.y*(1.0f-dot(Normal,LightDir)),Bias.x)/(NearFarPlane.y-NearFarPlane.x);
+	float bias = 0.05f/(NearFarPlane.y-NearFarPlane.x);
 	//float bias = Bias.y;
 	float currentDepth = lightSpaceProjection.z;
 	float closestDepth = texture(LightDepthBuffer, lightSpaceProjection.xy).r;
 
-//	PCSS + ESM + Gaussian Blur
+//	PCSS
 	
 	float accum_blocker_depth = 0.0f;
 	float num_blockers = 0.0f;
 	float lightSize = LightSize.x;
-	float biased_depth = currentDepth + bias;
+	float biased_depth = currentDepth - bias;
 	int window = 3;
 	for(int i=-window;i<=window;i++){
 		for(int j=-window;j<=window;j++){
