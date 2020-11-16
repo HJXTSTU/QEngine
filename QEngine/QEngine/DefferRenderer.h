@@ -15,8 +15,15 @@ private:
 	LightAccmulatePass m_lightAccmulatePass;
 	ShadowmapRenderer m_shadowmapRenderer;
 	GaussianBlurRenderer m_gaussianBlurRenderer;
+
+	Framebuffer m_finalFramebuffer;
+	RenderTexture m_finalRenderTexture;
+
 	CopyRenderer copyRenderer;
 	CopyDepthRenderer copyDepthRenderer;
 public:
+
+	DefferRenderer();
+
 	virtual void OnRender(BaseWorldPointer pWorld);
 };

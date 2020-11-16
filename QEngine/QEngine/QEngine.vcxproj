@@ -247,6 +247,7 @@
     <None Include="loading_config.json" />
     <None Include="phong_shader.frag" />
     <None Include="phong_shader.vs" />
+    <None Include="point_light_accmulate_shader.frag" />
     <None Include="screen_quad_vertex_shader_util.vs" />
     <None Include="shadowmap_merge.frag" />
     <None Include="world_config.json" />

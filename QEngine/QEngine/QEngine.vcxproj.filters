@@ -175,6 +175,12 @@
     <Filter Include="头文件\renderers\forward">
       <UniqueIdentifier>{67673036-32cc-401f-9643-2f4ad21a8676}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\shaders\frag_shaders\lights">
+      <UniqueIdentifier>{fb28d0f9-e362-4593-b084-e581b834a2e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\shaders\frag_shaders\lights\shadowmap">
+      <UniqueIdentifier>{d664d9fe-c101-4105-80c2-491e881207ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="libs\glad.c">
@@ -529,9 +535,6 @@
     <None Include="copy_depth_shader.frag">
       <Filter>头文件\shaders\frag_shaders</Filter>
     </None>
-    <None Include="direction_light_accmulate_shader.frag">
-      <Filter>头文件\shaders\frag_shaders</Filter>
-    </None>
     <None Include="defer_phong_shader.vs">
       <Filter>头文件\shaders\vertex_shaders</Filter>
     </None>
@@ -541,17 +544,23 @@
     <None Include="direction_light_shadow.vs">
       <Filter>头文件\shaders\vertex_shaders</Filter>
     </None>
-    <None Include="direction_light_shadow.frag">
-      <Filter>头文件\shaders\frag_shaders</Filter>
-    </None>
-    <None Include="direction_light_shadow_map.frag">
-      <Filter>头文件\shaders\frag_shaders</Filter>
-    </None>
     <None Include="gaussianblur.frag">
       <Filter>头文件\shaders\frag_shaders\postprocessing</Filter>
     </None>
     <None Include="shadowmap_merge.frag">
       <Filter>头文件\shaders\frag_shaders</Filter>
+    </None>
+    <None Include="direction_light_shadow_map.frag">
+      <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="direction_light_shadow.frag">
+      <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="point_light_accmulate_shader.frag">
+      <Filter>头文件\shaders\frag_shaders\lights</Filter>
+    </None>
+    <None Include="direction_light_accmulate_shader.frag">
+      <Filter>头文件\shaders\frag_shaders\lights</Filter>
     </None>
   </ItemGroup>
 </Project>
