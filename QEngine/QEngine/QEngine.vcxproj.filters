@@ -500,6 +500,9 @@
     <ClInclude Include="point_light.h">
       <Filter>头文件\core\lights</Filter>
     </ClInclude>
+    <ClInclude Include="ACESTonemappingRenderer.h">
+      <Filter>头文件\postprocessing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="diffuse_shader.vs">
@@ -561,6 +564,9 @@
     </None>
     <None Include="direction_light_accmulate_shader.frag">
       <Filter>头文件\shaders\frag_shaders\lights</Filter>
+    </None>
+    <None Include="aces.frag">
+      <Filter>头文件\shaders\frag_shaders\postprocessing</Filter>
     </None>
   </ItemGroup>
 </Project>
