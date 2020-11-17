@@ -33,6 +33,24 @@ void Framebuffer::AttachDepthStencilAttachment(RenderTexture &depth_texture) {
 	this->UnUseFramebuffer();
 }
 
+void  Framebuffer::AttachDepthAttachment(RenderTexture &depth_texture) {
+	GLuint texId = depth_texture.GetID();
+	this->UseFramebuffer();
+	glBindTexture(GL_TEXTURE_2D, texId);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texId, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	this->UnUseFramebuffer();
+}
+
+void  Framebuffer::AttachDepthAttachment(CubeMap &depth_textures) {
+	GLuint texId = depth_textures.GetID();
+	this->UseFramebuffer();
+	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, texId, 0);
+	glDrawBuffer(GL_NONE);
+	glReadBuffer(GL_NONE);
+	this->UnUseFramebuffer();
+}
+
 void  Framebuffer::CompleteSetupFramebuffer(GLuint attachment_cnt) {
 	GLuint *attachments = new GLuint[attachment_cnt];
 	for (int i = 0; i < attachment_cnt; i++) {

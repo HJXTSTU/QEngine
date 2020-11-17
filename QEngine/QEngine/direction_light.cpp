@@ -7,7 +7,6 @@ DirectionLight::DirectionLight(glm::vec3 color, glm::vec3 direction)
 
 	m_shadowmapFramebuffer.AttachColorAttachment(m_rtShadowmap, 0);
 
-	m_depthShader.LoadShader("direction_light_shadow.vs", "direction_light_shadow.frag");
 	m_shadowmapShader.LoadShader("screen_quad_vertex_shader_util.vs", "direction_light_shadow_map.frag");
 	m_shadowmapShader.use();
 	m_shadowmapShader.setInt("DepthBuffer", 0);
@@ -16,6 +15,8 @@ DirectionLight::DirectionLight(glm::vec3 color, glm::vec3 direction)
 	m_shadowmapShader.setInt("LightDepthBuffer2", 3);
 	m_shadowmapShader.setInt("LightDepthBuffer3", 4);
 	m_shadowmapShader.setInt("LightDepthBuffer4", 5);
+
+	m_depthShader.LoadShader("direction_light_shadow.vs", "direction_light_shadow.frag");
 	GLfloat border[4] = { 1.0f,1.0f,1.0f,1.0f };
 	for (int i = 0; i < SHADOWMAP_CASACADE_COUNT; i++) {
 		m_rtDepthMap[i].Initialize(SHADOWMAP_DEFAULT_SIZE * (SHADOWMAP_CASACADE_COUNT - i), SHADOWMAP_DEFAULT_SIZE * (SHADOWMAP_CASACADE_COUNT - i), GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8);

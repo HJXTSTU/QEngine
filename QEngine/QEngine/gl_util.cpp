@@ -6,6 +6,11 @@ void UseTexture(GLuint texture_code, GLuint id) {
 	glBindTexture(GL_TEXTURE_2D, id);
 }
 
+void UseCubemap(GLuint texture_code, GLuint id) {
+	glActiveTexture(GL_TEXTURE0 + texture_code);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, id);
+}
+
 char* ReadJsonFile(const string &path) {
 	ifstream fin(path);
 	fin.seekg(0, fin.end);

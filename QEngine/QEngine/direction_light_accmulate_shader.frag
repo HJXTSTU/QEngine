@@ -35,9 +35,9 @@ void main(){
 	
 	float NdL = max(dot(N,L),0.0f);
 
-	vec3 V = normalize(viewPos-vec3(worldPos));
-	vec3 H = normalize(V+L);
-	float NdH = max(dot(N,H),0.0f);
+	//vec3 V = normalize(viewPos-vec3(worldPos));
+	//vec3 H = normalize(V+L);
+	//float NdH = max(dot(N,H),0.0f);
 
-	FragColor = vec4(NdL*LightColor,NdH);
+	FragColor = vec4(NdL*LightColor,0);
 }

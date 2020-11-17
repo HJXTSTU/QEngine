@@ -192,6 +192,7 @@
     <ClInclude Include="gl_buffer.h" />
     <ClInclude Include="gl_camera.h" />
     <ClInclude Include="gl_context.h" />
+    <ClInclude Include="gl_cube_map.h" />
     <ClInclude Include="gl_engine_shell.h" />
     <ClInclude Include="gl_framebuffer.h" />
     <ClInclude Include="gl_geometry.h" />
@@ -250,6 +251,10 @@
     <None Include="phong_shader.frag" />
     <None Include="phong_shader.vs" />
     <None Include="point_light_accmulate_shader.frag" />
+    <None Include="point_light_shadow.frag" />
+    <None Include="point_light_shadow.gs" />
+    <None Include="point_light_shadow.vs" />
+    <None Include="point_light_shadow_map.frag" />
     <None Include="screen_quad_vertex_shader_util.vs" />
     <None Include="shadowmap_merge.frag" />
     <None Include="world_config.json" />

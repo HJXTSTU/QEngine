@@ -181,6 +181,21 @@
     <Filter Include="头文件\shaders\frag_shaders\lights\shadowmap">
       <UniqueIdentifier>{d664d9fe-c101-4105-80c2-491e881207ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\shaders\vertex_shaders\lights">
+      <UniqueIdentifier>{fdb64a5c-eb15-404c-a90d-c5f8cabafa30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\shaders\vertex_shaders\lights\shadowmap">
+      <UniqueIdentifier>{472d5ef1-97fb-4bea-85db-fbd3421a9092}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\shaders\geo_shaders">
+      <UniqueIdentifier>{ed66540d-427f-451b-9d2e-b6474d535965}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\shaders\geo_shaders\lights">
+      <UniqueIdentifier>{9090da39-49c2-4495-b84c-3049e9c3cf44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\shaders\geo_shaders\lights\shadowmap">
+      <UniqueIdentifier>{ff301a28-5005-4ea1-8392-7ec531915a22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="libs\glad.c">
@@ -503,6 +518,9 @@
     <ClInclude Include="ACESTonemappingRenderer.h">
       <Filter>头文件\postprocessing</Filter>
     </ClInclude>
+    <ClInclude Include="gl_cube_map.h">
+      <Filter>头文件\core\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="diffuse_shader.vs">
@@ -544,14 +562,8 @@
     <None Include="defer_phong_shader.frag">
       <Filter>头文件\shaders\frag_shaders</Filter>
     </None>
-    <None Include="direction_light_shadow.vs">
-      <Filter>头文件\shaders\vertex_shaders</Filter>
-    </None>
     <None Include="gaussianblur.frag">
       <Filter>头文件\shaders\frag_shaders\postprocessing</Filter>
-    </None>
-    <None Include="shadowmap_merge.frag">
-      <Filter>头文件\shaders\frag_shaders</Filter>
     </None>
     <None Include="direction_light_shadow_map.frag">
       <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
@@ -567,6 +579,24 @@
     </None>
     <None Include="aces.frag">
       <Filter>头文件\shaders\frag_shaders\postprocessing</Filter>
+    </None>
+    <None Include="direction_light_shadow.vs">
+      <Filter>头文件\shaders\vertex_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="point_light_shadow.vs">
+      <Filter>头文件\shaders\vertex_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="point_light_shadow.gs">
+      <Filter>头文件\shaders\geo_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="point_light_shadow.frag">
+      <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="point_light_shadow_map.frag">
+      <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="shadowmap_merge.frag">
+      <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
     </None>
   </ItemGroup>
 </Project>

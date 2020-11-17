@@ -19,28 +19,27 @@ void DefferRenderer::OnRender(BaseWorldPointer pWorld) {
 		m_lightAccmulatePass.AccmulateLightShading(lights[i], m_gbuffer.GetNormalTexture(), m_gbuffer.GetDepthTexture());
 	}
 
-	/*m_shadowmapRenderer.Clear();
+	m_shadowmapRenderer.Clear();
 	for (int i = 0; i < lights.size(); i++) {
 		lights[i]->ClearShadowmap();
 		lights[i]->RenderShadowmap(root, Context::mainCamera, m_gbuffer.GetDepthTexture(), m_gbuffer.GetVertexNormalTexture());
 		m_shadowmapRenderer.MergeShadowmap(lights[i]->GetShadowmap(), lights.size());
-	}*/
+	}
 
-	
-
-	/*m_gaussianBlurRenderer.setAmount(6);
+	m_gaussianBlurRenderer.setAmount(10);
 	m_gaussianBlurRenderer.setSigma(0.5f);
 	m_gaussianBlurRenderer.setMaxValue(1.0f);
 	m_gaussianBlurRenderer.setMinValue(0.0f);
 
-	const RenderTexture &result = m_gaussianBlurRenderer.Render(m_shadowmapRenderer.GetShadowmap());*/
+	const RenderTexture &result = m_gaussianBlurRenderer.Render(m_shadowmapRenderer.GetShadowmap());
+	//copyRenderer.CopyToScreen(m_shadowmapRenderer.GetShadowmap().GetID());
 	m_finalFramebuffer.UseFramebuffer();
 	glViewport(0, 0, SRC_WIDTH, SRC_HEIGHT);
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
-	root->OnSurfaceRender(m_lightAccmulatePass.GetLightBuffer());
+	root->OnSurfaceRender(m_lightAccmulatePass.GetLightBuffer(), result);
 	m_finalFramebuffer.UnUseFramebuffer();
 
 	m_acesTonemappingRenderer.setAdaptedIlumination(1.0f);
