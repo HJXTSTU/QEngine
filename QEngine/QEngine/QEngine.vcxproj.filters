@@ -348,6 +348,15 @@
     <ClCompile Include="light.cpp">
       <Filter>源文件\core\lights</Filter>
     </ClCompile>
+    <ClCompile Include="point_light.cpp">
+      <Filter>源文件\core\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="ACESTonemappingRenderer.cpp">
+      <Filter>源文件\postprocessing</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_cube_map.cpp">
+      <Filter>源文件\core\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="input.h">
