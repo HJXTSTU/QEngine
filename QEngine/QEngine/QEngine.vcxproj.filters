@@ -607,5 +607,8 @@
     <None Include="shadowmap_merge.frag">
       <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
     </None>
+    <None Include="direction_light_shadow_map_pcss.frag">
+      <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
+    </None>
   </ItemGroup>
 </Project>

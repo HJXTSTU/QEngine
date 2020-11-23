@@ -7,7 +7,7 @@ DirectionLight::DirectionLight(glm::vec3 color, glm::vec3 direction)
 
 	m_shadowmapFramebuffer.AttachColorAttachment(m_rtShadowmap, 0);
 
-	m_shadowmapShader.LoadShader("screen_quad_vertex_shader_util.vs", "direction_light_shadow_map.frag");
+	m_shadowmapShader.LoadShader("screen_quad_vertex_shader_util.vs", "direction_light_shadow_map_pcss.frag");
 	m_shadowmapShader.use();
 	m_shadowmapShader.setInt("DepthBuffer", 0);
 	m_shadowmapShader.setInt("NormalBuffer", 1);
@@ -20,6 +20,8 @@ DirectionLight::DirectionLight(glm::vec3 color, glm::vec3 direction)
 	GLfloat border[4] = { 1.0f,1.0f,1.0f,1.0f };
 	for (int i = 0; i < SHADOWMAP_CASACADE_COUNT; i++) {
 		m_rtDepthMap[i].Initialize(SHADOWMAP_DEFAULT_SIZE * (SHADOWMAP_CASACADE_COUNT - i), SHADOWMAP_DEFAULT_SIZE * (SHADOWMAP_CASACADE_COUNT - i), GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8);
+		m_rtDepthMap[i].SetMagFilter(GL_LINEAR);
+		m_rtDepthMap[i].SetMinFilter(GL_LINEAR);
 		m_rtDepthMap[i].SetWrapS(GL_CLAMP_TO_BORDER);
 		m_rtDepthMap[i].SetWrapT(GL_CLAMP_TO_BORDER);
 		m_rtDepthMap[i].SetBorderColor(border);

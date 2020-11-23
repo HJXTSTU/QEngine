@@ -6,9 +6,8 @@
 class GaussianBlurRenderer :public PostprocessRenderer {
 public:
 	float sigma;
-	float maxValue;
-	float minValue;
 	int amount;
+	int size;
 	RenderTexture pingpongTexture[2];
 public:
 
@@ -22,6 +21,8 @@ public:
 	void setMaxValue(float value);
 
 	void setMinValue(float value);
+
+	void setSize(int value);
 
 	const RenderTexture& Render(const RenderTexture &image);
 };

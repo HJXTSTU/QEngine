@@ -13,23 +13,23 @@
       "PARAMS": {
         "LIGHT_COLOR": [ 1.0, 1.0, 1.0 ],
         "LIGHT_DIRECTION": [ -1.0, -1.0, -0.5 ],
-        "MAX_BIAS": 0.8,
-        "MIN_BIAS": 0.4,
-        "NORMAL_BIAS": 1.0
+        "MAX_BIAS": 0.5,
+        "MIN_BIAS": 0.1,
+        "NORMAL_BIAS": 0.5
       }
     },
-      {
-        "TYPE": "POINT",
-        "PARAMS": {
-          "LIGHT_COLOR": [ 2.0, 0.0, 0.0 ],
-          "POSITION": [ 0.0, 10.0, 0.0 ],
-          "CONSTANT": 1.0,
-          "LINEAR": 0.045,
-          "QUADRATIC": 0.0075,
-          "MAX_BIAS": 0.05,
-          "MIN_BIAS": 0.005,
-          "NORMAL_BIAS": 0.25
-        }
+    {
+      "TYPE": "POINT",
+      "PARAMS": {
+        "LIGHT_COLOR": [ 2.0, 0.0, 0.0 ],
+        "POSITION": [ 0.0, 10.0, 0.0 ],
+        "CONSTANT": 1.0,
+        "LINEAR": 0.045,
+        "QUADRATIC": 0.0075,
+        "MAX_BIAS": 0.05,
+        "MIN_BIAS": 0.005,
+        "NORMAL_BIAS": 0.25
       }
+    }
   ]
 }
