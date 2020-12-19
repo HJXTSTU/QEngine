@@ -16,6 +16,7 @@ uniform sampler2D DepthBuffer;
 uniform sampler2D NormalBuffer;
 
 uniform float CameraFar;
+uniform float CameraNear;
 uniform float CascadeSplits[4];
 
 uniform vec3 LightDirection;
@@ -163,20 +164,21 @@ void main(){
 	vec4 worldPos = inverse(view) * inverse(projection) * NDC;
 	worldPos /= worldPos.w;
 	float distance = (projection*view*vec4(worldPos.xyz,1.0f)).z;
-	if(distance >= 999.0)discard;
+	if(distance >= 999.0||distance<0.0f)discard;
 
 	vec3 normal = texture2D(NormalBuffer, TexCoords).xyz;
 	
 	float s = 1.0f;
 	
 	float offset = 0.0f;
-	if(distance<= CameraFar*CascadeSplits[0]){
+	float ratio = distance/(CameraFar-CameraNear);
+	if(ratio<=CascadeSplits[0]){
 		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer1, LightSpaceMatrix1, -LightDirection, NearFarPlane1,LightSize1, LightBias);
-	}else if(distance<=CameraFar*(CascadeSplits[0]+CascadeSplits[1])){
+	}else if(ratio<=CascadeSplits[1]){
 		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer2, LightSpaceMatrix2, -LightDirection, NearFarPlane2,LightSize2, LightBias);
-	}else if(distance<=CameraFar*(CascadeSplits[0]+CascadeSplits[1]+CascadeSplits[2])){
+	}else if(ratio<=CascadeSplits[2]){
 		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer3, LightSpaceMatrix3, -LightDirection, NearFarPlane3,LightSize3, LightBias);
-	}else if(distance<=CameraFar*(CascadeSplits[0]+CascadeSplits[1]+CascadeSplits[2]+CascadeSplits[3])){
+	}else if(ratio<=CascadeSplits[3]){
 		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer4, LightSpaceMatrix4, -LightDirection, NearFarPlane4,LightSize4, LightBias);
 	}
 	FragColor = vec4(s,s,s,1.0f);

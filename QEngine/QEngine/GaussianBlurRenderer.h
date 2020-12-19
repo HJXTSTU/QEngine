@@ -18,10 +18,6 @@ public:
 
 	void setAmount(int value);
 
-	void setMaxValue(float value);
-
-	void setMinValue(float value);
-
 	void setSize(int value);
 
 	const RenderTexture& Render(const RenderTexture &image);
