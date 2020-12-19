@@ -32,7 +32,7 @@ void DefferRenderer::OnRender(BaseWorldPointer pWorld) {
 
 	const RenderTexture &result = m_gaussianBlurRenderer.Render(m_shadowmapRenderer.GetShadowmap());
 	//copyRenderer.CopyToScreen(m_shadowmapRenderer.GetShadowmap().GetID());
-	static bool blur = true;
+	static bool blur = false;
 	if (Input::getKeyDown(KEY_CODE_SPACE)) {
 		blur = !blur;
 	}

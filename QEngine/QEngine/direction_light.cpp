@@ -50,28 +50,13 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 
 	//	光源照射方向
 	//DirectionLightPointer dirLight = dynamic_pointer_cast<DirectionLight>(light);
+
+	//const glm::vec3 t = camera.WolrdToScreen(camera.Position + camera.Front*(1000.0f-0.1f)*0.005f);
+
 	const glm::vec3 LIGHT_DIR = glm::normalize(m_vLightDirection);
 	const glm::vec3 LIGHT_RIGHT = glm::normalize(glm::cross(LIGHT_DIR, glm::vec3(0, 1, 0)));
 	const glm::vec3 LIGHT_UP = glm::normalize(glm::cross(LIGHT_RIGHT, LIGHT_DIR));
 	const float EYE_DISTANCE = SHADOWMAP_EYE_DISTANCE;
-
-	//	计算三级视锥在极线平面上的坐标
-	const glm::vec3 UP = normalize(camera.Up);
-	const glm::vec3 RIGHT = normalize(camera.Right);
-	const glm::vec3 FRONT = normalize(camera.Front);
-
-
-	const float TAN_HALF_FOV = glm::tan(glm::radians(camera.Zoom / 2.0f));
-	const float ASPECT = SRC_WIDTH / SRC_HEIGHT;
-	const float HALF_HEIGHT = TAN_HALF_FOV;
-	const float HALF_WIDTH = HALF_HEIGHT * ASPECT;
-	const glm::vec3 ORIGIN = pos;
-	const float COS_ALPHA = 1.0f / sqrt(TAN_HALF_FOV * TAN_HALF_FOV * (1 + ASPECT * ASPECT) + 1);
-	const glm::vec3 LEFT_UP_DIR = glm::normalize(FRONT + UP * HALF_HEIGHT - RIGHT * HALF_WIDTH);
-	const glm::vec3 RIGHT_UP_DIR = glm::normalize(FRONT + UP * HALF_HEIGHT + RIGHT * HALF_WIDTH);
-	const glm::vec3 LEFT_BOTTOM_DIR = glm::normalize(FRONT - UP * HALF_HEIGHT - RIGHT * HALF_WIDTH);
-	const glm::vec3 RIGHT_BOTTOM_DIR = glm::normalize(FRONT - UP * HALF_HEIGHT + RIGHT * HALF_WIDTH);
-	vector<glm::vec3> DIRS{ LEFT_UP_DIR,RIGHT_UP_DIR,LEFT_BOTTOM_DIR,RIGHT_BOTTOM_DIR };
 
 	const float OUTER_WIDTH = SHADOWMAP_OUTER_WIDTH;
 
@@ -85,18 +70,25 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 		SHADOWMAP_CASCADE_SPLITS_2,
 		SHADOWMAP_CASCADE_SPLITS_3
 	};
+	vector<glm::vec2> screenPoints = {
+		glm::vec2(-1.0f,-1.0f),
+		glm::vec2(-1.0f, 1.0f),
+		glm::vec2( 1.0f, 1.0f),
+		glm::vec2( 1.0f,-1.0f)
+	};
+
 	float nearDistance = 0.0f;
-	float farDistance = CAMERA_FAR * cascadeSplits[0];
+	float farDistance = cascadeSplits[0];
 	for (int i = 0; i < SHADOWMAP_CASACADE_COUNT; i++) {
-		float nearL = nearDistance / COS_ALPHA;
-		float farL = farDistance / COS_ALPHA;
+		//float nearL = nearDistance / COS_ALPHA;
+		//float farL = farDistance / COS_ALPHA;
 
 		float minX = 999999.9f, minY = 999999.9f, minZ = 999999.9f;
 		float maxX = -999999.9f, maxY = -999999.9f, maxZ = -999999.9f;
 
-		for (int j = 0; j < DIRS.size(); j++) {
-			glm::vec3 nearCorner = ORIGIN + DIRS[j] * nearL;
-			glm::vec3 farCorner = ORIGIN + DIRS[j] * farL;
+		for (int j = 0; j < screenPoints.size(); j++) {
+			glm::vec3 nearCorner = camera.ScreenToWorld(screenPoints[j], nearDistance);
+			glm::vec3  farCorner = camera.ScreenToWorld(screenPoints[j], farDistance);
 
 			minX = min(min(minX, nearCorner.x), farCorner.x);
 			minY = min(min(minY, nearCorner.y), farCorner.y);
@@ -120,9 +112,9 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 		glm::mat4 view = glm::lookAt(eye, eye + dir, up);
 		minX = 999999.9f, minY = 999999.9f, minZ = 999999.9f;
 		maxX = -999999.9f, maxY = -999999.9f, maxZ = -999999.9f;
-		for (int j = 0; j < DIRS.size(); j++) {
-			glm::vec3 nearCorner = view * (vec4(ORIGIN + DIRS[j] * nearL, 1.0f));
-			glm::vec3 farCorner = view * (vec4(ORIGIN + DIRS[j] * farL, 1.0f));
+		for (int j = 0; j < screenPoints.size(); j++) {
+			glm::vec3 nearCorner = camera.ScreenToWorld(screenPoints[j], nearDistance);
+			glm::vec3  farCorner = camera.ScreenToWorld(screenPoints[j], farDistance);
 
 			minX = min(min(minX, nearCorner.x), farCorner.x);
 			minY = min(min(minY, nearCorner.y), farCorner.y);
@@ -152,8 +144,8 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 		glCullFace(GL_BACK);
 		m_framebuffer.UnUseFramebuffer();
 
-		nearDistance += i < 4 ? CAMERA_FAR * cascadeSplits[i] : 0.0f;
-		farDistance += i + 1 < 4 ? CAMERA_FAR * cascadeSplits[i + 1] : 0.0f;
+		nearDistance += i < 4 ? cascadeSplits[i] : 0.0f;
+		farDistance += i + 1 < 4 ? cascadeSplits[i + 1] : 0.0f;
 	}
 
 	m_shadowmapShader.use();

@@ -162,7 +162,7 @@ void main(){
 	vec4 NDC = vec4(TexCoords.x * 2.0 - 1.0, TexCoords.y * 2.0 - 1.0, depth * 2.0 - 1, 1.0);
 	vec4 worldPos = inverse(view) * inverse(projection) * NDC;
 	worldPos /= worldPos.w;
-	float distance = length(worldPos.xyz-viewPos);
+	float distance = (projection*view*vec4(worldPos.xyz,1.0f)).z;
 	if(distance >= 999.0)discard;
 
 	vec3 normal = texture2D(NormalBuffer, TexCoords).xyz;

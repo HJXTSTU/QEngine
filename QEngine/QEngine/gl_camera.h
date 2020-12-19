@@ -66,6 +66,10 @@ public:
 
 	glm::mat4 OrthoProjection(float left, float right, float bottom, float top);
 
+
+	glm::vec3 ScreenToWorld(glm::vec2 screenPoint,float depth, float _near=0.1f, float _far=1000.0f);
+	
+	glm::vec3 WolrdToScreen(glm::vec3 worldPoint, float _near = 0.1f, float _far = 1000.0f);
 private:
 	// Calculates the front vector from the Camera's (updated) Euler Angles
 	void updateCameraVectors();
