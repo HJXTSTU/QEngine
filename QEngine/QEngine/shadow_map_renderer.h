@@ -27,6 +27,6 @@ public:
 
 	void Clear();
 
-	void MergeShadowmap(const RenderTexture &otherShadowmap, int lightCount);
+	void MergeShadowmap(const RenderTexture &otherShadowmap);
 };
 

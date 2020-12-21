@@ -7,7 +7,7 @@ DirectionLight::DirectionLight(glm::vec3 color, glm::vec3 direction)
 
 	m_shadowmapFramebuffer.AttachColorAttachment(m_rtShadowmap, 0);
 
-	m_shadowmapShader.LoadShader("screen_quad_vertex_shader_util.vs", "direction_light_shadow_map_pcss.frag");
+	m_shadowmapShader.LoadShader("screen_quad_vertex_shader_util.vs", "direction_light_shadow_map_pcf.frag");
 	m_shadowmapShader.use();
 	m_shadowmapShader.setInt("DepthBuffer", 0);
 	m_shadowmapShader.setInt("NormalBuffer", 1);
@@ -25,6 +25,13 @@ DirectionLight::DirectionLight(glm::vec3 color, glm::vec3 direction)
 		m_rtDepthMap[i].SetWrapS(GL_CLAMP_TO_BORDER);
 		m_rtDepthMap[i].SetWrapT(GL_CLAMP_TO_BORDER);
 		m_rtDepthMap[i].SetBorderColor(border);
+
+		/*m_msrtDepthMap[i].Initialize(SHADOWMAP_DEFAULT_SIZE, SHADOWMAP_DEFAULT_SIZE, GL_DEPTH24_STENCIL8);
+		m_msrtDepthMap[i].SetMagFilter(GL_LINEAR);
+		m_msrtDepthMap[i].SetMinFilter(GL_LINEAR);
+		m_msrtDepthMap[i].SetWrapS(GL_CLAMP_TO_BORDER);
+		m_msrtDepthMap[i].SetWrapT(GL_CLAMP_TO_BORDER);
+		m_msrtDepthMap[i].SetBorderColor(border);*/
 	}
 
 }
@@ -175,6 +182,7 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 
 	m_shadowmapShader.setFloat("NormalBias", m_normalBias);
 	m_shadowmapShader.setVec2("LightBias", vec2(m_minBias, m_maxBias));
+	m_shadowmapShader.setFloat("Intensity", m_intensity);
 	m_shadowmapFramebuffer.UseFramebuffer();
 	glViewport(0, 0, SRC_WIDTH, SRC_HEIGHT);
 	m_screenQuad.DrawScreenQuad();

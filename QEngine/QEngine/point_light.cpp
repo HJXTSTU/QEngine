@@ -83,7 +83,8 @@ void PointLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, cons
 
 	m_shadowmapShader.setFloat("NormalBias", m_normalBias);
 	m_shadowmapShader.setVec2("LightBias", vec2(m_minBias, m_maxBias));
-
+	m_shadowmapShader.setFloat("Intensity", m_intensity);
+	this->SetupLightParams(m_shadowmapShader);
 	glViewport(0, 0, SRC_WIDTH, SRC_HEIGHT);
 	glClearColor(1, 1, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT);

@@ -23,6 +23,7 @@ protected:
 	float m_normalBias;
 	float m_minBias;
 	float m_maxBias;
+	float m_intensity;
 public:
 
 	Light(LightType type, glm::vec3 color);
@@ -34,6 +35,8 @@ public:
 	void SetMinBias(float value) { m_minBias = value; }
 
 	void SetNormalBias(float value) { m_normalBias = value; }
+
+	void SetIntensity(float value) { m_intensity = value; }
 
 	virtual void ClearShadowmap() = 0;
 

@@ -14,6 +14,8 @@ class DirectionLight :public Light {
 private:
 	glm::vec3 m_vLightDirection;
 
+	//MultiSampleFramebuffer m_msfShadowmapFramebuffer;
+	//MultiSampleRenderTexture m_msrtDepthMap[4];
 	Framebuffer m_shadowmapFramebuffer;
 	RenderTexture m_rtShadowmap;
 	RenderTexture m_rtDepthMap[4];

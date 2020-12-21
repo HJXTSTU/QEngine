@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include "constant.h"
 struct Color {
 	float r;
 	float g;

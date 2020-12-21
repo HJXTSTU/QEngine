@@ -1,6 +1,9 @@
 #include "gl_util.h"
 #include <fstream>
 
+#ifdef ENABLE_MULTISAMPLE
+#endif
+
 void UseTexture(GLuint texture_code, GLuint id) {
 	glActiveTexture(GL_TEXTURE0+texture_code);
 	glBindTexture(GL_TEXTURE_2D, id);

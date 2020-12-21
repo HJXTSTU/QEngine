@@ -43,6 +43,7 @@ uniform vec2 LightSize4;
 
 uniform float NormalBias;
 uniform vec2  LightBias;
+uniform float Intensity;
 
 #define LIGHT_WORLD_SIZE 0.005
 
@@ -81,76 +82,38 @@ float unpackDepth(vec4 rgbaDepth){
 	return depth;
 }
 
-float CaculateShadow(vec3 FragPos, vec3 Normal, sampler2D LightDepthBuffer, mat4 LightSpaceMatrix,vec3 LightDir, vec2 NearFarPlane,vec2 LightSize, vec2 Bias){
+
+float CaculateShadow(vec3 FragPos, vec3 Normal, sampler2D LightDepthBuffer, mat4 LightSpaceMatrix,vec3 LightDir, vec2 NearFarPlane,vec2 LightSize, vec2 Bias,float offsetScale){
 	vec4 lightSpaceProjection = (LightSpaceMatrix*vec4(FragPos,1.0f));
 	lightSpaceProjection /= lightSpaceProjection.w;
 	lightSpaceProjection = lightSpaceProjection*0.5f+0.5f;
-
-	initPoissonSamples(lightSpaceProjection.xy);
-
-	vec4 projectionWithNormalBias = (LightSpaceMatrix*vec4(FragPos+Normal,1.0f));
-	projectionWithNormalBias /= projectionWithNormalBias.w;
-	projectionWithNormalBias = projectionWithNormalBias*0.5f+0.5f;
 	
-	vec2 texelSize = textureSize(LightDepthBuffer, 0);
-	lightSpaceProjection.xy +=  normalize(projectionWithNormalBias.xy-lightSpaceProjection.xy)*NormalBias/texelSize.xy;
+	vec2 texelSize = textureSize(LightDepthBuffer, 0).xy;
 	
 	
-
-	float bias = max(Bias.y*(1.0f-dot(Normal,LightDir)),Bias.x)/(NearFarPlane.y-NearFarPlane.x);
+	vec2 uv = lightSpaceProjection.xy;
+	//float bias = max(Bias.y*(1.0f-dot(Normal,LightDir)),Bias.x)/(NearFarPlane.y-NearFarPlane.x);
+	float bias = 0.005f;
 	float currentDepth = lightSpaceProjection.z;
-	// float closestDepth = texture(LightDepthBuffer, lightSpaceProjection.xy).r;
-
-	
-
-//	PCSS
-	float accum_blocker_depth = 0.0f;
-	float num_blockers = 0.0f;
-	float zReciver = currentDepth;
-	float searchRadius = ((LIGHT_WORLD_SIZE/LightSize.x)/zReciver);
+	float closestDepth = texture(LightDepthBuffer, uv).r;
 	float biased_depth = currentDepth - bias;
-	for( int i = 0; i < BLOCKER_SEARCH_NUM_SAMPLES; i++ ) {
-		float shadowMapDepth = unpackDepth(texture2D(LightDepthBuffer, lightSpaceProjection.xy + poissonDisk[i] * searchRadius));
-		if ( shadowMapDepth < zReciver ) {
-			accum_blocker_depth += shadowMapDepth;
-			num_blockers +=1.0f;
+	float shadow = 0.0f;
+
+	vec2 offset = fract(uv.xy*offsetScale);
+	offset.y += offset.x;
+	// offset.y^=offset.x;
+	if(offset.y>1.1f)offset.y=0.0f;
+
+	for(float x = -1.5f;x<=0.6f;x+=2.0f){
+		for(float y = -1.5f;y<=0.6f;y+=2.0f){
+			float sampleDepth = texture(LightDepthBuffer, uv + (offset+vec2(x,y))/texelSize.xy).r;
+			shadow += biased_depth>sampleDepth?0.0f:1.0f;
 		}
 	}
 	
-
-	
-	
-
-	if(num_blockers==NUM_SAMPLES){
-		return 0.0f;
-	}
-
-	if(num_blockers==0.0f){
-		return 1.0f;
-	}
-
-	float avg_blocker_depth = accum_blocker_depth/num_blockers;
-
-	float penumbraRatio = (zReciver - avg_blocker_depth)/(avg_blocker_depth);
-	float filterRadius = penumbraRatio * (LIGHT_WORLD_SIZE/LightSize.x);
-
-	float shadow = 0.0f;
-	for(int i=0;i < PCF_NUM_SAMPLES; i++ ){
-		float depth = unpackDepth(texture2D(LightDepthBuffer, lightSpaceProjection.xy + poissonDisk[ i ] * filterRadius ));
-		if( biased_depth <= depth ) shadow += 1.0;
-	}
-	for(int i=0;i < PCF_NUM_SAMPLES; i++ ){
-		float depth = unpackDepth(texture2D(LightDepthBuffer, lightSpaceProjection.xy + -poissonDisk[ i ].yx * filterRadius ));
-		if( biased_depth <= depth ) shadow += 1.0;
-	}
-	shadow/= 2*PCF_NUM_SAMPLES;
-
-	if(lightSpaceProjection.z > 1.0)
-        shadow = 0.0;
-
-	shadow = min(max(shadow,0.0f),1.0f);
-
+	shadow/= 4.0f;
 	return shadow;
+
 }
 
 
@@ -164,20 +127,20 @@ void main(){
 	float distance = length(worldPos.xyz-viewPos);
 	if(distance >= 999.0||distance<0.0f)discard;
 
-	vec3 normal = texture2D(NormalBuffer, TexCoords).xyz;
+	vec3 normal = normalize(texture2D(NormalBuffer, TexCoords).xyz);
 	
 	float s = 1.0f;
 	
 	float offset = 0.0f;
 	float ratio = distance/(CameraFar-CameraNear);
 	if(ratio<=CascadeSplits[0]){
-		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer1, LightSpaceMatrix1, -LightDirection, NearFarPlane1,LightSize1, LightBias);
+		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer1, LightSpaceMatrix1, -LightDirection, NearFarPlane1,LightSize1, LightBias,0.5f);
 	}else if(ratio<=CascadeSplits[1]){
-		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer2, LightSpaceMatrix2, -LightDirection, NearFarPlane2,LightSize2, LightBias);
+		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer2, LightSpaceMatrix2, -LightDirection, NearFarPlane2,LightSize2, LightBias,0.25f);
 	}else if(ratio<=CascadeSplits[2]){
-		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer3, LightSpaceMatrix3, -LightDirection, NearFarPlane3,LightSize3, LightBias);
+		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer3, LightSpaceMatrix3, -LightDirection, NearFarPlane3,LightSize3, LightBias,0.15f);
 	}else if(ratio<=CascadeSplits[3]){
-		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer4, LightSpaceMatrix4, -LightDirection, NearFarPlane4,LightSize4, LightBias);
+		s = CaculateShadow(worldPos.xyz, normal, LightDepthBuffer4, LightSpaceMatrix4, -LightDirection, NearFarPlane4,LightSize4, LightBias,0.05f);
 	}
-	FragColor = vec4(s,s,s,1.0f);
+	FragColor = vec4(s,s,s,max(dot(normal,-LightDirection),0.0f));
 }

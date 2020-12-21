@@ -13,9 +13,10 @@
       "PARAMS": {
         "LIGHT_COLOR": [ 1.0, 1.0, 1.0 ],
         "LIGHT_DIRECTION": [ -1.0, -1.0, -0.5 ],
-        "MAX_BIAS": 0.5,
-        "MIN_BIAS": 0.1,
-        "NORMAL_BIAS": 0.5
+        "MAX_BIAS": 0.1,
+        "MIN_BIAS": 0.05,
+        "NORMAL_BIAS": 0.5,
+        "INTENSITY": 0.8
       }
     },
     {
@@ -26,7 +27,8 @@
         "CONSTANT": 1.0,
         "LINEAR": 0.045,
         "QUADRATIC": 0.0075,
-        "MAX_BIAS": 0.05,
+        "INTENSITY": 0.3,
+        "MAX_BIAS": 0.01,
         "MIN_BIAS": 0.005,
         "NORMAL_BIAS": 0.25
       }

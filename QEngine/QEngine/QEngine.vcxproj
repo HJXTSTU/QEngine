@@ -247,6 +247,7 @@
     <None Include="direction_light_shadow.frag" />
     <None Include="direction_light_shadow.vs" />
     <None Include="direction_light_shadow_map.frag" />
+    <None Include="direction_light_shadow_map_pcf.frag" />
     <None Include="direction_light_shadow_map_pcss.frag" />
     <None Include="gaussianblur.frag" />
     <None Include="gbuffer_shader.frag" />

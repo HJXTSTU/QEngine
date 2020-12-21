@@ -144,6 +144,7 @@ void Context::InitWorld(const string &configFilePath) {
 				float maxBias = 0.3f;
 				float minBias = 0.05f;
 				float normalBias = 0.3f;
+				float intensity = 0.5f;
 				if (params.HasKey("MAX_BIAS")) {
 					maxBias = params.Get<float>("MAX_BIAS");
 				}
@@ -153,12 +154,15 @@ void Context::InitWorld(const string &configFilePath) {
 				if (params.HasKey("NORMAL_BIAS")) {
 					normalBias = params.Get<float>("NORMAL_BIAS");
 				}
+				if (params.HasKey("INTENSITY")) {
+					intensity = params.Get<float>("INTENSITY");
+				}
 
 				LightPointer light = DirectionLight::Create(color,direction);
 				light->SetMaxBias(maxBias);
 				light->SetMinBias(minBias);
 				light->SetNormalBias(normalBias);
-				
+				light->SetIntensity(intensity);
 				world->AddLight(light);
 			}
 			else if (type == "POINT") {
@@ -179,6 +183,7 @@ void Context::InitWorld(const string &configFilePath) {
 				float constant = 1.0f;
 				float linear = 0.7f;
 				float quadratic = 1.8f;
+				float intensity = 0.5f;
 				if (params.HasKey("CONSTANT")) {
 					constant = params.Get<float>("CONSTANT");
 				}
@@ -204,12 +209,15 @@ void Context::InitWorld(const string &configFilePath) {
 				if (params.HasKey("NORMAL_BIAS")) {
 					normalBias = params.Get<float>("NORMAL_BIAS");
 				}
+				if (params.HasKey("INTENSITY")) {
+					intensity = params.Get<float>("INTENSITY");
+				}
 
 				LightPointer light = PointLight::Create(color, position, attenuationParams);
 				light->SetMaxBias(maxBias);
 				light->SetMinBias(minBias);
 				light->SetNormalBias(normalBias);
-
+				light->SetIntensity(intensity);
 				world->AddLight(light);
 			}
 		}

@@ -18,6 +18,14 @@ uniform samplerCube LightDepthBuffer;
 
 uniform vec3 Position;
 
+uniform float Constant;
+
+uniform float Linear;
+
+uniform float Quadratic;
+
+uniform float Intensity;
+
 uniform float FarPlane;
 
 uniform float NormalBias;
@@ -72,6 +80,9 @@ void main(){
 	vec3 normal = normalize(texture2D(NormalBuffer, TexCoords).xyz);
 
 	float s =  CaculateShadow(worldPos.xyz, normal, LightBias);
-	FragColor = vec4(s,s,s,1.0f);
+	float distanceToLight = length(worldPos.xyz-Position);
+	vec3 L = normalize(Position - worldPos.xyz);
+	float NdL = max(dot(normal,L),0.0f);
+	FragColor = vec4(s,s,s,NdL/(Constant+distanceToLight*Linear+distanceToLight*distanceToLight*Quadratic));
 }
 

@@ -25,7 +25,7 @@ std::shared_ptr<GLWindow> WindowBuilder::BuildDefaultWindow() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-	glfwWindowHint(GLFW_SAMPLES, 4);
+	glfwWindowHint(GLFW_SAMPLES, SAMPLES_COUNT);
 
 	GLFWwindow *window = glfwCreateWindow(1024, 1024, "QEngine", NULL, NULL);
 	if (!window) {

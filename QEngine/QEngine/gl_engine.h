@@ -8,9 +8,7 @@ private:
 public:
 	static std::shared_ptr<GLEngine> Instance();
 private:
-	GLEngine() {
-
-	}
+	GLEngine();
 public:
 	void Run(ContextPointer context);
 };
