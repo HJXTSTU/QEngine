@@ -1,8 +1,8 @@
 {
   "OBJECTS": [
     {
-      "NAME": "cubes",
-      "FROM_MODEL": "cubes",
+      "NAME": "dragon",
+      "FROM_MODEL": "dragon",
       "MATERIAL": "phong",
       "PARENT": "__ROOT__"
     }
@@ -12,25 +12,11 @@
       "TYPE": "DIRECTION",
       "PARAMS": {
         "LIGHT_COLOR": [ 1.0, 1.0, 1.0 ],
-        "LIGHT_DIRECTION": [ -1.0, -1.0, -0.5 ],
+        "LIGHT_DIRECTION": [ -1.0, -1.0, 0.0 ],
         "MAX_BIAS": 0.1,
         "MIN_BIAS": 0.05,
         "NORMAL_BIAS": 0.5,
         "INTENSITY": 0.8
-      }
-    },
-    {
-      "TYPE": "POINT",
-      "PARAMS": {
-        "LIGHT_COLOR": [ 2.0, 0.0, 0.0 ],
-        "POSITION": [ 0.0, 10.0, 0.0 ],
-        "CONSTANT": 1.0,
-        "LINEAR": 0.045,
-        "QUADRATIC": 0.0075,
-        "INTENSITY": 0.3,
-        "MAX_BIAS": 0.01,
-        "MIN_BIAS": 0.005,
-        "NORMAL_BIAS": 0.25
       }
     }
   ]

@@ -37,9 +37,9 @@ void main(){
 		shadow = max(min(texture2D(Shadowmap, gl_FragCoord.xy/screenSize).r,1.0f),0.0f);
 
 
-	vec3 result = light.rgb*diffuseColor+pow(light.a,64)*specularColor;
+	vec3 result = light.rgb*diffuseColor+max(pow(light.a,64),0.0f)*specularColor;
 	
 	vec3 ambient = vec3(0.0,0.0,0.0);
 
-	FragColor = vec4((ambient*diffuseColor + result)*shadow, 1.0f);
+	FragColor = vec4((result)*shadow, 1.0f);
 } 

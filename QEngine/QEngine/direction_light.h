@@ -18,7 +18,8 @@ private:
 	//MultiSampleRenderTexture m_msrtDepthMap[4];
 	Framebuffer m_shadowmapFramebuffer;
 	RenderTexture m_rtShadowmap;
-	RenderTexture m_rtDepthMap[4];
+	//RenderTexture m_rtDepthMap[4];
+	RenderTexture m_rtDepthMap;
 	ScreenQuad m_screenQuad;
 
 	Framebuffer m_framebuffer;

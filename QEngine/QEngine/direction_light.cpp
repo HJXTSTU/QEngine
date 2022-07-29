@@ -7,32 +7,39 @@ DirectionLight::DirectionLight(glm::vec3 color, glm::vec3 direction)
 
 	m_shadowmapFramebuffer.AttachColorAttachment(m_rtShadowmap, 0);
 
-	m_shadowmapShader.LoadShader("screen_quad_vertex_shader_util.vs", "direction_light_shadow_map_pcf.frag");
+	m_shadowmapShader.LoadShader("screen_quad_vertex_shader_util.vs", "direction_light_shadow_map_single_pcss.frag");
 	m_shadowmapShader.use();
 	m_shadowmapShader.setInt("DepthBuffer", 0);
 	m_shadowmapShader.setInt("NormalBuffer", 1);
-	m_shadowmapShader.setInt("LightDepthBuffer1", 2);
-	m_shadowmapShader.setInt("LightDepthBuffer2", 3);
-	m_shadowmapShader.setInt("LightDepthBuffer3", 4);
-	m_shadowmapShader.setInt("LightDepthBuffer4", 5);
+	m_shadowmapShader.setInt("LightDepthBuffer", 2);
+	//m_shadowmapShader.setInt("LightDepthBuffer2", 3);
+	//m_shadowmapShader.setInt("LightDepthBuffer3", 4);
+	//m_shadowmapShader.setInt("LightDepthBuffer4", 5);
 
 	m_depthShader.LoadShader("direction_light_shadow.vs", "direction_light_shadow.frag");
 	GLfloat border[4] = { 1.0f,1.0f,1.0f,1.0f };
-	for (int i = 0; i < SHADOWMAP_CASACADE_COUNT; i++) {
-		m_rtDepthMap[i].Initialize(SHADOWMAP_DEFAULT_SIZE, SHADOWMAP_DEFAULT_SIZE, GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8);
-		m_rtDepthMap[i].SetMagFilter(GL_LINEAR);
-		m_rtDepthMap[i].SetMinFilter(GL_LINEAR);
-		m_rtDepthMap[i].SetWrapS(GL_CLAMP_TO_BORDER);
-		m_rtDepthMap[i].SetWrapT(GL_CLAMP_TO_BORDER);
-		m_rtDepthMap[i].SetBorderColor(border);
+	m_rtDepthMap.Initialize(SHADOWMAP_DEFAULT_SIZE, SHADOWMAP_DEFAULT_SIZE, GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8);
+	m_rtDepthMap.SetMagFilter(GL_LINEAR);
+	m_rtDepthMap.SetMinFilter(GL_LINEAR);
+	m_rtDepthMap.SetWrapS(GL_CLAMP_TO_BORDER);
+	m_rtDepthMap.SetWrapT(GL_CLAMP_TO_BORDER);
+	m_rtDepthMap.SetBorderColor(border);
+	//GLfloat border[4] = { 1.0f,1.0f,1.0f,1.0f };
+	//for (int i = 0; i < SHADOWMAP_CASACADE_COUNT; i++) {
+	//	m_rtDepthMap[i].Initialize(SHADOWMAP_DEFAULT_SIZE, SHADOWMAP_DEFAULT_SIZE, GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8);
+	//	m_rtDepthMap[i].SetMagFilter(GL_LINEAR);
+	//	m_rtDepthMap[i].SetMinFilter(GL_LINEAR);
+	//	m_rtDepthMap[i].SetWrapS(GL_CLAMP_TO_BORDER);
+	//	m_rtDepthMap[i].SetWrapT(GL_CLAMP_TO_BORDER);
+	//	m_rtDepthMap[i].SetBorderColor(border);
 
-		/*m_msrtDepthMap[i].Initialize(SHADOWMAP_DEFAULT_SIZE, SHADOWMAP_DEFAULT_SIZE, GL_DEPTH24_STENCIL8);
-		m_msrtDepthMap[i].SetMagFilter(GL_LINEAR);
-		m_msrtDepthMap[i].SetMinFilter(GL_LINEAR);
-		m_msrtDepthMap[i].SetWrapS(GL_CLAMP_TO_BORDER);
-		m_msrtDepthMap[i].SetWrapT(GL_CLAMP_TO_BORDER);
-		m_msrtDepthMap[i].SetBorderColor(border);*/
-	}
+	//	/*m_msrtDepthMap[i].Initialize(SHADOWMAP_DEFAULT_SIZE, SHADOWMAP_DEFAULT_SIZE, GL_DEPTH24_STENCIL8);
+	//	m_msrtDepthMap[i].SetMagFilter(GL_LINEAR);
+	//	m_msrtDepthMap[i].SetMinFilter(GL_LINEAR);
+	//	m_msrtDepthMap[i].SetWrapS(GL_CLAMP_TO_BORDER);
+	//	m_msrtDepthMap[i].SetWrapT(GL_CLAMP_TO_BORDER);
+	//	m_msrtDepthMap[i].SetBorderColor(border);*/
+	//}
 
 }
 
@@ -50,6 +57,17 @@ void DirectionLight::ClearShadowmap() {
 }
 
 const RenderTexture& DirectionLight::GetShadowmap() { return m_rtShadowmap; }
+
+float RayCrossToPlane(vec3 Origin, vec3 Direction, vec3 PlaneCenter, vec3 PlaneNormal)
+{
+	vec3 OP = PlaneCenter - Origin;
+	float DdotN = dot(Direction, PlaneNormal);
+	if (abs(DdotN) < 0.01f)
+	{
+		return -1.0f;
+	}
+	return dot(OP, PlaneNormal) / DdotN;
+}
 
 void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, const RenderTexture &depthMap, const RenderTexture &normalMap) {
 
@@ -79,7 +97,9 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 
 	float nearDistance = 0.0f;
 	float farDistance = cascadeSplits[0];
-	for (int i = 0; i < SHADOWMAP_CASACADE_COUNT; i++) {
+	vector<glm::vec3> lightCornors;
+	glm::vec3 lightCenter;
+	for (int i = 0; i < 1; i++) {
 		float minX = 999999.9f, minY = 999999.9f, minZ = 999999.9f;
 		float maxX = -999999.9f, maxY = -999999.9f, maxZ = -999999.9f;
 
@@ -134,7 +154,13 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 		lightSpaceMatrixs.push_back(projection*view);
 		nearFarPlanes.push_back(vec2(-maxZ - OUTER_WIDTH, -minZ + OUTER_WIDTH));
 
-		m_framebuffer.AttachDepthStencilAttachment(m_rtDepthMap[i]);
+		lightCornors.push_back(eye + right * lightSizes[i].x / 2.0f + up * lightSizes[i].y / 2.0f);
+		lightCornors.push_back(eye - right * lightSizes[i].x / 2.0f + up * lightSizes[i].y / 2.0f);
+		lightCornors.push_back(eye + right * lightSizes[i].x / 2.0f - up * lightSizes[i].y / 2.0f);
+		lightCornors.push_back(eye - right * lightSizes[i].x / 2.0f - up * lightSizes[i].y / 2.0f);
+		lightCenter = eye;
+
+		m_framebuffer.AttachDepthStencilAttachment(m_rtDepthMap);
 		m_framebuffer.UseFramebuffer();
 		glViewport(0, 0, SHADOWMAP_DEFAULT_SIZE, SHADOWMAP_DEFAULT_SIZE);
 		glClear(GL_DEPTH_BUFFER_BIT);
@@ -153,15 +179,37 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 	m_shadowmapShader.setVec3("LightDirection", LIGHT_DIR);
 	m_shadowmapShader.setFloat("CameraFar", CAMERA_FAR);
 	m_shadowmapShader.setFloat("CameraNear", CAMERA_NEAR);
-	m_shadowmapShader.setFloat("CascadeSplits[0]", cascadeSplits[0]);
-	m_shadowmapShader.setFloat("CascadeSplits[1]", cascadeSplits[1]);
-	m_shadowmapShader.setFloat("CascadeSplits[2]", cascadeSplits[2]);
-	m_shadowmapShader.setFloat("CascadeSplits[3]", cascadeSplits[3]);
+	m_shadowmapShader.setVec3("LightCornors[0]", lightCornors[0]);
+	m_shadowmapShader.setVec3("LightCornors[1]", lightCornors[1]);
+	m_shadowmapShader.setVec3("LightCornors[2]", lightCornors[2]);
+	m_shadowmapShader.setVec3("LightCornors[3]", lightCornors[3]);
+	m_shadowmapShader.setVec3("LightCenter", lightCenter);
+	//float deltaDistance = nearFarPlanes[0].x;
+	//vec3 planeCenter = lightCenter + LIGHT_DIR * deltaDistance;
+	//vec3 intersectPoints[4];
+	//vec3 FragPos = camera.Position;
+	//for (int i = 0; i < 4; i++) {
+	//	vec3 rayDirection = glm::normalize(lightCornors[i] - FragPos);
+	//	float t = RayCrossToPlane(FragPos, rayDirection, planeCenter, LIGHT_DIR);
+	//	//if (t < 0.0f)return 1.0f;
+	//	intersectPoints[i] = FragPos + rayDirection * t;
+	//}
+	//float width = glm::length(intersectPoints[0] - intersectPoints[1]);
+	//float height = glm::length(intersectPoints[0] - intersectPoints[2]);
+	//printf("Width : %.2f   Height : %.2f\n", width, height);
 
-	UseTexture(0, depthMap.GetID());
+	//m_shadowmapShader.setFloat("CascadeSplits[0]", cascadeSplits[0]);
+	//m_shadowmapShader.setFloat("CascadeSplits[1]", cascadeSplits[1]);
+	//m_shadowmapShader.setFloat("CascadeSplits[2]", cascadeSplits[2]);
+	//m_shadowmapShader.setFloat("CascadeSplits[3]", cascadeSplits[3]);
+
+ 	UseTexture(0, depthMap.GetID());
 	UseTexture(1, normalMap.GetID());
-	UseTexture(2, m_rtDepthMap[0].GetID());
-	m_shadowmapShader.setMat4("LightSpaceMatrix1", lightSpaceMatrixs[0]);
+	UseTexture(2, m_rtDepthMap.GetID());
+	m_shadowmapShader.setMat4("LightSpaceMatrix", lightSpaceMatrixs[0]);
+	m_shadowmapShader.setVec2("NearFarPlane", nearFarPlanes[0]);
+	m_shadowmapShader.setVec2("LightSize", lightSizes[0]);
+	/*m_shadowmapShader.setMat4("LightSpaceMatrix1", lightSpaceMatrixs[0]);
 	m_shadowmapShader.setVec2("NearFarPlane1", nearFarPlanes[0]);
 	m_shadowmapShader.setVec2("LightSize1", lightSizes[0]);
 
@@ -178,7 +226,7 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 	UseTexture(5, m_rtDepthMap[3].GetID());
 	m_shadowmapShader.setMat4("LightSpaceMatrix4", lightSpaceMatrixs[3]);
 	m_shadowmapShader.setVec2("NearFarPlane4", nearFarPlanes[3]);
-	m_shadowmapShader.setVec2("LightSize4", lightSizes[3]);
+	m_shadowmapShader.setVec2("LightSize4", lightSizes[3]);*/
 
 	m_shadowmapShader.setFloat("NormalBias", m_normalBias);
 	m_shadowmapShader.setVec2("LightBias", vec2(m_minBias, m_maxBias));
@@ -190,7 +238,7 @@ void DirectionLight::RenderShadowmap(shared_ptr<Object3D> root, Camera &camera, 
 }
 
 const RenderTexture& DirectionLight::GetDepthMap(GLuint index) {
-	return m_rtDepthMap[index];
+	return m_rtDepthMap;
 }
 
 LightPointer DirectionLight::Create(glm::vec3 color, glm::vec3 direction) {

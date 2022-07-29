@@ -44,113 +44,86 @@ uniform vec2 LightSize4;
 uniform float NormalBias;
 uniform vec2  LightBias;
 
-#define LIGHT_WORLD_SIZE 0.005
-
-#define NUM_SAMPLES 17
-#define NUM_RINGS 11
-#define BLOCKER_SEARCH_NUM_SAMPLES NUM_SAMPLES
-#define PCF_NUM_SAMPLES NUM_SAMPLES
-
-vec2 poissonDisk[NUM_SAMPLES];
-
-float rand(vec2 co){
-	return fract(sin(dot(co.xy, vec2(12.9898,78.233))) * 43758.5453);
-}
-
-void initPoissonSamples( const in vec2 randomSeed ) {
-	float PI = 3.1415926;
-	float PI2 = PI*PI;
-	float ANGLE_STEP = PI2 * float( NUM_RINGS ) / float( NUM_SAMPLES );
-	float INV_NUM_SAMPLES = 1.0 / float( NUM_SAMPLES );
-
-	// jsfiddle that shows sample pattern: https://jsfiddle.net/a16ff1p7/
-	float angle = rand( randomSeed ) * PI2;
-	float radius = INV_NUM_SAMPLES;
-	float radiusStep = radius;
-
-	for( int i = 0; i < NUM_SAMPLES; i ++ ) {
-		poissonDisk[i] = vec2( cos( angle ), sin( angle ) ) * pow( radius, 0.75 );
-		radius += radiusStep;
-		angle += ANGLE_STEP;
-	}
-}
-
-float unpackDepth(vec4 rgbaDepth){
-	const vec4 bitShift = vec4(1.0, 1.0/256.0, 1.0/(256.0*256.0), 1.0/(256.0*256.0*256.0));
-	float depth = dot(rgbaDepth, bitShift);
-	return depth;
-}
+#define LIGHT_WORLD_SIZE 1024
 
 float CaculateShadow(vec3 FragPos, vec3 Normal, sampler2D LightDepthBuffer, mat4 LightSpaceMatrix,vec3 LightDir, vec2 NearFarPlane,vec2 LightSize, vec2 Bias){
 	vec4 lightSpaceProjection = (LightSpaceMatrix*vec4(FragPos,1.0f));
 	lightSpaceProjection /= lightSpaceProjection.w;
 	lightSpaceProjection = lightSpaceProjection*0.5f+0.5f;
+	//if(lightSpaceProjection.z > 1.0)
+        //return 1.0f;
 
-	initPoissonSamples(lightSpaceProjection.xy);
+	// initPoissonSamples(lightSpaceProjection.xy);
 
-	vec4 projectionWithNormalBias = (LightSpaceMatrix*vec4(FragPos+Normal,1.0f));
-	projectionWithNormalBias /= projectionWithNormalBias.w;
-	projectionWithNormalBias = projectionWithNormalBias*0.5f+0.5f;
+	//	vec4 projectionWithNormalBias = (LightSpaceMatrix*vec4(FragPos+Normal,1.0f));
+	//	projectionWithNormalBias /= projectionWithNormalBias.w;
+	//	projectionWithNormalBias = projectionWithNormalBias*0.5f+0.5f;
 	
 	vec2 texelSize = textureSize(LightDepthBuffer, 0);
-	lightSpaceProjection.xy +=  normalize(projectionWithNormalBias.xy-lightSpaceProjection.xy)*NormalBias/texelSize.xy;
+	//lightSpaceProjection.xy +=  normalize(projectionWithNormalBias.xy-lightSpaceProjection.xy)*NormalBias/texelSize.xy;
 	
 	
 
-	float bias = max(Bias.y*(1.0f-dot(Normal,LightDir)),Bias.x)/(NearFarPlane.y-NearFarPlane.x);
+	// float bias = max(Bias.y*(1.0f-dot(Normal,LightDir)),Bias.x)/(NearFarPlane.y-NearFarPlane.x);
+	float bias = 0.005f;
 	float currentDepth = lightSpaceProjection.z;
 	// float closestDepth = texture(LightDepthBuffer, lightSpaceProjection.xy).r;
-
+	// return currentDepth<closestDepth?1.0f:0.0f;
 	
 
 //	PCSS
 	float accum_blocker_depth = 0.0f;
-	float num_blockers = 0.0f;
-	float zReciver = currentDepth;
-	float searchRadius = ((LIGHT_WORLD_SIZE/LightSize.x)/zReciver);
-	float biased_depth = currentDepth - bias;
-	for( int i = 0; i < BLOCKER_SEARCH_NUM_SAMPLES; i++ ) {
-		float shadowMapDepth = unpackDepth(texture2D(LightDepthBuffer, lightSpaceProjection.xy + poissonDisk[i] * searchRadius));
-		if ( shadowMapDepth < zReciver ) {
-			accum_blocker_depth += shadowMapDepth;
-			num_blockers +=1.0f;
+	int num_blockers = 0;
+	float zReciver = currentDepth-bias;
+	int sample_count = 0;
+	for(float x = -2.0f;x<=2.0f;x+=1.0f){
+		for(float y = -2.0f;y<=2.0f;y+=1.0f){
+			float sampleDepth = texture(LightDepthBuffer, lightSpaceProjection.xy + vec2(x,y)/texelSize.xy).r;
+			if (sampleDepth < zReciver ) {
+				accum_blocker_depth += sampleDepth;
+				num_blockers +=1;
+			}
+			sample_count += 1;
 		}
 	}
-	
-
-	
-	
-
-	if(num_blockers==NUM_SAMPLES){
-		return 0.0f;
-	}
-
-	if(num_blockers==0.0f){
+	//for( int i = 0; i < BLOCKER_SEARCH_NUM_SAMPLES; i++ ) {
+	//	float shadowMapDepth = texture2D(LightDepthBuffer, lightSpaceProjection.xy + poissonDisk[i]*searchRadius/texelSize).r;
+	//	if ( shadowMapDepth < zReciver ) {
+	//		accum_blocker_depth += shadowMapDepth;
+	//		num_blockers +=1;
+	//	}
+	//}
+	if(num_blockers==0){
 		return 1.0f;
 	}
 
-	float avg_blocker_depth = accum_blocker_depth/num_blockers;
+	//if(num_blockers>=sample_count/2)return 0.0f;
+	
+
+	float avg_blocker_depth = accum_blocker_depth/float(sample_count);
 
 	float penumbraRatio = (zReciver - avg_blocker_depth)/(avg_blocker_depth);
-	float filterRadius = penumbraRatio * (LIGHT_WORLD_SIZE/LightSize.x);
+	penumbraRatio = max(0,penumbraRatio);
 
-	float shadow = 0.0f;
-	for(int i=0;i < PCF_NUM_SAMPLES; i++ ){
-		float depth = unpackDepth(texture2D(LightDepthBuffer, lightSpaceProjection.xy + poissonDisk[ i ] * filterRadius ));
-		if( biased_depth <= depth ) shadow += 1.0;
+	float filterRadius = penumbraRatio;
+	vec2 filterSize = vec2(filterRadius*LightSize.x,filterRadius*LightSize.y)/texelSize.xy;
+	float shadow = 0;
+	vec2 filterDelta = filterSize*0.2f;
+	
+	sample_count = 0;
+	for(float x = -filterSize.x;x<=filterSize.x;x+=filterDelta.x){
+		for(float y = -filterSize.y;y<=filterSize.y;y+=filterDelta.y){
+			float sampleDepth = texture(LightDepthBuffer, lightSpaceProjection.xy + vec2(x,y)).r;
+			if( zReciver >= sampleDepth ) shadow += 1.0;
+			sample_count += 1;
+		}
 	}
-	for(int i=0;i < PCF_NUM_SAMPLES; i++ ){
-		float depth = unpackDepth(texture2D(LightDepthBuffer, lightSpaceProjection.xy + -poissonDisk[ i ].yx * filterRadius ));
-		if( biased_depth <= depth ) shadow += 1.0;
-	}
-	shadow/= 2*PCF_NUM_SAMPLES;
-
-	if(lightSpaceProjection.z > 1.0)
-        shadow = 0.0;
+	if(sample_count>0)
+		shadow/= float(sample_count);
 
 	shadow = min(max(shadow,0.0f),1.0f);
 
-	return shadow;
+	return 1 - shadow;
 }
 
 

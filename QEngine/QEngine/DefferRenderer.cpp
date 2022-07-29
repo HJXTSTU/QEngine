@@ -37,14 +37,14 @@ void DefferRenderer::OnRender(BaseWorldPointer pWorld) {
 			index = (index + 1) % 4;
 		}
 		std::shared_ptr<DirectionLight> dirLight = dynamic_pointer_cast<DirectionLight>(lights[0]);
-		copyDepthRenderer.ShowDepth(dirLight->GetDepthMap(index).GetID());
+		copyDepthRenderer.ShowDepth(dirLight->GetShadowmap().GetID());
 	}
 	else {
-		m_gaussianBlurRenderer.setAmount(10);
-		m_gaussianBlurRenderer.setSigma(30.0f);
-		m_gaussianBlurRenderer.setSize(4.0f);
+		//m_gaussianBlurRenderer.setAmount(10);
+		//m_gaussianBlurRenderer.setSigma(30.0f);
+		//m_gaussianBlurRenderer.setSize(4.0f);
 
-		const RenderTexture &result = m_gaussianBlurRenderer.Render(m_shadowmapRenderer.GetShadowmap());
+		//const RenderTexture &result = m_gaussianBlurRenderer.Render(m_shadowmapRenderer.GetShadowmap());
 
 		m_finalFramebuffer.UseFramebuffer();
 		glViewport(0, 0, SRC_WIDTH, SRC_HEIGHT);
@@ -52,7 +52,7 @@ void DefferRenderer::OnRender(BaseWorldPointer pWorld) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
-		root->OnSurfaceRender(m_lightAccmulatePass.GetLightBuffer(), result);
+		root->OnSurfaceRender(m_lightAccmulatePass.GetLightBuffer(), m_shadowmapRenderer.GetShadowmap());
 		m_finalFramebuffer.UnUseFramebuffer();
 
 		m_acesTonemappingRenderer.setAdaptedIlumination(1.0f);
@@ -60,31 +60,4 @@ void DefferRenderer::OnRender(BaseWorldPointer pWorld) {
 
 		copyRenderer.CopyToScreen(tonemappedImage.GetID());
 	}
-
-	//m_gaussianBlurRenderer.setAmount(10);
-	//m_gaussianBlurRenderer.setSigma(2.0f);
-	//m_gaussianBlurRenderer.setSize(5.0f);
-
-	//const RenderTexture &result = m_gaussianBlurRenderer.Render(m_shadowmapRenderer.GetShadowmap());
-	////copyRenderer.CopyToScreen(m_shadowmapRenderer.GetShadowmap().GetID());
-	//static bool blur = false;
-	//if (Input::getKeyDown(KEY_CODE_SPACE)) {
-	//	blur = !blur;
-	//}
-	//m_finalFramebuffer.UseFramebuffer();
-	//glViewport(0, 0, SRC_WIDTH, SRC_HEIGHT);
-	//glClearColor(0, 0, 0, 1);
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	//glEnable(GL_DEPTH_TEST);
-	//glDepthFunc(GL_LESS);
-	//if(blur)
-	//	root->OnSurfaceRender(m_lightAccmulatePass.GetLightBuffer(), result);
-	//else
-	//	root->OnSurfaceRender(m_lightAccmulatePass.GetLightBuffer(), m_shadowmapRenderer.GetShadowmap());
-	//m_finalFramebuffer.UnUseFramebuffer();
-
-	//m_acesTonemappingRenderer.setAdaptedIlumination(1.0f);
-	//const RenderTexture &tonemappedImage = m_acesTonemappingRenderer.Render(m_finalRenderTexture);
-
-	//copyRenderer.CopyToScreen(tonemappedImage.GetID());
 }

@@ -104,14 +104,14 @@ float CaculateShadow(vec3 FragPos, vec3 Normal, sampler2D LightDepthBuffer, mat4
 	// offset.y^=offset.x;
 	if(offset.y>1.1f)offset.y=0.0f;
 
-	for(float x = -1.5f;x<=0.6f;x+=2.0f){
-		for(float y = -1.5f;y<=0.6f;y+=2.0f){
-			float sampleDepth = texture(LightDepthBuffer, uv + (offset+vec2(x,y))/texelSize.xy).r;
+	for(float x = -2f;x<=2.0f;x+=1.0f){
+		for(float y = -2;y<=2.0f;y+=1.0f){
+			float sampleDepth = texture(LightDepthBuffer, uv + vec2(x,y)/texelSize.xy).r;
 			shadow += biased_depth>sampleDepth?0.0f:1.0f;
 		}
 	}
 	
-	shadow/= 4.0f;
+	shadow/= 25.0f;
 	return shadow;
 
 }
