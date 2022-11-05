@@ -11,7 +11,7 @@ BaseRendererPointer myRenderer;
 
 void SetupScripts(){
 	BaseScriptPointer rotator = make_shared<Rotator>();
-	myWorld->BindScriptTo(rotator, "dragon");
+	myWorld->BindScriptTo(rotator, "cubes");
 }
 
 int main() {
@@ -21,7 +21,7 @@ int main() {
 	myRenderer = make_shared<DefferRenderer>();
 	Context::SetWorldAndInit(myWorld, "world_config.json");
 	Context::SetRenderer(myRenderer);
-	SetupScripts();
+	//SetupScripts();
 	gEngine->Run();
 	return 0;
 }

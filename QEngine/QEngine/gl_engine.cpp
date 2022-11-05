@@ -7,8 +7,13 @@ std::shared_ptr<GLEngine> GLEngine::Instance() {
 	return instance;
 }
 
+GLEngine::GLEngine() {
+
+}
+
 void GLEngine::Run(ContextPointer context) {
 	std::shared_ptr<GLWindow> window = Context::window;
+	glEnable(GL_MULTISAMPLE);
 	while (!window->ShouldClose()) {
 		context->BeginFrame();
 		context->PreUpdate();

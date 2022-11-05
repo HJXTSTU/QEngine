@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <memory>
 #include <list>
+#include "constant.h"
 
 class GLWindow;
 

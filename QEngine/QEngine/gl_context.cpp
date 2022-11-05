@@ -2,6 +2,7 @@
 #include "CJsonObject.hpp"
 #include "gl_util.h"
 #include "direction_light.h"
+#include "point_light.h"
 using namespace neb;
 //#include "input.h"
 
@@ -140,7 +141,83 @@ void Context::InitWorld(const string &configFilePath) {
 				float z = lightDirection.Get<float>(2);
 				glm::vec3 direction(x, y, z);
 
+				float maxBias = 0.3f;
+				float minBias = 0.05f;
+				float normalBias = 0.3f;
+				float intensity = 0.5f;
+				if (params.HasKey("MAX_BIAS")) {
+					maxBias = params.Get<float>("MAX_BIAS");
+				}
+				if (params.HasKey("MIN_BIAS")) {
+					minBias = params.Get<float>("MIN_BIAS");
+				}
+				if (params.HasKey("NORMAL_BIAS")) {
+					normalBias = params.Get<float>("NORMAL_BIAS");
+				}
+				if (params.HasKey("INTENSITY")) {
+					intensity = params.Get<float>("INTENSITY");
+				}
+
 				LightPointer light = DirectionLight::Create(color,direction);
+				light->SetMaxBias(maxBias);
+				light->SetMinBias(minBias);
+				light->SetNormalBias(normalBias);
+				light->SetIntensity(intensity);
+				world->AddLight(light);
+			}
+			else if (type == "POINT") {
+				CJsonObject params = light.Get<CJsonObject>("PARAMS");
+				CJsonObject lightColor = params.Get<CJsonObject>("LIGHT_COLOR");
+				CJsonObject lightPosition = params.Get<CJsonObject>("POSITION");
+
+				float r = lightColor.Get<float>(0);
+				float g = lightColor.Get<float>(1);
+				float b = lightColor.Get<float>(2);
+				glm::vec3 color(r, g, b);
+
+				float x = lightPosition.Get<float>(0);
+				float y = lightPosition.Get<float>(1);
+				float z = lightPosition.Get<float>(2);
+				glm::vec3 position(x, y, z);
+				
+				float constant = 1.0f;
+				float linear = 0.7f;
+				float quadratic = 1.8f;
+				float intensity = 0.5f;
+				if (params.HasKey("CONSTANT")) {
+					constant = params.Get<float>("CONSTANT");
+				}
+				if (params.HasKey("LINEAR")) {
+					linear = params.Get<float>("LINEAR");
+				}
+				if (params.HasKey("QUADRATIC")) {
+					quadratic = params.Get<float>("QUADRATIC");
+				}
+
+				glm::vec3 attenuationParams(constant, linear, quadratic);
+
+				
+				float maxBias = 0.3f;
+				float minBias = 0.05f;
+				float normalBias = 0.3f;
+				if (params.HasKey("MAX_BIAS")) {
+					maxBias = params.Get<float>("MAX_BIAS");
+				}
+				if (params.HasKey("MIN_BIAS")) {
+					minBias = params.Get<float>("MIN_BIAS");
+				}
+				if (params.HasKey("NORMAL_BIAS")) {
+					normalBias = params.Get<float>("NORMAL_BIAS");
+				}
+				if (params.HasKey("INTENSITY")) {
+					intensity = params.Get<float>("INTENSITY");
+				}
+
+				LightPointer light = PointLight::Create(color, position, attenuationParams);
+				light->SetMaxBias(maxBias);
+				light->SetMinBias(minBias);
+				light->SetNormalBias(normalBias);
+				light->SetIntensity(intensity);
 				world->AddLight(light);
 			}
 		}

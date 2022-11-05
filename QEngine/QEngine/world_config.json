@@ -12,7 +12,11 @@
       "TYPE": "DIRECTION",
       "PARAMS": {
         "LIGHT_COLOR": [ 1.0, 1.0, 1.0 ],
-        "LIGHT_DIRECTION": [ -1.0, -1.0, -1.0 ]
+        "LIGHT_DIRECTION": [ -1.0, -1.0, 0.0 ],
+        "MAX_BIAS": 0.1,
+        "MIN_BIAS": 0.05,
+        "NORMAL_BIAS": 0.5,
+        "INTENSITY": 0.8
       }
     }
   ]

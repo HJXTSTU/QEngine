@@ -19,9 +19,6 @@
     <Filter Include="源文件\libs">
       <UniqueIdentifier>{e1e8052a-9c1c-4fd7-8958-0f64f87d225a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\scenes">
-      <UniqueIdentifier>{eccaab49-f359-4ee4-8e37-0b8ac3605c72}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\config">
       <UniqueIdentifier>{b9ecb2e3-02d8-4a87-9c3c-c1dcfadf49fe}</UniqueIdentifier>
     </Filter>
@@ -39,9 +36,6 @@
     </Filter>
     <Filter Include="头文件\libs\stb_image">
       <UniqueIdentifier>{7ef5e4fd-40b1-45b5-8460-61107d062d0e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\scenes">
-      <UniqueIdentifier>{916a045a-006c-4549-9e7c-5d0baf2ab9d1}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\config">
       <UniqueIdentifier>{9413ab10-3348-4261-8aee-b175a4949505}</UniqueIdentifier>
@@ -150,6 +144,57 @@
     </Filter>
     <Filter Include="头文件\core\lights\shadow_map">
       <UniqueIdentifier>{3c80e9a6-0c71-41c5-91f9-e9ad8caf3f66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\shaders\frag_shaders\postprocessing">
+      <UniqueIdentifier>{6b42ac0c-71a2-416e-808e-22fc53d85d12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\postprocessing">
+      <UniqueIdentifier>{834ff21a-1ab9-4746-bb72-462c03fb5454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\postprocessing">
+      <UniqueIdentifier>{33957c58-4e68-486f-a7c7-9c5c758cfe59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\lights\shadow_map">
+      <UniqueIdentifier>{aaceda56-13df-46e9-9052-d3b9cbf9ece9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core\postprocessing">
+      <UniqueIdentifier>{55c3efbd-ba0d-4444-95b3-6cfc5c7acbc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\postprocessing">
+      <UniqueIdentifier>{785dd28c-fe61-4823-a99f-41f83b41306c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\renderers\defer">
+      <UniqueIdentifier>{c48354e2-f1b9-46fc-850a-7ec35695ad1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\renderers\forward">
+      <UniqueIdentifier>{b24fbfdc-0690-4420-9fca-1a4209d216ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\renderers\defer">
+      <UniqueIdentifier>{58f5dbf6-ee67-442d-9a74-6568b59a19d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\renderers\forward">
+      <UniqueIdentifier>{67673036-32cc-401f-9643-2f4ad21a8676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\shaders\frag_shaders\lights">
+      <UniqueIdentifier>{fb28d0f9-e362-4593-b084-e581b834a2e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\shaders\frag_shaders\lights\shadowmap">
+      <UniqueIdentifier>{d664d9fe-c101-4105-80c2-491e881207ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\shaders\vertex_shaders\lights">
+      <UniqueIdentifier>{fdb64a5c-eb15-404c-a90d-c5f8cabafa30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\shaders\vertex_shaders\lights\shadowmap">
+      <UniqueIdentifier>{472d5ef1-97fb-4bea-85db-fbd3421a9092}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\shaders\geo_shaders">
+      <UniqueIdentifier>{ed66540d-427f-451b-9d2e-b6474d535965}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\shaders\geo_shaders\lights">
+      <UniqueIdentifier>{9090da39-49c2-4495-b84c-3049e9c3cf44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\shaders\geo_shaders\lights\shadowmap">
+      <UniqueIdentifier>{ff301a28-5005-4ea1-8392-7ec531915a22}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -267,37 +312,55 @@
     <ClCompile Include="gl_framebuffer.cpp">
       <Filter>源文件\core\util</Filter>
     </ClCompile>
-    <ClCompile Include="GBuffer.cpp">
-      <Filter>源文件\renderers</Filter>
-    </ClCompile>
     <ClCompile Include="CopyRenderer.cpp">
       <Filter>源文件\test</Filter>
     </ClCompile>
     <ClCompile Include="CopyDepthRenderer.cpp">
       <Filter>源文件\test</Filter>
     </ClCompile>
-    <ClCompile Include="ForwardBaseRenderer.cpp">
-      <Filter>源文件\renderers</Filter>
+    <ClCompile Include="ShadowmapRenderer.cpp">
+      <Filter>源文件\core\lights\shadow_map</Filter>
+    </ClCompile>
+    <ClCompile Include="PostprocessRenderer.cpp">
+      <Filter>源文件\core\postprocessing</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_bound_box.cpp">
+      <Filter>源文件\core\util</Filter>
+    </ClCompile>
+    <ClCompile Include="GaussianBlurRenderer.cpp">
+      <Filter>源文件\postprocessing</Filter>
     </ClCompile>
     <ClCompile Include="DefferRenderer.cpp">
-      <Filter>源文件\renderers</Filter>
+      <Filter>源文件\renderers\defer</Filter>
+    </ClCompile>
+    <ClCompile Include="GBuffer.cpp">
+      <Filter>源文件\renderers\defer</Filter>
     </ClCompile>
     <ClCompile Include="LightAccmulatePass.cpp">
-      <Filter>源文件\renderers</Filter>
+      <Filter>源文件\renderers\defer</Filter>
     </ClCompile>
-    <ClCompile Include="Light.cpp">
+    <ClCompile Include="ForwardBaseRenderer.cpp">
+      <Filter>源文件\renderers\forward</Filter>
+    </ClCompile>
+    <ClCompile Include="direction_light.cpp">
       <Filter>源文件\core\lights</Filter>
     </ClCompile>
-    <ClCompile Include="DirectionLight.cpp">
+    <ClCompile Include="light.cpp">
       <Filter>源文件\core\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="point_light.cpp">
+      <Filter>源文件\core\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="ACESTonemappingRenderer.cpp">
+      <Filter>源文件\postprocessing</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_cube_map.cpp">
+      <Filter>源文件\core\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="input.h">
       <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="base_scene.h">
-      <Filter>头文件\scenes</Filter>
     </ClInclude>
     <ClInclude Include="gl_element.h">
       <Filter>头文件\core</Filter>
@@ -395,9 +458,6 @@
     <ClInclude Include="gl_util.h">
       <Filter>头文件\core\util</Filter>
     </ClInclude>
-    <ClInclude Include="gl_scene_handler.h">
-      <Filter>头文件\scenes</Filter>
-    </ClInclude>
     <ClInclude Include="shader.h">
       <Filter>头文件\shaders</Filter>
     </ClInclude>
@@ -413,9 +473,6 @@
     <ClInclude Include="gl_renderer.h">
       <Filter>头文件\core\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="ForwardBaseRenderer.h">
-      <Filter>头文件\renderers</Filter>
-    </ClInclude>
     <ClInclude Include="gl_screen_quad_vertex_array.h">
       <Filter>头文件\core\object</Filter>
     </ClInclude>
@@ -424,12 +481,6 @@
     </ClInclude>
     <ClInclude Include="gl_render_texture.h">
       <Filter>头文件\core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="GBuffer.h">
-      <Filter>头文件\renderers</Filter>
-    </ClInclude>
-    <ClInclude Include="DefferRenderer.h">
-      <Filter>头文件\renderers</Filter>
     </ClInclude>
     <ClInclude Include="CopyRenderer.h">
       <Filter>头文件\test</Filter>
@@ -443,14 +494,41 @@
     <ClInclude Include="direction_light.h">
       <Filter>头文件\core\lights</Filter>
     </ClInclude>
-    <ClInclude Include="LightAccmulatePass.h">
-      <Filter>头文件\renderers</Filter>
-    </ClInclude>
     <ClInclude Include="gl_buffer.h">
       <Filter>头文件\core\object</Filter>
     </ClInclude>
     <ClInclude Include="shadow_map_renderer.h">
       <Filter>头文件\core\lights\shadow_map</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_bound_box.h">
+      <Filter>头文件\core\util</Filter>
+    </ClInclude>
+    <ClInclude Include="PostprocessRenderer.h">
+      <Filter>头文件\core\postprocessing</Filter>
+    </ClInclude>
+    <ClInclude Include="GaussianBlurRenderer.h">
+      <Filter>头文件\postprocessing</Filter>
+    </ClInclude>
+    <ClInclude Include="DefferRenderer.h">
+      <Filter>头文件\renderers\defer</Filter>
+    </ClInclude>
+    <ClInclude Include="GBuffer.h">
+      <Filter>头文件\renderers\defer</Filter>
+    </ClInclude>
+    <ClInclude Include="LightAccmulatePass.h">
+      <Filter>头文件\renderers\defer</Filter>
+    </ClInclude>
+    <ClInclude Include="ForwardBaseRenderer.h">
+      <Filter>头文件\renderers\forward</Filter>
+    </ClInclude>
+    <ClInclude Include="point_light.h">
+      <Filter>头文件\core\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="ACESTonemappingRenderer.h">
+      <Filter>头文件\postprocessing</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_cube_map.h">
+      <Filter>头文件\core\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -487,23 +565,56 @@
     <None Include="copy_depth_shader.frag">
       <Filter>头文件\shaders\frag_shaders</Filter>
     </None>
-    <None Include="direction_light_accmulate_shader.frag">
-      <Filter>头文件\shaders\frag_shaders</Filter>
-    </None>
     <None Include="defer_phong_shader.vs">
       <Filter>头文件\shaders\vertex_shaders</Filter>
     </None>
     <None Include="defer_phong_shader.frag">
       <Filter>头文件\shaders\frag_shaders</Filter>
     </None>
-    <None Include="direction_light_shadow.vs">
-      <Filter>头文件\shaders\vertex_shaders</Filter>
-    </None>
-    <None Include="direction_light_shadow.frag">
-      <Filter>头文件\shaders\frag_shaders</Filter>
+    <None Include="gaussianblur.frag">
+      <Filter>头文件\shaders\frag_shaders\postprocessing</Filter>
     </None>
     <None Include="direction_light_shadow_map.frag">
-      <Filter>头文件\shaders\frag_shaders</Filter>
+      <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="direction_light_shadow.frag">
+      <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="point_light_accmulate_shader.frag">
+      <Filter>头文件\shaders\frag_shaders\lights</Filter>
+    </None>
+    <None Include="direction_light_accmulate_shader.frag">
+      <Filter>头文件\shaders\frag_shaders\lights</Filter>
+    </None>
+    <None Include="aces.frag">
+      <Filter>头文件\shaders\frag_shaders\postprocessing</Filter>
+    </None>
+    <None Include="direction_light_shadow.vs">
+      <Filter>头文件\shaders\vertex_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="point_light_shadow.vs">
+      <Filter>头文件\shaders\vertex_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="point_light_shadow.gs">
+      <Filter>头文件\shaders\geo_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="point_light_shadow.frag">
+      <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="point_light_shadow_map.frag">
+      <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="shadowmap_merge.frag">
+      <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="direction_light_shadow_map_pcss.frag">
+      <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="direction_light_shadow_map_pcf.frag">
+      <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
+    </None>
+    <None Include="direction_light_shadow_map_single_pcss.frag">
+      <Filter>头文件\shaders\frag_shaders\lights\shadowmap</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <vector>
+#include "constant.h"
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 enum Camera_Movement {
@@ -16,9 +17,9 @@ enum Camera_Movement {
 // Default camera values
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
-const float SPEED = 2.5f;
+const float SPEED = MAIN_CAMERA_MOVE_SPEED;
 const float SENSITIVITY = 0.1f;
-const float ZOOM = 45.0f;
+const float ZOOM = CAMERA_ZOOM;
 
 
 // An abstract camera class that processes input and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
@@ -50,7 +51,7 @@ public:
 	// Returns the view matrix calculated using Euler Angles and the LookAt Matrix
 	glm::mat4 GetViewMatrix();
 
-	glm::mat4 GetProjectionMatrix(float SCR_WIDTH, float SCR_HEIGHT, float _near = 0.01f, float _far = 1000.0f);
+	glm::mat4 GetProjectionMatrix(float SCR_WIDTH, float SCR_HEIGHT, float _near = CAMERA_NEAR, float _far = CAMERA_FAR);
 
 	// Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
 	void ProcessKeyboard(Camera_Movement direction, float deltaTime);
@@ -65,6 +66,12 @@ public:
 
 	glm::mat4 OrthoProjection(float left, float right, float bottom, float top);
 
+
+	glm::vec3 ScreenToWorld(glm::vec2 screenPoint,float depth, float _near=0.1f, float _far=1000.0f);
+	
+	glm::vec3 WolrdToScreen(glm::vec3 worldPoint, float _near = 0.1f, float _far = 1000.0f);
+
+	glm::vec3 CameraSpacePoint(glm::vec3 worldPoint);
 private:
 	// Calculates the front vector from the Camera's (updated) Euler Angles
 	void updateCameraVectors();

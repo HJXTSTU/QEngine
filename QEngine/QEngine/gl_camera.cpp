@@ -100,3 +100,27 @@ void Camera::UpdateCameraVectorForce() {
 glm::mat4 Camera::OrthoProjection(float left, float right, float bottom, float top) {
 	return glm::ortho(left, right, bottom, top, 0.01f, 1000.0f);
 }
+
+glm::vec3  Camera::ScreenToWorld(glm::vec2 screenPoint, float depth, float _near,float _far)
+{
+	glm::vec4 ndc = glm::vec4(screenPoint, depth*2.0f-1.0f, 1.0f);
+	glm::mat4 inverse_proj = glm::inverse(this->GetProjectionMatrix(SRC_WIDTH, SRC_HEIGHT, _near, _far));
+	glm::mat4 inverse_view = glm::inverse(this->GetViewMatrix());
+	glm::vec4 worldPoint = inverse_view * inverse_proj *ndc;
+	worldPoint /= worldPoint.w;
+	return worldPoint;
+}
+
+glm::vec3 Camera::WolrdToScreen(glm::vec3 worldPoint, float _near, float _far)
+{
+	glm::mat4 projection = this->GetProjectionMatrix(SRC_WIDTH, SRC_HEIGHT, _near, _far);
+	glm::mat4 view = this->GetViewMatrix();
+	glm::vec4 screenPoint = projection * view*glm::vec4(worldPoint, 1.0f);
+	screenPoint /= screenPoint.w;
+	return screenPoint;
+}
+
+glm::vec3 Camera::CameraSpacePoint(glm::vec3 worldPoint) {
+	glm::mat4 view = this->GetViewMatrix();
+	return view * glm::vec4(worldPoint, 1.0f);
+}
